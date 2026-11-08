@@ -1,0 +1,49 @@
+{
+  "verifiedDate": "2026-11-08",
+  "sourceVersion": "0.9.0-draft",
+  "sourceManifestSha256": "1a59c68ed4f4b2eb0f875c8e169effd5686fbc98a94a09ac170b8f22bad836e2",
+  "sourceIntegrity": {
+    "fileChecksumsAndSizes": 62,
+    "csvParquetComparisons": 31,
+    "passed": true
+  },
+  "sourceToDisplayChecks": 132,
+  "allAuditChecksPassed": true,
+  "tests": {
+    "python": 11,
+    "node": 47,
+    "ui": 41,
+    "total": 99,
+    "allPassed": true
+  },
+  "typeScriptAndProductionBuild": "passed",
+  "frozenModelAndHeadlineFactsEqualPreChangeArchive": true,
+  "candidateBundles": 20,
+  "feasiblePortfolios": 968,
+  "recommendation": {
+    "spend": 13900,
+    "retained": 86100,
+    "modeledDownsideCap": 20000,
+    "notCausalOptimality": true
+  },
+  "liveGemini": "passed: see SCIENTIFIC_LIVE_CHECK.json",
+  "browserVerification": "unavailable: no Computer Use browser/native connection",
+  "unresolved": [
+    "Causal intervention effects and information value are unidentified.",
+    "Downside cap and scenario effects are management assumptions, not probabilistic guarantees.",
+    "Peer intervals are pointwise and conditional; count/payout inference has distribution/dependence assumptions.",
+    "Prospective power, scheduling capacity, controls and property displacement need operational validation.",
+    "Public deployment, organizer calibration and publisher evidence remain outstanding."
+  ],
+  "httpSmoke": {
+    "resources": 24,
+    "passed": true,
+    "record": "HTTP_CHECKS.json"
+  },
+  "privacy": {
+    "liveRequestPassed": true,
+    "frontendResponsesScanned": 5,
+    "productionFilesScanned": 44,
+    "secretFound": false
+  }
+}

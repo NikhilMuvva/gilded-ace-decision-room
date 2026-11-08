@@ -1,0 +1,52 @@
+# Gemini investigation copilot: setup and actual behavior
+
+## Feature and grounding
+
+The header's **Ask about this data** opens a compact optional panel. It understands the current page, month range, zone, bank, machine, anonymous guest group and configured July plan. Each question is independent and receives a recorded scope. Changing selections marks an old answer stale and disables its navigation buttons until the user asks again. Only clicking **Open analysis** applies suggested navigation/filters. Chat never edits a plan or purchases an action.
+
+Gemini interprets the question and calls up to four allowlisted read-only functions. Those functions reuse `src/lib.mjs` and return concise evidence cards with exact numbers, units, denominators, scope, explanations, limitations and document links. A second Gemini turn selects/orders returned evidence IDs. Application-owned templates render the facts and explanations; arbitrary model-written prose, numbers, URLs and extra fields are not accepted as an answer. This deliberately constrains generative wording to prevent invented financial results. It is a tool-routing and grounded evidence-selection integration, not a free-form financial chatbot.
+
+Tools: `get_machine_summary`, `get_machine_diagnostics`, `explain_anomaly`, `compare_zones`, `get_downtime`, `get_model_validation`, `get_loyalty_metric`, `get_guest_metrics`, `get_claim_evidence`, `get_opportunities`, `compare_portfolios`, and `evaluate_configured_plan`. There is no SQL, code, filesystem or action-execution tool. Unknown IDs, periods, portfolio/opportunity selections and downside caps are validated. Read-only retrieval uses the same source-matched diagnostic and portfolio engine as the dashboard, including the current learning cap. Scope-relative peer rank is descriptive; payout flags are not diagnoses; forecasts do not estimate ROI; causal profit guarantees are unsupported.
+
+Default configurable model: `gemini-3.5-flash-lite`. Google's current [model reference](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite) lists function calling and structured output support. Integration uses the official REST `generateContent` API, `x-goog-api-key`, function declarations/responses, and structured JSON output. See [function calling](https://ai.google.dev/gemini-api/docs/function-calling) and [structured output](https://ai.google.dev/gemini-api/docs/structured-output). Account access/quota and real runtime behavior still require the live check; model documentation is not proof that this account can call it.
+
+## Local setup
+
+Use Node 22.12+ (tested with Node 26.13). No additional SDK dependency is required.
+
+1. Copy `.env.example` to `.env.local` locally. Enter the real key privately in that ignored file, or supply it directly in the server environment. Never paste it into chat. Keep `GEMINI_MODEL=gemini-3.5-flash-lite`, or set an account-supported compatible model ID.
+2. Run `npm run start:local` from the project root. It starts the API and Vite together; the API binds only to `127.0.0.1:8787` and loads `.env.local`. Vite proxies `/api` to the local server. Stop both with Ctrl+C. For separate terminals, `npm run dev:api` and `npm run dev` remain available.
+   If another copy owns the API port, close that copy before restarting, or set `$env:DASHBOARD_API_PORT='8788'` in PowerShell before the start command. Vite and the API use the same override. Use the frontend Local URL actually printed, since Vite can choose a free port.
+3. Open the Vite URL printed in the terminal and ask “Why is M-1158 flagged, and should it be replaced?” A successful live answer says **Live Gemini · verified evidence**. Offline evidence does not count as live integration success.
+4. Run `node --env-file-if-exists=.env.local scripts/check_live_gemini.mjs`. One query performs two bounded Gemini calls; it writes only nonsecret status/model/evidence IDs to `docs/GEMINI_LIVE_CHECK.json`. Exit 2 means missing configuration, exit 1 means a live failure/fallback, exit 0 means a live call completed.
+5. With both local services running and a freshly built `dist/`, run `node --env-file-if-exists=.env.local scripts/verify_local_gemini_privacy.mjs http://127.0.0.1:5173`, replacing the URL if Vite selected a different port. It checks the live response, source routes, `.env.local` route and production files for the configured key without printing it.
+
+To verify the actual HTTP endpoint, run `node scripts/check_copilot_http.mjs http://127.0.0.1:5173 --expect-live`, replacing the base URL with the port Vite printed or the deployed HTTPS origin. It fails if the answer is offline and records method/origin/unknown-ID behavior in `COPILOT_HTTP_CHECKS.json`. No API key is passed to this client command. On November 8, 2026, the local Vite proxy and API returned a live, evidence-backed answer using the configured key.
+
+Without a key, without the API server, on quota/timeouts or on invalid model output, the panel explicitly says **Offline evidence · live AI unavailable**. These are deterministic local retrieval results, not mocked Gemini responses. The static build remains usable with no backend and no key.
+
+## Server and data controls
+
+`api/chat.mjs` exports the Node handler from `server/handler.mjs`; it loads only prepared aggregate data and diagnostics. `vercel.json` includes these JSON files in the function package. The frontend receives no key or server module. All key reads are server-side `GEMINI_API_KEY`; never use a `VITE_*` secret. `.gitignore` and `.vercelignore` exclude local environment files; submission packaging explicitly allowlists files and excludes local secrets. Vercel CLI also [excludes `.env.local` by default](https://vercel.com/docs/builds/build-features); set the production key in Vercel's server environment instead of uploading that file.
+
+Requests contain a question (maximum 1,200 characters), context and a request ID, with a 24KB body cap. There is no conversation transcript or full dashboard payload sent on each question. Gemini sees small retrieval results, not raw guest identities, session/POS rows, original third-party tables or the complete 5.6MB dashboard. Anonymous cohort names and public fictional machine IDs are permitted. Users should keep private personal information out of questions. No custom conversation logging or telemetry is implemented; provider/hosting processing policies still apply.
+
+The endpoint allows POST JSON, rejects cross-origin browser requests, returns `no-store`, validates IDs/periods/groups/plan shape/tool arguments, and bounds output (1,200 routing tokens plus 500 selection tokens), function calls (four), and API time (18 seconds). Transport errors never return upstream bodies, prompts, keys or headers. Function-call thought signatures/IDs are preserved in the response turn.
+
+Basic abuse controls cap six requests/client/minute and 100 total requests/day **per warm instance**. These counters reset with an instance restart and do not coordinate across serverless instances. Same-origin checks are not authentication. Before wide public release, configure durable edge quotas/rate limits, appropriate API provider quotas and hosting spend controls. The in-memory limiter alone is not production-wide cost protection.
+
+## Vercel and domain handoff
+
+Deploy the sanitized **source project**, including `api/`, `server/`, `src/`, `public/data/`, `package.json` and `vercel.json`; uploading only `dist` supplies offline static mode. Follow Vercel's [Node function runtime](https://vercel.com/docs/functions/runtimes/node-js) and [included-file configuration](https://vercel.com/docs/project-configuration/vercel-json). Build `npm run build`, output `dist`, and set the host-supported Node version. Set `GEMINI_API_KEY` privately in the project's server environment; optionally set `GEMINI_MODEL`. Redeploy after secret changes. Never include original `sources/` files.
+
+After deployment, verify a POST reaches `/api/chat`, a real answer reports `mode: live`, current filters and plan costs are correct, and unavailable/quota behavior is honest. Local mocked-provider tests and local HTTP checks do not certify Vercel packaging, edge controls or a live account. No public deployment was performed in this task.
+
+For a GoDaddy-managed domain, add the domain to the Vercel project, then use the exact DNS records Vercel currently provides in GoDaddy's DNS settings. Preserve mail/TXT records; choose a canonical apex or www redirect and verify HTTPS. Do not guess static IPs or replace unrelated records. See [Vercel domain setup](https://vercel.com/docs/domains/working-with-domains/add-a-domain) and [GoDaddy DNS hosting](https://www.godaddy.com/help/add-domains-to-dns-hosting-20165). Domain registration is separate from hosting. No domain was registered or changed.
+
+## Submission metadata and unresolved checks
+
+- Intended category: Best Use of Gemini API, subject to the actual event's rules and opt-in. Demonstrate question → real function calls → exact evidence → user-opened investigation.
+- Optional Gemini API project-number field: **not supplied**. Obtain the nonsecret project number from the user's own project only if the current Devpost form requires it. `GEMINI_PROJECT_NUMBER` in the example is metadata, not an API key.
+- Sponsor eligibility, opt-in requirements and domain eligibility were not independently confirmed from an accessible event-specific Devpost rule page. Do not claim automatic qualification or an award.
+- Current live status: see `GEMINI_LIVE_CHECK.json` and `COPILOT_HTTP_CHECKS.json`. Local live Gemini and HTTP checks passed on November 8, 2026; deployed-runtime and real-browser verification remain outstanding.
+- Optional future integration: Tiger Data historical hourly explorer, only after live Gemini/demo validation and explicit prioritization. It would serve actual queries against the 2025 hourly table and compare against offline totals. No database was provisioned and no extra sponsor platform was added.

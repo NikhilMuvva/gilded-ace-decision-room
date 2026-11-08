@@ -1,0 +1,403 @@
+{
+  "sourceVersion": "0.9.0-draft",
+  "method": "Independent CSV-source audit; no pipeline imports; only aggregate results published",
+  "totals": {
+    "rows": 56110,
+    "activeRows": 55092,
+    "offFloorRows": 1018,
+    "coin": 248905219.25,
+    "win": 23638155.099999998,
+    "theo": 23545364.4785,
+    "downHours": 5021.078888888889,
+    "downtimeTheoProxy": 94331.15733711811
+  },
+  "peerSensitivity": [
+    {
+      "minimumHours": 0,
+      "fallbackDays": 307,
+      "minIndex": 0.8343335355663688,
+      "p05": 0.9039659459001979,
+      "p10": 0.9206578780847419,
+      "belowLegacy080": 0
+    },
+    {
+      "minimumHours": 24,
+      "fallbackDays": 307,
+      "minIndex": 0.8343335355663688,
+      "p05": 0.9039659459001979,
+      "p10": 0.9206578780847419,
+      "belowLegacy080": 0
+    },
+    {
+      "minimumHours": 96,
+      "fallbackDays": 359,
+      "minIndex": 0.8343335355663688,
+      "p05": 0.9039659459001979,
+      "p10": 0.9206578780847419,
+      "belowLegacy080": 0
+    }
+  ],
+  "payout": {
+    "m1158": {
+      "win": 15796.25,
+      "theo": 51961.0,
+      "variance": 62619681.045,
+      "z": -4.570145654700794,
+      "p": 4.8738535373218585e-06,
+      "q": 0.001510894596569776
+    },
+    "subperiods": [
+      {
+        "period": "Jan\u2013Mar",
+        "z": -2.9288378483477313,
+        "q": 0.6374543343429193,
+        "flag": false
+      },
+      {
+        "period": "April",
+        "z": -2.3144525808631555,
+        "q": 0.9674392304458603,
+        "flag": false
+      },
+      {
+        "period": "May\u2013June",
+        "z": -2.7152489542992835,
+        "q": 0.6627305972071118,
+        "flag": false
+      }
+    ],
+    "varianceSensitivity": [
+      {
+        "varianceMultiplier": 1,
+        "m1158Z": -4.570145654700794,
+        "m1158Q": 0.001510894596569776,
+        "negativeFlags": 1
+      },
+      {
+        "varianceMultiplier": 1.25,
+        "m1158Z": -4.087662540394502,
+        "m1158Q": 0.013507982475007172,
+        "negativeFlags": 1
+      },
+      {
+        "varianceMultiplier": 1.5,
+        "m1158Z": -3.7315083014049026,
+        "m1158Q": 0.05900438837137858,
+        "negativeFlags": 0
+      },
+      {
+        "varianceMultiplier": 2,
+        "m1158Z": -3.231580983449165,
+        "m1158Q": 0.3816330455839326,
+        "negativeFlags": 0
+      }
+    ],
+    "byVolatility": [
+      {
+        "volatility": "high",
+        "machines": 90,
+        "meanZ": -0.06365531883880315,
+        "sampleSdZ": 1.1265432925572822
+      },
+      {
+        "volatility": "low",
+        "machines": 80,
+        "meanZ": -0.14587248688632734,
+        "sampleSdZ": 0.9881107808409295
+      },
+      {
+        "volatility": "medium",
+        "machines": 122,
+        "meanZ": -0.04581382227024193,
+        "sampleSdZ": 1.1488498335746145
+      },
+      {
+        "volatility": "very_high",
+        "machines": 18,
+        "meanZ": 0.1164134617725115,
+        "sampleSdZ": 1.0714014810653754
+      }
+    ],
+    "sampleSdZ": 1.0949403445429822,
+    "qualification": "Variance multipliers are hypothetical moment sensitivity, not a fitted heavy-tail or dependence model. Moments alone cannot identify payout tails."
+  },
+  "closureSensitivity": [
+    {
+      "window": "Broad pre-period",
+      "beforeStart": "2025-01-01",
+      "duringStart": "2025-03-03",
+      "duringEndExclusive": "2025-04-07",
+      "relativeChange": -0.30771905233030394
+    },
+    {
+      "window": "Adjacent 35 days",
+      "beforeStart": "2025-01-27",
+      "duringStart": "2025-03-03",
+      "duringEndExclusive": "2025-04-07",
+      "relativeChange": -0.3050880147925188
+    }
+  ],
+  "moveSensitivity": [
+    {
+      "machine": "M-1113",
+      "date": "2025-02-18",
+      "windows": [
+        {
+          "days": 14,
+          "beforeDays": 14,
+          "afterDays": 14,
+          "beforeTheoPerHour": 24.999142857142857,
+          "afterTheoPerHour": 25.47113513513514,
+          "ratio": 1.018880338445581
+        },
+        {
+          "days": 21,
+          "beforeDays": 21,
+          "afterDays": 21,
+          "beforeTheoPerHour": 23.69809523809524,
+          "afterTheoPerHour": 25.89552,
+          "ratio": 1.09272579672869
+        },
+        {
+          "days": 28,
+          "beforeDays": 28,
+          "afterDays": 28,
+          "beforeTheoPerHour": 23.113142857142858,
+          "afterTheoPerHour": 25.888526946107785,
+          "ratio": 1.1200781782953082
+        }
+      ]
+    },
+    {
+      "machine": "M-1126",
+      "date": "2025-05-06",
+      "windows": [
+        {
+          "days": 14,
+          "beforeDays": 14,
+          "afterDays": 14,
+          "beforeTheoPerHour": 12.062202380952382,
+          "afterTheoPerHour": 11.607927927927927,
+          "ratio": 0.9623390125055598
+        },
+        {
+          "days": 21,
+          "beforeDays": 21,
+          "afterDays": 21,
+          "beforeTheoPerHour": 11.930277777777778,
+          "afterTheoPerHour": 12.031576846307384,
+          "ratio": 1.0084909228784507
+        },
+        {
+          "days": 28,
+          "beforeDays": 28,
+          "afterDays": 28,
+          "beforeTheoPerHour": 11.819704822523487,
+          "afterTheoPerHour": 12.135844544095663,
+          "ratio": 1.0267468372788586
+        }
+      ]
+    },
+    {
+      "machine": "M-1152",
+      "date": "2025-02-04",
+      "windows": [
+        {
+          "days": 14,
+          "beforeDays": 14,
+          "afterDays": 14,
+          "beforeTheoPerHour": 13.9225,
+          "afterTheoPerHour": 32.15891891891892,
+          "ratio": 2.3098523195488543
+        },
+        {
+          "days": 21,
+          "beforeDays": 21,
+          "afterDays": 21,
+          "beforeTheoPerHour": 14.623571428571427,
+          "afterTheoPerHour": 31.61197604790419,
+          "ratio": 2.1617137921685083
+        },
+        {
+          "days": 28,
+          "beforeDays": 28,
+          "afterDays": 28,
+          "beforeTheoPerHour": 13.999821428571428,
+          "afterTheoPerHour": 31.718385650224214,
+          "ratio": 2.2656278733307262
+        }
+      ]
+    },
+    {
+      "machine": "M-1299",
+      "date": "2025-06-10",
+      "windows": [
+        {
+          "days": 14,
+          "beforeDays": 14,
+          "afterDays": 14,
+          "beforeTheoPerHour": 13.020297619047618,
+          "afterTheoPerHour": 13.12519539361903,
+          "ratio": 1.0080564805537129
+        },
+        {
+          "days": 21,
+          "beforeDays": 21,
+          "afterDays": 21,
+          "beforeTheoPerHour": 13.761512471728487,
+          "afterTheoPerHour": 12.600826549780836,
+          "ratio": 0.9156570962434433
+        },
+        {
+          "days": 28,
+          "beforeDays": 28,
+          "afterDays": 21,
+          "beforeTheoPerHour": 14.035430747215665,
+          "afterTheoPerHour": 12.600826549780836,
+          "ratio": 0.8977869490952798
+        }
+      ]
+    }
+  ],
+  "forecast": {
+    "aprilValidationMae": {
+      "constant": 203431.0128888889,
+      "weekdayMean": 40715.0337179487,
+      "weekdayMedian": 44015.65666666665,
+      "recent56": 55887.18708333333,
+      "shrunk5": 50635.95693203826
+    },
+    "selected": "weekdayMean",
+    "frozenTestMae": 68698.55169827497,
+    "frozenBaselineMae": 218258.0969262295,
+    "improvement": 0.6852416809925048,
+    "lowDemandWeekdays": [
+      {
+        "weekday": 1,
+        "predictedDailyWagers": 1112941.95
+      },
+      {
+        "weekday": 2,
+        "predictedDailyWagers": 1149981.0444444446
+      },
+      {
+        "weekday": 0,
+        "predictedDailyWagers": 1212138.3205882353
+      },
+      {
+        "weekday": 3,
+        "predictedDailyWagers": 1290980.4529411765
+      },
+      {
+        "weekday": 6,
+        "predictedDailyWagers": 1465879.0823529414
+      },
+      {
+        "weekday": 4,
+        "predictedDailyWagers": 1655737.2029411765
+      },
+      {
+        "weekday": 5,
+        "predictedDailyWagers": 1820595.1852941175
+      }
+    ],
+    "qualification": "Additional candidate diagnostics are retrospective; May\u2013June was already examined. No reselection on holdout."
+  },
+  "loyaltySensitivity": [
+    {
+      "minimumRedemptions": 1,
+      "cells": 30,
+      "januaryFaceCoverage": 1.0,
+      "januaryPointsPerDollar": 13.851496867134626,
+      "junePointsPerDollar": 6.4886786892690305,
+      "juneJanuaryRatio": 0.46844602800038776
+    },
+    {
+      "minimumRedemptions": 5,
+      "cells": 28,
+      "januaryFaceCoverage": 0.9983188324581278,
+      "januaryPointsPerDollar": 13.859666781191477,
+      "junePointsPerDollar": 6.492501850946765,
+      "juneJanuaryRatio": 0.46844573924082633
+    },
+    {
+      "minimumRedemptions": 10,
+      "cells": 27,
+      "januaryFaceCoverage": 0.9974492630399181,
+      "januaryPointsPerDollar": 13.863903405320844,
+      "junePointsPerDollar": 6.494481065137477,
+      "juneJanuaryRatio": 0.4684453487064078
+    },
+    {
+      "minimumRedemptions": 20,
+      "cells": 22,
+      "januaryFaceCoverage": 0.9892559867438974,
+      "januaryPointsPerDollar": 13.903953119277256,
+      "junePointsPerDollar": 6.513177878158955,
+      "juneJanuaryRatio": 0.4684407248992161
+    },
+    {
+      "minimumRedemptions": 30,
+      "cells": 20,
+      "januaryFaceCoverage": 0.9845216643558664,
+      "januaryPointsPerDollar": 13.927436885105129,
+      "junePointsPerDollar": 6.524085478053927,
+      "juneJanuaryRatio": 0.4684340364903173
+    },
+    {
+      "minimumRedemptions": 50,
+      "cells": 20,
+      "januaryFaceCoverage": 0.9845216643558664,
+      "januaryPointsPerDollar": 13.927436885105129,
+      "junePointsPerDollar": 6.524085478053927,
+      "juneJanuaryRatio": 0.4684340364903173
+    },
+    {
+      "minimumRedemptions": 100,
+      "cells": 19,
+      "januaryFaceCoverage": 0.9627244576060754,
+      "januaryPointsPerDollar": 13.971076308566213,
+      "junePointsPerDollar": 6.54444182393882,
+      "juneJanuaryRatio": 0.4684278919818201
+    }
+  ],
+  "downtimeResampling": {
+    "blockDays": 7,
+    "draws": 5000,
+    "seed": 2026,
+    "interval": [
+      83233.65597422671,
+      106399.56392606965
+    ],
+    "qualification": "Historical proxy variability only; not recoverable contribution, predictive interval or causal ROI."
+  },
+  "sourceCsvSha256": {
+    "prepared_daily_view": "4e828ae7c8e023940be862c28b6c9dd548cead37dc9fb2678090578f98deccee",
+    "machine_day": "e05e8941a89379763a8e576887be47b9a43f2d79a568b132b75604fdfbf3be9f",
+    "game_math": "40c2fa208db926b406206fdfa67e8f7e8f67c9614727aae3b123e5d8bc705dc1",
+    "property_day": "b7a8e7c37cff54ebd24530680e7d0bc9b47cd6acc7d1f59d612cf19db951d388",
+    "calendar_day": "74f2ca7c39384eccf01c559d0f590499e76c15fe3e6f72d50e313dd52e3dbcaa",
+    "floor_walkways": "3d099721e22efe6fe26ba2983db5754a8a7a1c5f4d755a7279955a9b38821201",
+    "placements": "db6b1f14217c8cc41436520f0a4f72e4a91e52bc9c424593bebcf21a162dfebc",
+    "loyalty_ledger": "2059508d4d3f746f2897921de4d5bbf1731a7eb6d6ce0947021f5f2a99b4767c",
+    "fnb_transactions": "5fb954c5ddc652ec4d258a6867d96a4307d66a273d525b640a20a44e64fab814"
+  },
+  "checks": [
+    "Source active/off-floor accounting",
+    "Raw integer accounting",
+    "Meter exposure matches prepared",
+    "Prepared money matches raw active meters",
+    "Configured RTP reproduces theo",
+    "DST uses 23 elapsed hours",
+    "Peer references complete at 0h",
+    "Peer references complete at 24h",
+    "Peer references complete at 96h",
+    "24-hour fallback count",
+    "Independent payout family and reference q",
+    "Closure reference reproduced",
+    "April alone selects weekday mean",
+    "Chronological split sizes",
+    "Every redemption reconciles one-to-one to POS cost",
+    "Economic cost reconciles to property once"
+  ]
+}

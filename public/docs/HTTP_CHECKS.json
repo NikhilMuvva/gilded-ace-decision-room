@@ -1,0 +1,150 @@
+{
+  "base": "http://127.0.0.1:4181/",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 788,
+      "contentType": "text/html"
+    },
+    {
+      "path": "/assets/index-CPJ8_Q8N.js",
+      "status": 200,
+      "bytes": 218296,
+      "contentType": "text/javascript"
+    },
+    {
+      "path": "/assets/rolldown-runtime-XKyaHtl9.js",
+      "status": 200,
+      "bytes": 726,
+      "contentType": "text/javascript"
+    },
+    {
+      "path": "/assets/charts-C5WCkQNw.js",
+      "status": 200,
+      "bytes": 552742,
+      "contentType": "text/javascript"
+    },
+    {
+      "path": "/assets/react-CxbopOt3.js",
+      "status": 200,
+      "bytes": 807,
+      "contentType": "text/javascript"
+    },
+    {
+      "path": "/assets/index-Dp30mlPD.css",
+      "status": 200,
+      "bytes": 41234,
+      "contentType": "text/css"
+    },
+    {
+      "path": "/data/dashboard.json",
+      "status": 200,
+      "bytes": 5163425,
+      "contentType": "application/json"
+    },
+    {
+      "path": "/docs/CLAIMS_AND_EVIDENCE.md",
+      "status": 200,
+      "bytes": 13661,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/docs/METHODOLOGY.md",
+      "status": 200,
+      "bytes": 9953,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/docs/SUBMISSION.md",
+      "status": 200,
+      "bytes": 3528,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/docs/AI_DISCLOSURE.md",
+      "status": 200,
+      "bytes": 2649,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/docs/DEPLOYMENT.md",
+      "status": 200,
+      "bytes": 4619,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/docs/LIMITATIONS.md",
+      "status": 200,
+      "bytes": 2520,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/docs/VALIDATION.md",
+      "status": 200,
+      "bytes": 3662,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/docs/FRONTEND_NOTICES.md",
+      "status": 200,
+      "bytes": 13472,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/docs/DATA_SCIENCE_AND_TECHNICAL_REPORT.md",
+      "status": 200,
+      "bytes": 51022,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/docs/USABILITY_AND_HELP.md",
+      "status": 200,
+      "bytes": 5494,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/docs/OPERATIONAL_REDESIGN.md",
+      "status": 200,
+      "bytes": 9472,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/docs/PARAMETER_REGISTER.md",
+      "status": 200,
+      "bytes": 10153,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/docs/GEMINI_SETUP.md",
+      "status": 200,
+      "bytes": 10006,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/docs/COMPREHENSIVE_SCIENTIFIC_REPORT.md",
+      "status": 200,
+      "bytes": 47434,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/docs/OPPORTUNITY_REGISTER.md",
+      "status": 200,
+      "bytes": 7260,
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "/data/diagnostics.json",
+      "status": 200,
+      "bytes": 12007,
+      "contentType": "application/json"
+    },
+    {
+      "path": "/data/decision.json",
+      "status": 200,
+      "bytes": 3137189,
+      "contentType": "application/json"
+    }
+  ],
+  "verification": "HTTP and payload checks only; no browser layout verification"
+}

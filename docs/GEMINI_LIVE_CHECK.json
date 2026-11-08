@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "mode": "live",
+  "model": "gemini-3.5-flash-lite",
+  "evidenceIds": [
+    "1:explain_anomaly:M-1158"
+  ],
+  "reason": "Gemini (gemini-3.5-flash-lite) selected these verified evidence cards. Calculations and explanations are application-owned."
+}

@@ -1,0 +1,11 @@
+{
+  "base": "http://127.0.0.1:5175",
+  "mode": "live",
+  "checks": [
+    "GET rejected with 405",
+    "Same-origin POST through Vite proxy returns scoped exact evidence",
+    "Unknown machine rejected with 400",
+    "Cross-origin request rejected with 403"
+  ],
+  "qualification": "Live Gemini verified through this HTTP origin; a local result does not verify a deployed runtime."
+}
