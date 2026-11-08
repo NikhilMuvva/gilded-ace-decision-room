@@ -1,10 +1,10 @@
 {
   "status": "passed",
-  "base": "http://127.0.0.1:4178",
+  "base": "http://127.0.0.1:5173",
   "environment": "Tiger Cloud",
   "source": "Tiger Data",
   "service": "gilded-ace-hourly",
-  "tlsTrust": "provisional-development",
+  "tlsTrust": "public-ca-verified",
   "importedRows": 1321908,
   "resultCells": 336,
   "sourceManifestSha256": "1a59c68ed4f4b2eb0f875c8e169effd5686fbc98a94a09ac170b8f22bad836e2",

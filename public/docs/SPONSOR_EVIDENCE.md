@@ -1,5 +1,7 @@
 # Sponsor evidence and release status — November 8, 2026
 
+> Final TLS update (November 8): Tiger replaced its initial certificate. Fresh certificate-only checks now pass with Node bundled public CA roots and hostname verification (issuer WR1). The original extracted CA remains unauthenticated and is no longer used. Cloud reconciliation and reader permissions passed again over public trust, and the administrator password was rotated and verified. Its replacement is only in ignored .env.tiger-admin-rotated.local; .env.local is unchanged. npm run tiger:import loads that override. Windows libpq uses the ignored .env.tiger-public-roots.pem exported from Node bundled public roots. Preview and Production use the reader and standard public roots, without TIGER_CA_CERT. The owner reports the preview works; desktop public HTTPS/POST probes remain unverified due to certificate interception. This update supersedes older provisional-trust/pending-rotation statements below. Domain actions remain on hold.
+
 ## Core application
 
 Core commit `8cc7cfaef1618a9b8c0054d3329b79dd1bc78e41` is pushed on master and preserved by local tag `core-financial-ready-2026-11-08`. It passed all 107 baseline tests before sponsor work. It retains the financial recommendation of $0 spend / $100,000 reserve and separate $13,900 experimental backup. Vercel project `gilded-ace-decision-room` is connected to `NikhilMuvva/gilded-ace-decision-room`, production branch master. Framework Vite, npm ci, npm run build, dist, Node 26.x.

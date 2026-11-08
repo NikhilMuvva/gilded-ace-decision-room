@@ -118,8 +118,10 @@ def create_reader(conn, schema, output):
         netloc=quote(role,safe='')+':'+quote(password,safe='')+'@'+host+(f':{parsed.port}' if parsed.port else '')
         url=urlunsplit((parsed.scheme,netloc,parsed.path,parsed.query,''))
         content='DATABASE_URL='+url+'\nTIGER_SCHEMA='+schema+'\n'
-        if os.environ.get('TIGER_TLS_TRUST')=='provisional-development':
-            content+='TIGER_TLS_TRUST=provisional-development\n'
+        if os.environ.get('TIGER_TLS_TRUST') in ['provisional-development','public-ca-verified']:
+            content+='TIGER_TLS_TRUST='+os.environ['TIGER_TLS_TRUST']+'\n'
+        if os.environ.get('TIGER_SSLROOTCERT'):
+            content+='TIGER_SSLROOTCERT='+os.environ['TIGER_SSLROOTCERT']+'\n'
         if os.environ.get('TIGER_SERVICE_LABEL'):
             label=os.environ['TIGER_SERVICE_LABEL']
             if not re.fullmatch(r'[a-zA-Z0-9 ()_.-]{1,100}',label):raise ValueError('Invalid service label')

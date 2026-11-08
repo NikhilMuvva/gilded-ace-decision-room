@@ -1,0 +1,28 @@
+{
+  "status": "not_verified",
+  "base": "https://gilded-ace-decision-room-dd1kmv5xq-nikhil-ee0d.vercel.app",
+  "checks": [
+    {
+      "name": "frontend",
+      "path": "/",
+      "method": "GET",
+      "passed": false,
+      "reason": "UNABLE_TO_GET_ISSUER_CERT_LOCALLY"
+    },
+    {
+      "name": "Gemini",
+      "path": "/api/chat",
+      "method": "POST",
+      "passed": false,
+      "reason": "UNABLE_TO_GET_ISSUER_CERT_LOCALLY"
+    },
+    {
+      "name": "hourly",
+      "path": "/api/hourly",
+      "method": "POST",
+      "passed": false,
+      "reason": "UNABLE_TO_GET_ISSUER_CERT_LOCALLY"
+    }
+  ],
+  "qualification": "Real HTTPS GET/POST attempts with default certificate verification. A failed TLS handshake is not an API success. No credentials or response text are logged. All three checks are needed to verify the hourly preview; core production does not yet include hourly."
+}

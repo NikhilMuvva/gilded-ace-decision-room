@@ -47,7 +47,7 @@ export async function queryHourly(filters, data, { env = process.env, pool: inje
     return { mode: "database", source: cloud ? "Tiger Data" : "TimescaleDB", historical: true,
       service: /^[a-zA-Z0-9 ()_.-]{1,100}$/.test(label) ? label : "Configured hourly service",
       environment: local ? "local-validation" : cloud ? "Tiger Cloud" : "TimescaleDB service",
-      tlsTrust: local ? "local-validation" : env.TIGER_TLS_TRUST === "provisional-development" ? "provisional-development" : "configured-trust",
+      tlsTrust: local ? "local-validation" : ["provisional-development", "public-ca-verified"].includes(env.TIGER_TLS_TRUST) ? env.TIGER_TLS_TRUST : "configured-trust",
       sourceVersion: state.source_version, manifestSha256: state.manifest_sha256,
       importedRows: Number(state.imported_rows), verifiedAt: state.verified_at,
       queryRelation: query.relation, queriedAt: new Date().toISOString(), queryElapsedMs: Math.round(performance.now() - started),

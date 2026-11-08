@@ -71,3 +71,5 @@ The core release is deployed at **https://gilded-ace-decision-room.vercel.app**;
 ## Hourly operations
 
 The new explorer queries a server-only, read-only Tiger Cloud endpoint for historical heatmaps, weekday/weekend and machine comparisons, and low/high-disruption maintenance templates. It preserves global month/zone/bank filters and Help return, labels missing support and service failures honestly, and never changes the financial portfolio. `npm run start:local` loads the generated ignored `.env.tiger-reader.local` in the API process alongside `.env.local`. No secret belongs in VITE_*. See [setup and measurements](docs/TIGER_DATA_SETUP.md).
+
+Current release update: Tiger now uses verified public CA roots; its reader and reconciliation passed after administrator rotation. Original .env.local is preserved, and npm run start:local loads the generated reader configuration. See docs/SPONSOR_RELEASE_AUDIT.md for the deadline checkpoint and remaining desktop-network limitations.

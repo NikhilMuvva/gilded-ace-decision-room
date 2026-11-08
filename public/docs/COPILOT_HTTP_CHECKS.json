@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:4177",
+  "base": "http://127.0.0.1:5173",
   "mode": "live",
   "checks": [
     "GET rejected with 405",

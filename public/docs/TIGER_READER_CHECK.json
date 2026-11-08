@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "environment": "Tiger Cloud development service",
-  "tlsTrust": "provisional-development",
+  "tlsTrust": "public-ca-verified",
   "schema": "dashboard_hourly",
   "importedRows": 1321908,
   "nonAdminRole": true,

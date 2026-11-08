@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-11-08T17:13:26.092Z",
+  "developmentCaFingerprint": "38:47:59:BA:25:A9:0B:52:CC:A7:B9:32:BB:27:6B:64:92:6B:70:6B:CF:AA:75:4D:D5:A1:D9:AC:D6:66:A3:49",
+  "authenticationSent": false,
+  "results": [
+    {
+      "trust": "default-public-roots",
+      "verified": true,
+      "issuer": "WR1",
+      "leafFingerprint": "9B:14:C1:32:C5:E2:9D:2F:41:FA:BF:EA:42:3D:5D:0B:4F:20:5D:9E:61:7C:28:E4:4A:D2:0E:3D:E5:03:DF:E2"
+    },
+    {
+      "trust": "configured-development-ca",
+      "verified": false,
+      "reason": "UNABLE_TO_GET_ISSUER_CERT_LOCALLY"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # Final Devpost checklist
 
+> Final TLS update (November 8): Tiger replaced its initial certificate. Fresh certificate-only checks now pass with Node bundled public CA roots and hostname verification (issuer WR1). The original extracted CA remains unauthenticated and is no longer used. Cloud reconciliation and reader permissions passed again over public trust, and the administrator password was rotated and verified. Its replacement is only in ignored .env.tiger-admin-rotated.local; .env.local is unchanged. npm run tiger:import loads that override. Windows libpq uses the ignored .env.tiger-public-roots.pem exported from Node bundled public roots. Preview and Production use the reader and standard public roots, without TIGER_CA_CERT. The owner reports the preview works; desktop public HTTPS/POST probes remain unverified due to certificate interception. This update supersedes older provisional-trust/pending-rotation statements below. Domain actions remain on hold.
+
 - [x] Preserve all six Dashboard Royale questions, four judge workflows and current financial recommendation.
 - [x] Baseline 107 tests pass before sponsor work; preserve core commit 8cc7cfa.
 - [x] Vercel core reports READY/production, correct repository/master branch and server-only Gemini variables.

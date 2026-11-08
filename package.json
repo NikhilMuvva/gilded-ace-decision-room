@@ -15,8 +15,8 @@
     "test": "node --test tests/*.test.mjs",
     "test:ui": "vitest run",
     "tiger:source": "node --env-file-if-exists=.env.local scripts/tiger.mjs source",
-    "tiger:import": "node --env-file-if-exists=.env.local scripts/tiger.mjs import",
-    "tiger:benchmark": "node --env-file-if-exists=.env.local scripts/tiger.mjs benchmark",
+    "tiger:import": "node --env-file-if-exists=.env.local --env-file-if-exists=.env.tiger-admin-rotated.local --env-file-if-exists=.env.tiger-reader.local scripts/tiger.mjs import",
+    "tiger:benchmark": "node --env-file-if-exists=.env.local --env-file-if-exists=.env.tiger-reader.local scripts/tiger.mjs benchmark",
     "tiger:local": "node scripts/tiger.mjs local",
     "test:tiger:db": "node --env-file-if-exists=.env.tiger-test.local --test tests/tiger_integration.test.mjs",
     "verify": "npm run test:science && npm test && npm run test:ui && npm run build"

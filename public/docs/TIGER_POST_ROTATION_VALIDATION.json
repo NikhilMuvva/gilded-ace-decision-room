@@ -1,0 +1,203 @@
+{
+  "status": "passed",
+  "environment": "Tiger Cloud connection",
+  "timescaleVersion": "2.31.0",
+  "schema": "dashboard_hourly",
+  "source": {
+    "binding": {
+      "sourceVersion": "0.9.0-draft",
+      "manifestSha256": "1a59c68ed4f4b2eb0f875c8e169effd5686fbc98a94a09ac170b8f22bad836e2",
+      "machineHourSha256": "5916c0fa6b758350e8d60b188f8e4a8987868d053628a9c44bce574a6414aaf9",
+      "expectedRows": 1321908
+    },
+    "checks": [
+      {
+        "name": "Official machine-hour row count",
+        "actual": 1321908.0,
+        "expected": 1321908,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Unique source machine/timestamp key",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Temporal join preserves every source row exactly once",
+        "actual": 1321908.0,
+        "expected": 1321908,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "No unattributed active observation",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Required hourly values are present",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Availability and occupancy bounds",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "UTC to Las Vegas local timestamp",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "UTC offset agrees with timestamp difference",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Gaming day uses 06:00 local boundary",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Calendar interval membership",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "No hour outside active daily meters or with wrong historical configuration",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Hourly versus active daily scheduled_seconds",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Hourly versus active daily available_seconds",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Hourly versus active daily occupied_seconds",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Hourly versus active daily coin_in_cents",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Hourly versus active daily payout_cents",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Every active day has hourly support",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Hourly theoretical cents versus game-math daily meter",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 1e-06,
+        "passed": true
+      },
+      {
+        "name": "March 8 gaming day is 23 elapsed hours",
+        "actual": 82800.0,
+        "expected": 82800,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "No fictitious local 02:00 spring-forward hour",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Prepared historical zone/bank attribution",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      },
+      {
+        "name": "Installation/retirement gaming-date bounds",
+        "actual": 0.0,
+        "expected": 0,
+        "tolerance": 0,
+        "passed": true
+      }
+    ],
+    "allPassed": true,
+    "totals": {
+      "records": "1321908",
+      "coinInCents": "24890521925",
+      "payoutCents": "22526706415",
+      "theoCents": "2354536447.85000000",
+      "availableSeconds": "4740792916",
+      "occupiedSeconds": "1727096956",
+      "downtimeSeconds": "18075884"
+    }
+  },
+  "database": {
+    "passed": true,
+    "importedRows": 1321908,
+    "activeMachineDays": 55092,
+    "maxAbsoluteDifferences": {
+      "scheduledSeconds": "0",
+      "availableSeconds": "0",
+      "occupiedSeconds": "0",
+      "coinInCents": "0",
+      "payoutCents": "0",
+      "theoCents": "0"
+    },
+    "tolerances": {
+      "integerMeters": 0,
+      "theoCents": "0.000001"
+    },
+    "temporalFailures": 0,
+    "rawAggregateEquality": true,
+    "aggregateResultRows": 2448
+  },
+  "tlsTrust": "public-ca-verified",
+  "processedRowsThisRun": 0,
+  "elapsedSeconds": 5.839
+}
