@@ -8,7 +8,7 @@ out=ROOT/'artifacts'
 out.mkdir(exist_ok=True)
 if not (ROOT/'dist/index.html').exists():
     raise SystemExit('Run npm run build before packaging.')
-roots=['src','server','api','scripts','tests','docs','public']
+roots=['src','server','api','scripts','tests','docs','public','db']
 files=['package.json','package-lock.json','tsconfig.json','vite.config.ts','index.html','vercel.json','requirements.txt','README.md','.gitignore','.vercelignore','.npmrc','.env.example']
 with ZipFile(out/'gilded-ace-submission.zip','w',ZIP_DEFLATED) as z:
     for root in roots:

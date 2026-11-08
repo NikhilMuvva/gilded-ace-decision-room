@@ -21,6 +21,7 @@ export const COPILOT_PAGES = [
   "methods",
   "help",
   "opportunities",
+  "hourly",
 ];
 const object = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
 const assert = (condition, message) => {

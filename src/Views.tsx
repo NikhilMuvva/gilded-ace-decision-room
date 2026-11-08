@@ -1706,6 +1706,7 @@ export function MethodsView({ data }: { data: Data }) {
           {[
             ["CLAIMS_AND_EVIDENCE.md", "Claims & Evidence"],
             ["METHODOLOGY.md", "Methodology"],
+            ["TIGER_DATA_SETUP.md", "Hourly database methods & verification"],
             [
               "DATA_SCIENCE_AND_TECHNICAL_REPORT.md",
               "Full data science report",

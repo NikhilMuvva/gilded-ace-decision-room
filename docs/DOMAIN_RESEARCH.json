@@ -1,0 +1,34 @@
+{
+  "checkedDate": "2026-11-08",
+  "registryServices": {
+    "club": "https://rdap.nic.club/",
+    "design": "https://rdap.nic.design/"
+  },
+  "candidates": [
+    {
+      "domain": "gildedace.design",
+      "registryRdap": "https://rdap.nic.design/domain/gildedace.design",
+      "status": "no_registry_record",
+      "http": 404
+    },
+    {
+      "domain": "gildedace.club",
+      "registryRdap": "https://rdap.nic.club/domain/gildedace.club",
+      "status": "no_registry_record",
+      "http": 404
+    },
+    {
+      "domain": "acedecision.design",
+      "registryRdap": "https://rdap.nic.design/domain/acedecision.design",
+      "status": "no_registry_record",
+      "http": 404
+    },
+    {
+      "domain": "thegildedace.club",
+      "registryRdap": "https://rdap.nic.club/domain/thegildedace.club",
+      "status": "no_registry_record",
+      "http": 404
+    }
+  ],
+  "qualification": "RDAP absence is not a price quote or guarantee of registrability. No purchase or DNS change performed."
+}

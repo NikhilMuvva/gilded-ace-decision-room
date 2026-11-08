@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "environment": "local-validation",
+  "tlsTrust": "configured-trust",
+  "schema": "dashboard_hourly",
+  "importedRows": 1321908,
+  "nonAdminRole": true,
+  "selectAllowed": true,
+  "writeDeniedSqlstate": "42501",
+  "dataModified": false
+}

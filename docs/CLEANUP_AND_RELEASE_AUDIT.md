@@ -1,5 +1,7 @@
 # Cleanup and release audit
 
+> Current November 8 deployment, Cloud development trust, API/benchmark evidence and remaining checks are recorded in [Sponsor evidence](SPONSOR_EVIDENCE.md) and [release audit](SPONSOR_RELEASE_AUDIT.md). Earlier pass-specific statements below retain their historical scope.
+
 Audited November 8, 2026. Project: `gilded-ace-decision-room`. This is a maintenance and deployment review; it does not revise the scientific analysis or investment policy.
 
 ## Repository baseline and prior cleanup

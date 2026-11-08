@@ -15,6 +15,7 @@ import {
   ArrowLeft,
   MessageSquare,
   ListChecks,
+  Clock,
 } from "lucide-react";
 import { selectRows, aggregate, machineScores } from "./lib.mjs";
 import { rankPeers, peerSupport } from "./diagnostics.mjs";
@@ -35,6 +36,7 @@ import { Planner } from "./ActionPlanner";
 import { CopilotPanel, savedPlan } from "./Copilot";
 import { attachDecision } from "./machineDiagnostics.mjs";
 import { OpportunityView } from "./DecisionViews";
+import { HourlyExplorer } from "./HourlyExplorer";
 import { month, download, type Data } from "./ui";
 
 export const pages = [
@@ -46,9 +48,10 @@ export const pages = [
   { id: "loyalty", name: "Loyalty costs", icon: Gift },
   { id: "planner", name: "Investment planner", icon: Wallet },
   { id: "opportunities", name: "Opportunities", icon: ListChecks },
+  { id: "hourly", name: "Hourly operations", icon: Clock },
   { id: "methods", name: "Methods & evidence", icon: FlaskConical },
 ];
-const floorPages = ["overview", "machines", "demand", "downtime"],
+const floorPages = ["overview", "machines", "demand", "downtime", "hourly"],
   monthPages = [...floorPages, "guests", "loyalty"];
 export function App() {
   const [data, setData] = useState<Data>(null),
@@ -78,6 +81,8 @@ export function App() {
     [opportunityId, setOpportunityId] = useState("manufacturer"),
     [riskCap, setRiskCap] = useState(20000),
     [portfolioId, setPortfolioId] = useState("recommended");
+  const [hourlyScope, setHourlyScope] = useState<Data>({ groupBy: "zone", dayType: "all", hour: "all", metric: "utilization", machineIds: [], compare: ["", ""], duration: 2, windowStart: null });
+  const [hourlyResult, setHourlyResult] = useState<Data>(null);
   const returnPage = useRef("overview"),
     returnScroll = useRef(0);
   useEffect(() => {
@@ -338,7 +343,8 @@ export function App() {
   };
   const exportAnalysis = () => {
     let result: Data;
-    if (page === "guests")
+    if (page === "hourly") result = { ...(hourlyResult || { mode: "unavailable", source: "Tiger Data" }), frontendSelections: hourlyScope };
+    else if (page === "guests")
       result = {
         coverage: "carded play only",
         group: guest.group,
@@ -616,6 +622,7 @@ export function App() {
                 onFlag={openFlag}
               />
             )}
+            {page === "hourly" && <HourlyExplorer data={data} start={start} end={end} zone={zone} bank={bank} scope={hourlyScope} setScope={setHourlyScope} result={hourlyResult} setResult={setHourlyResult} onNavigate={navigate} />}
             {page === "machines" && (
               <MachineView
                 data={data}

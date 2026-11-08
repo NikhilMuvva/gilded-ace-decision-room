@@ -1,12 +1,14 @@
 import http from "node:http";
 import handler from "../server/handler.mjs";
+import hourlyHandler from "../server/hourly-handler.mjs";
 const server = http.createServer((req, res) => {
-  if (req.url?.split("?")[0] !== "/api/chat") {
+  const path = req.url?.split("?")[0];
+  if (path !== "/api/chat" && path !== "/api/hourly") {
     res.statusCode = 404;
     res.end();
     return;
   }
-  handler(req, res);
+  (path === "/api/hourly" ? hourlyHandler : handler)(req, res);
 });
 server.requestTimeout = 25000;
 const port=Number(process.env.DASHBOARD_API_PORT||8787);

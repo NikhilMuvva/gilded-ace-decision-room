@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "start:local": "node scripts/dev_all.mjs",
-    "dev:api": "node --env-file-if-exists=.env.local scripts/dev_api.mjs",
+    "dev:api": "node --env-file-if-exists=.env.local --env-file-if-exists=.env.tiger-reader.local scripts/dev_api.mjs",
     "audit:algorithms": "python scripts/audit_algorithms.py",
     "build": "tsc -b && vite build",
     "preview": "vite preview --host 127.0.0.1",
@@ -14,10 +14,17 @@
     "test:science": "python -m unittest discover -s tests -p test_*.py",
     "test": "node --test tests/*.test.mjs",
     "test:ui": "vitest run",
+    "tiger:source": "node --env-file-if-exists=.env.local scripts/tiger.mjs source",
+    "tiger:import": "node --env-file-if-exists=.env.local scripts/tiger.mjs import",
+    "tiger:benchmark": "node --env-file-if-exists=.env.local scripts/tiger.mjs benchmark",
+    "tiger:local": "node scripts/tiger.mjs local",
+    "test:tiger:db": "node --env-file-if-exists=.env.tiger-test.local --test tests/tiger_integration.test.mjs",
     "verify": "npm run test:science && npm test && npm run test:ui && npm run build"
   },
   "dependencies": {
+    "@vercel/functions": "3.11.0",
     "lucide-react": "0.468.0",
+    "pg": "8.23.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "recharts": "^3.10.1"

@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "mode": "live",
-  "base": "http://127.0.0.1:4181",
+  "base": "http://127.0.0.1:4177",
   "checks": [
     "Live primary retrieval matches 0 spend and 100000 reserve, with explicit scenario caveats.",
     "Live experimental backup retrieval matches 13900 spend and its separate learning objective.",

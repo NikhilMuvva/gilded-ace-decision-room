@@ -1,0 +1,97 @@
+{
+  "status": "passed",
+  "environment": "local-validation",
+  "serviceLabel": "Local TimescaleDB validation (not Tiger Cloud)",
+  "timescaleVersion": "2.31.0",
+  "schema": "dashboard_hourly",
+  "method": "EXPLAIN ANALYZE database execution time; one warm-up per query, then alternating raw/CAGG runs. Same scope and complete output equality. Not HTTP latency, cache-hit timing or an invented guarantee.",
+  "queries": [
+    {
+      "scope": "full-property",
+      "startGamingDate": "2025-01-01",
+      "endExclusiveGamingDate": "2025-07-01",
+      "zone": null,
+      "weekend": null,
+      "sourceRecordsRepresented": 1321908,
+      "rawRowsInScope": 1321908,
+      "aggregateRowsInScope": 219526,
+      "resultRows": 336,
+      "equal": true,
+      "rawExplainExecutionMs": [
+        145.662,
+        152.191,
+        185.042,
+        165.438,
+        166.565
+      ],
+      "continuousAggregateExplainExecutionMs": [
+        30.217,
+        36.387,
+        33.625,
+        29.877,
+        29.588
+      ],
+      "rawMedianMs": 165.438,
+      "continuousAggregateMedianMs": 30.217,
+      "observedSpeedRatio": 5.47499751795347
+    },
+    {
+      "scope": "back-forty",
+      "startGamingDate": "2025-01-01",
+      "endExclusiveGamingDate": "2025-07-01",
+      "zone": "Z-B40",
+      "weekend": null,
+      "sourceRecordsRepresented": 204937,
+      "rawRowsInScope": 204937,
+      "aggregateRowsInScope": 34744,
+      "resultRows": 48,
+      "equal": true,
+      "rawExplainExecutionMs": [
+        44.548,
+        49.04,
+        46.085,
+        43.466,
+        43.532
+      ],
+      "continuousAggregateExplainExecutionMs": [
+        14.342,
+        14.99,
+        14.394,
+        14.489,
+        14.375
+      ],
+      "rawMedianMs": 44.548,
+      "continuousAggregateMedianMs": 14.394,
+      "observedSpeedRatio": 3.094900653049882
+    },
+    {
+      "scope": "march-weekends",
+      "startGamingDate": "2025-03-01",
+      "endExclusiveGamingDate": "2025-04-01",
+      "zone": null,
+      "weekend": true,
+      "sourceRecordsRepresented": 72084,
+      "rawRowsInScope": 72084,
+      "aggregateRowsInScope": 11998,
+      "resultRows": 168,
+      "equal": true,
+      "rawExplainExecutionMs": [
+        21.882,
+        20.504,
+        20.119,
+        22.086,
+        23.579
+      ],
+      "continuousAggregateExplainExecutionMs": [
+        7.843,
+        7.426,
+        7.173,
+        7.159,
+        7.074
+      ],
+      "rawMedianMs": 21.882,
+      "continuousAggregateMedianMs": 7.173,
+      "observedSpeedRatio": 3.050606440819741
+    }
+  ]
+}

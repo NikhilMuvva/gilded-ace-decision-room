@@ -236,7 +236,7 @@ Open `http://127.0.0.1:4173`. The dev equivalent is `npm run dev -- --port 5173`
 3. Run `npx vercel --prod` when ready to publish. Alternatively import a repository containing only the sanitized app, with Install `npm ci`, Build `npm run build`, Output `dist`. `vercel.json` describes the static build, data caching and Node function's included JSON files. Set GEMINI_API_KEY privately on the server, never as VITE_*, and verify a real mode=live answer after deployment. Configure durable public rate controls; the built-in limiter is per instance.
 4. Copy the returned HTTPS URL and test it in a private browser window, including machine selection, filters, all sections, docs and planner export. Public competition access requires a public production URL without authentication protection.
 
-No CLI login, publication or DNS change has been performed by this task. The exact host URL and DNS destination are account/project-specific and cannot be supplied before that project exists.
+Current release status and exact deployment URLs are recorded in SPONSOR_EVIDENCE.md; hourly server configuration is in TIGER_DATA_SETUP.md. Original raw sources and administrator credentials must stay out of Vercel. Domain actions are on hold with the owner.
 
 ## Keep GoDaddy as DNS provider
 

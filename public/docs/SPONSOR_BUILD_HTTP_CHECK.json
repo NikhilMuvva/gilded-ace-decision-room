@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "base": "http://127.0.0.1:4178",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 788,
+      "sha256": "56fd56337a894570e4637288289975d76dbc1a4c28f13a222f5540a0aa3def4a"
+    },
+    {
+      "path": "/assets/index-HCLs9AkJ.js",
+      "status": 200,
+      "bytes": 245708
+    },
+    {
+      "path": "/assets/rolldown-runtime-XKyaHtl9.js",
+      "status": 200,
+      "bytes": 726
+    },
+    {
+      "path": "/assets/charts-C5WCkQNw.js",
+      "status": 200,
+      "bytes": 552742
+    },
+    {
+      "path": "/assets/react-CxbopOt3.js",
+      "status": 200,
+      "bytes": 807
+    },
+    {
+      "path": "/assets/index-CBHaA9YC.css",
+      "status": 200,
+      "bytes": 41869
+    },
+    {
+      "path": "/data/dashboard.json",
+      "status": 200,
+      "bytes": 5163157,
+      "sha256": "8accfc9d706e55fdc5cefe475dbaafec889d0710ce9e060239276efaa2f61b2b"
+    },
+    {
+      "path": "/data/decision.json",
+      "status": 200,
+      "bytes": 3152541,
+      "sha256": "a6404aa0880e623deb7409dbaf29ea82a6f59911a7dabe3661d2c3c49d328c32"
+    },
+    {
+      "path": "/data/diagnostics.json",
+      "status": 200,
+      "bytes": 12007,
+      "sha256": "d48cf6346a9e903b194afcc6947dffb387a2c6957724457ce91e149fe63c92bf"
+    },
+    {
+      "path": "/docs/TIGER_DATA_SETUP.md",
+      "status": 200,
+      "bytes": 13679,
+      "sha256": "aca2b5dfeb614866ca529e43d9ea395e72ff97efdefecc2bc3df9ab1605f093e"
+    },
+    {
+      "path": "/docs/SPONSOR_EVIDENCE.md",
+      "status": 200,
+      "bytes": 4997,
+      "sha256": "7237b524cb13f2559856d2e31e5c36ca543c060c9c7fcbb99b202d0894dae0bb"
+    }
+  ],
+  "qualification": "Actual HTTP frontend assets and exact derived-data matches. A local origin does not prove deployed API behavior or real-browser rendering."
+}

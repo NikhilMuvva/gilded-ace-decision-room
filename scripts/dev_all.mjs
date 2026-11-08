@@ -4,10 +4,11 @@ import { resolve } from "node:path";
 
 const frontendEnv = { ...process.env };
 delete frontendEnv.GEMINI_API_KEY;
+for (const name of Object.keys(frontendEnv)) if (name === "DATABASE_URL" || name === "VERCEL_TOKEN" || name.startsWith("TIGER_")) delete frontendEnv[name];
 const services = [
   spawn(
     process.execPath,
-    ["--env-file-if-exists=.env.local", "scripts/dev_api.mjs"],
+    ["--env-file-if-exists=.env.local", "--env-file-if-exists=.env.tiger-reader.local", "scripts/dev_api.mjs"],
     {
       stdio: "inherit",
     },

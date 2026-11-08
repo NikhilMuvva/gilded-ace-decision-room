@@ -66,4 +66,8 @@ Run `python scripts/package_submission.py` after building for a sanitized source
 
 The static ZIP supports offline evidence. Deploy the source project to include the serverless Gemini endpoint. For local live development, privately configure `.env.local` and run `npm run start:local`; open the Vite URL printed in the terminal. The live-check scripts are described in [setup](docs/GEMINI_SETUP.md). No secret belongs in a `VITE_*` variable.
 
-The project has not been deployed; no GoDaddy or hosting credentials were accessed. The walkthrough is a script, not a recorded video. Publish using your hosting account and complete a desktop/mobile/private-window check before submitting.
+The core release is deployed at **https://gilded-ace-decision-room.vercel.app**; the owner confirms the immutable deployment opens on cellular HTTPS. Production Gemini remains unverified pending a trusted-HTTPS POST. Tiger Cloud development import/reconciliation/API/benchmarks passed under an explicitly authorized provisional CA; the hourly feature stays separate from the core production release. Domain actions are on hold with the owner. See [sponsor evidence](docs/SPONSOR_EVIDENCE.md), [hourly setup](docs/TIGER_DATA_SETUP.md), [release audit](docs/SPONSOR_RELEASE_AUDIT.md) and [Devpost checklist](docs/DEVPOST_CHECKLIST.md). The walkthrough remains a script, not a recorded video.
+
+## Hourly operations
+
+The new explorer queries a server-only, read-only Tiger Cloud endpoint for historical heatmaps, weekday/weekend and machine comparisons, and low/high-disruption maintenance templates. It preserves global month/zone/bank filters and Help return, labels missing support and service failures honestly, and never changes the financial portfolio. `npm run start:local` loads the generated ignored `.env.tiger-reader.local` in the API process alongside `.env.local`. No secret belongs in VITE_*. See [setup and measurements](docs/TIGER_DATA_SETUP.md).

@@ -199,7 +199,7 @@ We independently reconcile raw daily/hourly meters, effective placements, sessio
 
 Ridgeline accounts for 680 fault tickets; its adjusted fault-rate ratio is {mfr['adjustedRateRatio']:.2f} versus Halcyon. Back Forty's closure-period demand association remains near −31% after game-mix/calendar adjustment, but differing pre-trends prevent a causal claim. The loyalty point-price shift survives composition adjustment. M-1158 is a separately priced inspection candidate after variance and multiple-testing checks; a payout flag is not a defect diagnosis.
 
-The original April-selected weekday forecast remains frozen for May–June: daily-wager MAE {usd(d['model']['mae'])}, versus {usd(d['model']['baselineMae'])} for the constant baseline. Additional rolling-origin models are retrospective research, not a fresh untouched test. Hourly evidence supports quieter maintenance scheduling.
+The original April-selected weekday forecast remains frozen for May–June: daily-wager MAE {usd(d['model']['mae'])}, versus {usd(d['model']['baselineMae'])} for the constant baseline. Additional rolling-origin models are retrospective research, not a fresh untouched test. Tiger Cloud's hourly explorer reconciles 1,321,908 historical observations for maintenance scheduling; current development CA trust is provisional.
 
 The engine compares {a['search']['feasiblePortfolios']} feasible portfolios from {a['search']['candidateBundles']} declared bundles. The primary financial objective maximizes base-scenario property contribution after catalog cost, eligible days, downtime, displacement and overlap. It selects {usd(rec['cost'])} spending, retaining {usd(rec['remaining'])}; low/base/high net is {usd(rec['scenarios']['low']['net'])}/{usd(rec['scenarios']['base']['net'])}/{usd(rec['scenarios']['high']['net'])}. Effects are assumptions, not probabilities or causal ROI. The downside-constrained financial option adds a management cap. The separate experimental backup spends {usd(learning['cost'])} on two inspections, wayfinding and a controlled loyalty pilot, retaining {usd(learning['remaining'])}, under its {usd(learning['riskCap'])} downside cap. Backup low/base/high nets are {usd(learning['scenarios']['low']['net'])}/{usd(learning['scenarios']['base']['net'])}/{usd(learning['scenarios']['high']['net'])}; information value is unpriced.
 
@@ -257,6 +257,8 @@ if historical_notice not in historical:
 financial_disclosure='\n\nThe financial-default revision used Codex to separate the base-contribution financial objective, management downside constraint and experimental-learning objective; add break-even/monitoring gates; preserve saved plans; and test selection with known-optimum fixtures. Existing effect assumptions, action prices, forecasts and historical numerical findings were preserved. No scenario probabilities or causal treatment estimates were invented.\n'
 text=disclosure.read_text(encoding='utf-8')
 if financial_disclosure not in text:disclosure.write_text(text+financial_disclosure,encoding='utf-8')
+import runpy
+runpy.run_path(str(ROOT/'scripts/sync_sponsor_docs.py'),run_name='__main__')
 for path in DOC.iterdir():
     if path.is_file():shutil.copyfile(path,ROOT/'public/docs'/path.name)
 print(f'Scientific report generated; {len(a["checks"])} checks; submission {count} words; recommended spend {usd(rec["cost"])}.')

@@ -1,5 +1,7 @@
 # Dashboard Royale: comprehensive scientific audit and investment decision report
 
+> Current November 8 deployment, Cloud development trust, API/benchmark evidence and remaining checks are recorded in [Sponsor evidence](SPONSOR_EVIDENCE.md) and [release audit](SPONSOR_RELEASE_AUDIT.md). Earlier pass-specific statements below retain their historical scope.
+
 ## Decision and scientific conclusion
 
 The inspection-only recommendation was a useful diagnostic response, but it was not a comprehensive investment optimum. The expanded analysis separates demand, supplied-cost economics, payout behavior, faults, location and insufficient evidence. It discovers actionable reliability concentration and validates low-demand scheduling, while retaining the original frozen forecast.
@@ -419,7 +421,9 @@ The financial default maximizes base-scenario net; the risk-sensitive financial 
 
 0:35-0:55: Opportunities: recurring manufacturer faults, the noncausal closure association and loyalty pricing; explain why they do not identify an action ROI.
 
-0:55-1:10: Methods: frozen weekday forecast versus constant baseline; demand scheduling context, not treatment profit.
+0:55-1:03: Methods: frozen weekday forecast versus constant baseline; demand scheduling context, not treatment profit.
+
+1:03-1:10: Hourly operations: compare a quiet and busy maintenance template; show actual Tiger query evidence and disclose provisional development trust. Use the tested local Cloud-backed view if public preview remains unverified.
 
 1:10-1:35: Planner: primary $0.00 spend and $100,000.00 retained, exact base-contribution objective and low/base/high results. Compare the costly ten-lease strategy and paid runners-up. Show the break-even boundary.
 

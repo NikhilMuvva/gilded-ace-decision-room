@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "base": "http://127.0.0.1:4178",
+  "environment": "Tiger Cloud",
+  "source": "Tiger Data",
+  "service": "gilded-ace-hourly",
+  "tlsTrust": "provisional-development",
+  "importedRows": 1321908,
+  "resultCells": 336,
+  "sourceManifestSha256": "1a59c68ed4f4b2eb0f875c8e169effd5686fbc98a94a09ac170b8f22bad836e2",
+  "totals": {
+    "coinInUsd": 248905219.25000006,
+    "theoUsd": 23545364.4785,
+    "availableHours": 1316886.9211111113,
+    "occupiedHours": 479749.15444444446,
+    "downtimeHours": 5021.078888888881
+  },
+  "monetaryToleranceUsd": 0.000001,
+  "durationToleranceHours": 0.000001,
+  "machineComparisonVerified": true,
+  "qualification": "Actual HTTP/database queries. Local validation is separately labeled; no browser/rendering or causal-ROI claim."
+}

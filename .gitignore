@@ -1,6 +1,5 @@
 # Private server configuration; keep only the empty example in Git.
-.env
-.env.*
+.env*
 !.env.example
 
 # Original challenge and third-party source data.

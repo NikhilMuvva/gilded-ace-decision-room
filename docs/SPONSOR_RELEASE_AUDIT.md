@@ -1,0 +1,43 @@
+# Sponsor implementation and release audit — November 8, 2026
+
+## Baseline and preservation
+
+The original tree was master at 42dafcc plus 49 uncommitted financial-recommendation files. Those changes were preserved, verified and committed/pushed as **8cc7cfa**. The baseline `npm run verify` passed **107 tests: 11 Python, 54 Node, 42 UI**, TypeScript and Vite. Exact baseline durations: Python 0.259s; Node 27,763.7914ms; UI 97.11s; Vite 763ms. The nonfatal chart-chunk advisory existed before this work. The local rollback tag is `core-financial-ready-2026-11-08`.
+
+Hourly work is isolated on feature/tiger-hourly-explorer. No scientific dataset was regenerated for deployment. All three derived public/data JSON files, frozen forecasts, statistical calculations/parameters, action constraints and portfolio outputs remain unchanged from 8cc7cfa. Existing fingerprint tests also compare historical outputs to 42dafcc. Primary financial plan stays $0 spend / $100,000 retained; experimental backup stays $13,900 / $86,100 with original low/base/high values. Gemini keeps its read-only tool architecture; only the new page identifier and an instruction that its tools do not execute hourly SQL were added.
+
+## Implemented changes
+
+- Exact-source hourly validation and effective-placement attribution; reproducible TimescaleDB hypertable/CAGG migration, batched idempotent import, reader role and independent source/daily reconciliation.
+- Server-only `/api/hourly` with parameterized/bounded queries, strict TLS, read-only transactions, source binding, pooling/lifecycle handling, safe failures, response/time/cache/rate limits and honest unavailable state.
+- Existing-interface Hourly operations page with heatmap, day-type and machine/entity comparisons, nominal maintenance debit/support, active filters, export, Help preservation and links into the original investigations/planner. Beginner terms and advanced method links are separate.
+- Secure local dual-server startup loads the generated ignored reader file without overwriting .env.local. Frontend child environment excludes server credentials. Package dependencies are exact pg 8.23.1, @vercel/functions 3.11.0 and psycopg[binary] 3.3.8. Packaging includes db migrations; secrets/raw sources remain excluded.
+- .gitignore consolidates private environment rules to `.env*` with only `.env.example` allowed; all previous secret/source/dependency/build protections remain. No CA/private env file is tracked or packaged.
+- Measured benchmark/evidence/check scripts, setup/deployment/domain handoff and an investment-centered submission script. Documentation generators preserve the sponsor handoff.
+
+## Executed validation
+
+First full feature `npm run verify`, with the real local DB test enabled, passed **121 tests: 14 Python, 63 Node, 44 UI**, zero failures/skips. Exact durations: Python 0.475s; Node 14,952.0433ms; UI 54.59s; Vite 898ms. TypeScript passed. Final post-documentation results are appended below after execution; no mocked database result is counted as the actual integration fixture.
+
+Source validation: 22 checks passed, all 1,321,908 rows attributed exactly once. Both local and Cloud imports passed. Cloud initial import: 86.630s; 55,092 active machine-days; zero maximum differences in scheduled/available/occupied seconds, coin-in/payout cents and theoretical cents. Integer tolerance 0; theoretical tolerance 0.000001 cent. Raw/CAGG 2,448 grouped bank/hour/day-type outputs exactly equal. Repeat validations process zero rows and preserve the count. Actual read-only SELECT succeeds and a no-op UPDATE is denied with SQLSTATE 42501 even in a read-write transaction. Original source hashes and install/retire/DST/06:00 attribution pass.
+
+Real local HTTP `/api/hourly` queries backed by **Tiger Cloud** pass all-zone source totals and M-1158/M-1241 raw profiles. Conversion tolerance 0.000001 USD/hours; 336 aggregate cells. The service responds with its actual source and `provisional-development` trust label. Local HTTP/Gemini tests on the built frontend return mode=live for financial/experimental strategies and machine diagnostics; method/origin/unknown-ID checks pass. Production Gemini remains unverified.
+
+Benchmarks: five EXPLAIN ANALYZE runs after warm-up, equal complete outputs, alternating raw/CAGG queries. Actual Cloud median raw/CAGG milliseconds: all property 524.682/73.853 (7.104×); Back Forty 124.790/20.733 (6.019×); March weekends 40.444/11.535 (3.506×). Local measurements are recorded separately. No HTTP-cache timing, invented hardware comparison, causal uplift or guaranteed performance claim.
+
+## Deployment and security
+
+Vercel CLI authentication verified. Project `gilded-ace-decision-room`, linked repository NikhilMuvva/gilded-ace-decision-room, production branch master, root `.`, Vite, npm ci, npm run build, dist, Node 26.x. Core deployment dpl_2s8bmX4kUgV3nqqFeX4yCkXGNP8j is READY/production with exact gitCommitSha 8cc7cfaef1618a9b8c0054d3329b79dd1bc78e41. Alias https://gilded-ace-decision-room.vercel.app; immutable URL in SPONSOR_EVIDENCE.md. Owner confirms cellular frontend access. Desktop network blocks trusted app HTTP checks; no deployed live Gemini or hourly success is claimed from control-plane status.
+
+GEMINI_API_KEY and GEMINI_MODEL are secret variables in Preview/Production. The Tiger reader DATABASE_URL, CA PEM, schema, service label and provisional-development marker are Preview-only. No admin connection is deployed. A production environment rejects the provisional marker. Original .env.local is preserved; no credentials appear in tool output, frontend code or API errors. Secret audit compares configured Gemini/admin/reader/local database values and passwords against tracked files, reachable history blobs, build and archive contents without printing matches. Exact final counts are appended after packaging.
+
+The owner explicitly authorized temporary TOFU solely for the existing development Tiger Cloud service. `sslmode=verify-full`, certificate verification and hostname verification remain on. CA fingerprint is not independently authenticated. Obtain Tiger confirmation or a publicly trusted replacement, revalidate trust and rotate the administrator password before production trust. No network filter bypass, global TLS relaxation or system certificate-store edit was used. Preview uses only this development service; production stays on the core release.
+
+## Remaining release conditions
+
+Trusted-HTTPS public POST checks for Gemini and the hourly preview; real browser desktop/mobile/map/Help/export review; independent Tiger CA confirmation and admin rotation; production DB configuration/promotion only after those checks. Public provider quotas/firewall/spend controls are not claimed configured; warm-instance counters are not global limits. Organizer draft/calibration/publication evidence and prospective causal validation remain as before. Domain work is on hold: owner controls registration/promo/payment and will supply the registered name plus integration authorization. No GoDaddy transaction, DNS/nameserver modification or sponsor contact occurred.
+
+
+## Final regression result
+
+Final full verification passed: 14 Python, 63 Node (real TimescaleDB fixture enabled; no skips), 44 UI; TypeScript and production build passed. The existing chart chunk-size advisory is nonfatal. npm audit reports zero vulnerabilities. All three derived JSON files and the calculation modules named above have no diff from core commit 8cc7cfa. Production assets are checked through the actual local build in SPONSOR_BUILD_HTTP_CHECK.json. Exact final timings: Python 0.474s; Node 15,275.0107ms; UI 47.52s; Vite 539ms. Source/publication review reconfirmed the upstream MIT scope covers original synthetic data/scripts/docs, while LVCVA and Missouri tables have no redistribution grant and remain excluded; NOAA attribution is retained. The original release checker still lacks organizer calibration/publisher evidence, so technical deployment does not clear the complete upstream release. All required sanitized derived JSON is tracked and served exactly without raw sources. Pre-commit packaged secret scan passed: 185 tracked files, 142 reachable historical Git blobs, 64 build files and 249 archived files; no configured Gemini/admin/reader/local database secret or private environment file found. Sanitized source ZIP 3.50 MB and static ZIP 3.02 MB. These are scan-time counts, not a claim to detect every possible unknown secret.

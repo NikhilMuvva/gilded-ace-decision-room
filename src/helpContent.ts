@@ -26,6 +26,10 @@ const term = (
   aliases = "",
 ): Term => ({ id, name, meaning, example, topic, aliases });
 export const glossary: Term[] = [
+  term("hypertable", "Hypertable", "A database table arranged into time periods so historical hourly records can be searched efficiently.", "The hourly explorer searches January–June machine-hours without loading the raw files into your browser.", "navigation", "Tiger Data TimescaleDB database"),
+  term("continuous-aggregate", "Continuous aggregate", "A reusable summary calculated by the time-series database. This historical release is refreshed once after import and checked against the detailed records.", "Bank-hour totals answer zone and bank questions; individual machines use the detailed records.", "navigation", "time bucket cagg"),
+  term("hourly-utilization", "Hourly utilization", "Occupied time divided by available time over the selected historical observations. Missing available time gives no usable rate.", "30 occupied minutes ÷ 60 available minutes = 50%. Combining hours uses total occupied ÷ total available, not an average of percentages.", "metrics", "heatmap hourly occupancy"),
+  term("maintenance-window", "Maintenance window", "A proposed local clock-hour template for work. Quiet historical hours may reduce disruption, but do not prove future savings.", "02:00–04:00 may be quiet but needs staffing and parts; 02:00 does not exist on March 9, 2025 in Las Vegas.", "planner", "opportunity debit representative machine hourly"),
   term("financial-objective", "Financial recommendation",
     "The feasible plan with the highest modeled base-scenario property contribution after action costs, downtime, displacement and overlap. Cash preservation competes like every other plan.",
     "If every paid candidate has a negative base net, the model selects no paid actions. Different supported inputs can change the result.", "planner", "primary objective optimization base contribution cash"),

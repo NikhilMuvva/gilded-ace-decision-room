@@ -19,7 +19,7 @@ Open `http://127.0.0.1:4173`. The dev equivalent is `npm run dev -- --port 5173`
 3. Run `npx vercel --prod` when ready to publish. Alternatively import a repository containing only the sanitized app, with Install `npm ci`, Build `npm run build`, Output `dist`. `vercel.json` describes the static build, data caching and Node function's included JSON files. Set GEMINI_API_KEY privately on the server, never as VITE_*, and verify a real mode=live answer after deployment. Configure durable public rate controls; the built-in limiter is per instance.
 4. Copy the returned HTTPS URL and test it in a private browser window, including machine selection, filters, all sections, docs and planner export. Public competition access requires a public production URL without authentication protection.
 
-No CLI login, publication or DNS change has been performed by this task. The exact host URL and DNS destination are account/project-specific and cannot be supplied before that project exists.
+Current core production alias: https://gilded-ace-decision-room.vercel.app (Vercel READY; owner confirms the immutable URL on cellular). Correct repository and master production branch are connected. GEMINI_API_KEY and GEMINI_MODEL are configured for Preview/Production; live deployed Gemini is still pending. Preview-only hourly variables are DATABASE_URL (reader), TIGER_CA_CERT, TIGER_SCHEMA, TIGER_SERVICE_LABEL and TIGER_TLS_TRUST=provisional-development. No admin database URL or .env file was uploaded. The provisional label is rejected in production. Keep core production unchanged until independently authenticated DB trust and preview checks pass. See SPONSOR_EVIDENCE.md and TIGER_DATA_SETUP.md. Domain actions are on hold; do not purchase, redeem a code or change DNS.
 
 ## Keep GoDaddy as DNS provider
 
@@ -51,3 +51,7 @@ python scripts/package_submission.py
 ```
 
 On macOS/Linux replace `.venv\Scripts\python` with `.venv/bin/python`. Place the locally supplied upstream archive's contents at the indicated source path first. Rebuilding data requires locally held publisher files; distributing the app does not grant rights to distribute those inputs. The organizer's release-readiness check remains separate from a successful app build.
+
+## Hourly feature release
+
+Deploy the source tree including `api/`, `server/`, `src/` and all three `public/data/*.json` files; the hourly function includes dashboard metadata and uses only the reader connection. SQL migrations/importers remain offline tools, never request-time writes. Production builds require no raw sources or Python. Reader pooling, TLS, limits, exact source binding and setup are documented in TIGER_DATA_SETUP.md. Keep `TIGER_IMPORT_DATABASE_URL` and all local test/admin files out of Vercel. Revalidate the provisional CA independently and rotate the admin password before establishing production trust. New env settings require a new preview build; only promote after trusted HTTPS frontend and both API checks.

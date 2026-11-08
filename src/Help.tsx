@@ -346,6 +346,11 @@ function BudgetExample() {
 
 const destinations = [
   [
+    "hourly",
+    "Hourly operations",
+    "Query historical machine-hours from Tiger Data, compare quiet and busy hours, and assess maintenance disruption. The original investigations remain available if the service is offline.",
+  ],
+  [
     "overview",
     "Executive briefing",
     "Start with the replacement question, the strongest findings, and the next decision.",
@@ -540,6 +545,19 @@ export function HelpPage({
                 </div>
               ))}
             </div>
+            <p>
+              On Hourly operations, choose months, zone and bank, then choose zones,
+              banks or individual machines and press “Query Tiger Data”. Changed
+              filters require a new query. Darker heatmap cells mean a higher
+              selected rate; blank cells mean missing available-time support.
+              Click a cell to inspect its nominal maintenance window. Compare
+              weekdays with weekends before choosing a quiet time: weekend here
+              means the Saturday/Sunday gaming day, which ends at 06:00 the next
+              morning. A two-hour window at $3 theo per available hour suggests
+              about $6 of theoretical opportunity per representative machine,
+              not a guaranteed $6 loss or profit. Check actual target machines,
+              staff, parts, guests and the catalog’s scheduling rules.
+            </p>
             <p>
               Use the header’s <strong>? Help</strong> button anywhere. Small
               question marks beside metrics open a quick explanation; “Learn

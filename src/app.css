@@ -2658,3 +2658,10 @@ footer > div {
     font-size: 12px;
   }
 }
+.hourly-controls{display:flex;flex-wrap:wrap;align-items:end;gap:12px;margin-bottom:12px}
+.hourly-controls label{display:grid;gap:5px;font-size:.8rem;min-width:150px}
+.hourly-controls select{max-width:280px}
+.hourly-heatmap th,.hourly-heatmap td{padding:3px;white-space:nowrap}
+.hourly-heatmap button{width:42px;min-height:34px;padding:3px;border:1px solid #d4ded1;border-radius:3px;color:#16372b;font-size:.72rem}
+.hourly-heatmap tbody th{position:sticky;left:0;background:var(--paper,#f8faf5);z-index:1;min-width:105px}
+@media(max-width:700px){.hourly-controls label{min-width:130px;flex:1}.hourly-controls select{max-width:100%;width:100%}}

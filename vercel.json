@@ -3,7 +3,8 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "functions": {
-    "api/chat.mjs": { "includeFiles": "public/data/*.json", "maxDuration": 30 }
+    "api/chat.mjs": { "includeFiles": "public/data/*.json", "maxDuration": 30 },
+    "api/hourly.mjs": { "includeFiles": "public/data/dashboard.json", "maxDuration": 20 }
   },
   "headers": [
     {

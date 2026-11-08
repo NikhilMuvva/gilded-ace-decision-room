@@ -1,5 +1,7 @@
 # Gemini investigation copilot: setup and actual behavior
 
+> Current November 8 deployment, Cloud development trust, API/benchmark evidence and remaining checks are recorded in [Sponsor evidence](SPONSOR_EVIDENCE.md) and [release audit](SPONSOR_RELEASE_AUDIT.md). Earlier pass-specific statements below retain their historical scope.
+
 ## Feature and grounding
 
 The header's **Ask about this data** opens a compact optional panel. It understands the current page, month range, zone, bank, machine, anonymous guest group and configured July plan. Each question is independent and receives a recorded scope. Changing selections marks an old answer stale and disables its navigation buttons until the user asks again. Only clicking **Open analysis** applies suggested navigation/filters. Chat never edits a plan or purchases an action.
@@ -39,7 +41,7 @@ Basic abuse controls cap six requests/client/minute and 100 total requests/day *
 
 Deploy the sanitized **source project**, including `api/`, `server/`, `src/`, `public/data/`, `package.json` and `vercel.json`; uploading only `dist` supplies offline static mode. Follow Vercel's [Node function runtime](https://vercel.com/docs/functions/runtimes/node-js) and [included-file configuration](https://vercel.com/docs/project-configuration/vercel-json). Build `npm run build`, output `dist`, and set the host-supported Node version. Set `GEMINI_API_KEY` privately in the project's server environment; optionally set `GEMINI_MODEL`. Redeploy after secret changes. Never include original `sources/` files.
 
-After deployment, verify a POST reaches `/api/chat`, a real answer reports `mode: live`, current filters and plan costs are correct, and unavailable/quota behavior is honest. Local mocked-provider tests and local HTTP checks do not certify Vercel packaging, edge controls or a live account. No public deployment was performed in this task.
+After deployment, verify a POST reaches `/api/chat`, a real answer reports `mode: live`, current filters and plan costs are correct, and unavailable/quota behavior is honest. Local mocked-provider tests and local HTTP checks do not certify Vercel packaging, edge controls or a live account. The core deployment now reports READY; see SPONSOR_EVIDENCE.md for the exact URL and the still-pending production live POST check.
 
 For a GoDaddy-managed domain, add the domain to the Vercel project, then use the exact DNS records Vercel currently provides in GoDaddy's DNS settings. Preserve mail/TXT records; choose a canonical apex or www redirect and verify HTTPS. Do not guess static IPs or replace unrelated records. See [Vercel domain setup](https://vercel.com/docs/domains/working-with-domains/add-a-domain) and [GoDaddy DNS hosting](https://www.godaddy.com/help/add-domains-to-dns-hosting-20165). Domain registration is separate from hosting. No domain was registered or changed.
 
@@ -49,4 +51,4 @@ For a GoDaddy-managed domain, add the domain to the Vercel project, then use the
 - Optional Gemini API project-number field: **not supplied**. Obtain the nonsecret project number from the user's own project only if the current Devpost form requires it. `GEMINI_PROJECT_NUMBER` in the example is metadata, not an API key.
 - Sponsor eligibility, opt-in requirements and domain eligibility were not independently confirmed from an accessible event-specific Devpost rule page. Do not claim automatic qualification or an award.
 - Current live status: see `GEMINI_LIVE_CHECK.json` and `COPILOT_HTTP_CHECKS.json`. Local live Gemini and HTTP checks passed on November 8, 2026; deployed-runtime and real-browser verification remain outstanding.
-- Optional future integration: Tiger Data historical hourly explorer, only after live Gemini/demo validation and explicit prioritization. It would serve actual queries against the 2025 hourly table and compare against offline totals. No database was provisioned and no extra sponsor platform was added.
+- Tiger Cloud hourly operations is now implemented and development-tested; see TIGER_DATA_SETUP.md. Gemini keeps its existing restricted static-derived evidence tools and does not execute hourly SQL or claim to read those query results. Production Gemini verification remains separate from local or Cloud database success.

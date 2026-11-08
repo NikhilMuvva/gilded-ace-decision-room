@@ -1,5 +1,7 @@
 # Verification record
 
+> Current November 8 deployment, Cloud development trust, API/benchmark evidence and remaining checks are recorded in [Sponsor evidence](SPONSOR_EVIDENCE.md) and [release audit](SPONSOR_RELEASE_AUDIT.md). Earlier pass-specific statements below retain their historical scope.
+
 - Source integrity: 62 file sizes/checksums and 31 CSV/Parquet row/format comparisons passed using `python scripts/verify_sources.py`.
 - Organizer semantic checker: all 11 accounting, key, exposure, lag and DST invariants passed.
 - Pipeline: 19 executable checks passed (see pipeline-checks.md).

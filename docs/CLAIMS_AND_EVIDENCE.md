@@ -84,3 +84,7 @@ All casino results describe The Gilded Ace, a fictional property. Dataset: `0.9.
 | Scheduling respects physical scope | June hourly profiles; relocations 06:00; all-hour fallback if task capacity unverified | Quiet two-hour rule remains 05:00 in later diagnostic | Planning proxy, not causal profit |
 
 Complete claim/source/formula/result/benchmark/assumption/alternative/sensitivity/limitation/action trace: [comprehensive report](COMPREHENSIVE_SCIENTIFIC_REPORT.md) and [machine-readable audit](SCIENTIFIC_AUDIT.json).
+
+## C11. Historical hourly operations and sponsor evidence
+
+**Executed development result:** Tiger Cloud 2.31.0 contains 1,321,908 source-bound historical hours. All 55,092 active machine-days reconcile with zero meter differences; source/daily theo tolerance is 0.000001 cent, integer cents/seconds exact. Historical zone/configuration comes from effective placements, not current machine location. Actual reader privileges deny UPDATE (42501), and Cloud-backed local HTTP queries pass. CAGG output equals raw output; observed five-run Cloud median ratios are 7.104× / 6.019× / 3.506× across full property / Back Forty / March weekends. See TIGER_DATA_SETUP.md and the TIGER_* JSON records. This is a maintenance-disruption proxy, not an action ROI estimate. The owner authorized provisional development CA trust; independent confirmation and public endpoint checks remain separate. No production Gemini or domain-prize completion is inferred.
