@@ -4,9 +4,11 @@
 
 The inspection-only recommendation was a useful diagnostic response, but it was not a comprehensive investment optimum. The expanded analysis separates demand, supplied-cost economics, payout behavior, faults, location and insufficient evidence. It discovers actionable reliability concentration and validates low-demand scheduling, while retaining the original frozen forecast.
 
-The decision engine searches **968 feasible portfolios** from **20 evidence-based bundles**, including all paid catalog action types and preserving cash. Quantified financial maximin and the stated base-scenario objective both choose **preserving $100,000**. A separate, explicit bounded-learning policy chooses **$13,900.00**, leaving **$86,100.00**: two targeted inspections, Back Forty signage/wayfinding and a controlled comp-policy pilot. It covers payout, reliability, access and loyalty questions under a **$20,000.00 modeled-downside cap**.
+The decision engine searches **968 feasible portfolios** from **20 evidence-based bundles**, including all paid catalog action types and preserving cash. The **primary financial recommendation spends $0.00, retaining $100,000.00**. No paid candidate improves on preserving cash under the base objective. Its objective is to maximize modeled base-scenario incremental property contribution after catalog costs, lead time, planned downtime, displacement and overlap. Ties favor higher low-scenario net, then lower spend. These are assumed effects applied to historical financial bases, not learned causal returns. The amount and targets are recomputed; neither cash nor the experimental plan is hardwired as the financial answer.
 
-The selected learning plan has low/base/high quantified nets **-$19,089.54 / -$10,022.96 / $1,634.08**. Its zero-effect cost including opportunity debit is **$13,908.64**. There is no estimated probability for these scenarios. Future information value is unpriced. Management should adopt this plan only if it accepts the explicit learning objective and downside tolerance; it is not a demonstrated maximum-profit allocation. Lower caps produce cheaper staged plans, shown below.
+Primary low/base/high net is **$0.00 / $0.00 / $0.00**. Retained budget is not an earned return. A separate **risk-sensitive financial** objective maximizes the same base net subject to a stated low-scenario downside cap, a management preference. The low-scenario maximin comparison remains available. No scenario probabilities or arbitrary weighted expected return are assigned.
+
+The **experimental backup** deliberately buys learning: **$13,900.00**, leaving **$86,100.00**, for two targeted inspections, Back Forty wayfinding and a controlled loyalty pilot under a **$20,000.00 modeled-downside cap**. Its low/base/high nets remain **-$19,089.54 / -$10,022.96 / $1,634.08**; zero-effect cost including debit is **$13,908.64**. Information value is unpriced. It is selectable as a separate management objective, not the primary financial optimum.
 
 ## A. Data verification and accounting
 
@@ -22,7 +24,7 @@ Tracked sessions reconcile to carded meter subsets, trip identity/cardinality an
 
 ### Corrections and shortcomings addressed
 
-1. **Recommendation scope:** default allocation now comes from the candidate search and an explicit management policy, rather than the payout-flag list. Inspection-only remains an honest comparator.
+1. **Recommendation scope:** the default now publishes the candidate search's financial winner. The former learning default remains a separately labeled experimental strategy. Inspection-only is a paid-information comparator. Saved user plans are labeled and preserved until explicitly replaced.
 2. **Valid swaps:** the previous planner rejected every occupied destination, even when its occupant was also moving. Catalog-valid paired/whole-bank swaps are now allowed only when every occupant vacates, destinations are unique and no move is a no-op; unvacated occupied destinations remain invalid.
 3. **Technician opportunity:** the new engine/custom planner uses the chosen shift's unioned queue/meter intersection rather than treating all-floor queue opportunity as a shift-specific baseline. Hands-on repair time is not assumed recoverable by adding a technician.
 4. **Planned downtime:** quiet-hour debits are measured planning proxies. Relocations obey the 06:00 catalog boundary. Broad sweeps fall back to all-hour rates when quiet-task capacity is not established; multiple simultaneous quiet crews are not silently assumed.
@@ -134,13 +136,13 @@ Exact versus cross-zone rank Spearman correlation is **0.337**; first versus sec
 
 **Alternative explanation / uncertainty:** Pre-trends differ and local confounding remains; ranks depend strongly on benchmark geography. No causal signage or relocation uplift is identified. Property-wide displacement must be measured.
 
-**Action and measurement:** Incremental property-wide theo/contribution after supplied incremental costs, adjusted for available hours and calendar. July 11â€“30 after 10-day lead. Freeze analysis before launch; inspect weekly operational harm, stop if demand shifts away elsewhere or signs impair access. A small break-even effect may be undetectable in 20 days; inconclusive evidence does not prove zero.
+**Action and measurement:** Incremental property-wide theo/contribution after supplied incremental costs, adjusted for available hours and calendar. July 11–30 after 10-day lead. Freeze analysis before launch; inspect weekly operational harm, stop if demand shifts away elsewhere or signs impair access. A small break-even effect may be undetectable in 20 days; inconclusive evidence does not prove zero.
 
 ### 3. Point-price change warrants a controlled policy test
 
 **Question:** Test before a floor-wide rate change. **Target:** Whole-property loyalty program.
 
-**Observed evidence:** Recorded May point-price shift persists with fixed itemÃ—tier mix; supported cells cover 98.93% of January face value.
+**Observed evidence:** Recorded May point-price shift persists with fixed item×tier mix; supported cells cover 98.93% of January face value.
 
 **Scale:** $32,972.80; Observed June redeemed economic cost. **Source tables:** loyalty_ledger, fnb_transactions, player_period.
 
@@ -148,13 +150,13 @@ Exact versus cross-zone rank Spearman correlation is **0.337**; first versus sec
 
 **Alternative explanation / uncertainty:** Behavioral response, unused point liability and uncarded activity are not identified. No causal policy benefit is booked; information value is unpriced.
 
-**Action and measurement:** Tracked contribution per eligible account, including linked POS cogs exactly once. July 6â€“30 after five-day design/training lead. Pre-register guest-protection and cost caps; stop for unexpected cost or harm. Pilot information value remains unpriced; a later rollout is not included as July earnings.
+**Action and measurement:** Tracked contribution per eligible account, including linked POS cogs exactly once. July 6–30 after five-day design/training lead. Pre-register guest-protection and cost caps; stop for unexpected cost or harm. Pilot information value remains unpriced; a later rollout is not included as July earnings.
 
 ### 4. Accumulated payout exception
 
 **Question:** Targeted information purchase. **Target:** M-1158.
 
-**Observed evidence:** z=-4.570, BH q=0.001511 over Janâ€“Jun.
+**Observed evidence:** z=-4.570, BH q=0.001511 over Jan–Jun.
 
 **Scale:** $36,164.75; Observed residual magnitude (not recoverable loss). **Source tables:** machine_day, game_math, sessions.
 
@@ -265,7 +267,10 @@ Operational connection: the quiet two-hour rule from Jan–Apr starts at **5:00 
 | Location/demand trial | $9,300.00 | $90,700.00 | -$14,791.43 | -$5,420.99 | $6,236.04 |
 | Replace ten low-earning active machines (lease) | $33,800.00 | $66,200.00 | -$35,471.42 | -$32,371.48 | -$26,946.57 |
 | Preserve budget | $0.00 | $100,000.00 | $0.00 | $0.00 | $0.00 |
-| Bounded learning portfolio | $13,900.00 | $86,100.00 | -$19,089.54 | -$10,022.96 | $1,634.08 |
+| Primary financial recommendation | $0.00 | $100,000.00 | $0.00 | $0.00 | $0.00 |
+| Downside-constrained financial recommendation | $0.00 | $100,000.00 | $0.00 | $0.00 | $0.00 |
+| Experimental learning portfolio | $13,900.00 | $86,100.00 | -$19,089.54 | -$10,022.96 | $1,634.08 |
+| Low-scenario maximin comparison | $0.00 | $100,000.00 | $0.00 | $0.00 | $0.00 |
 | Highest high-scenario net (assumption-driven) | $16,500.00 | $83,500.00 | -$22,986.60 | -$9,356.21 | $14,608.42 |
 
 The ten-machine purchase interpretation costs $220,000 and violates the budget. The feasible replacement comparator uses ten low-earning machines still active on June 30, not retired machines or fictitious available targets. New-title effects and old-contract termination savings are unknown. Full purchase costs and all lease recurring eligible days are charged; no lifetime asset credit is invented within 30 days.
@@ -319,7 +324,19 @@ No catalog spend. Retain $100,000; quantified incremental net is zero.
 
 Zero-effect net: $0.00. Low/base/high net: $0.00 / $0.00 / $0.00. At the base assumptions, additional unpriced information/decision benefits must cover $0.00 to offset the quantified shortfall. These are scenarios, not expected results.
 
-### Bounded learning portfolio
+### Primary financial recommendation
+
+No catalog spend. Retain $100,000; quantified incremental net is zero.
+
+Zero-effect net: $0.00. Low/base/high net: $0.00 / $0.00 / $0.00. At the base assumptions, additional unpriced information/decision benefits must cover $0.00 to offset the quantified shortfall. These are scenarios, not expected results.
+
+### Downside-constrained financial recommendation
+
+No catalog spend. Retain $100,000; quantified incremental net is zero.
+
+Zero-effect net: $0.00. Low/base/high net: $0.00 / $0.00 / $0.00. At the base assumptions, additional unpriced information/decision benefits must cover $0.00 to offset the quantified shortfall. These are scenarios, not expected results.
+
+### Experimental learning portfolio
 
 | Action | Exact targets / destinations | One-time | Recurring | Lead / eligible days | Downtime / schedule | Break-even |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -328,6 +345,12 @@ Zero-effect net: $0.00. Low/base/high net: $0.00 / $0.00 / $0.00. At the base as
 | A-COMP-PILOT × 1 | property | $4,000.00 | $0.00 | 5 / 25 | 0.0 h; $0.00 debit; No scheduled outage | Unpriced information |
 
 Zero-effect net: -$13,908.64. Low/base/high net: -$19,089.54 / -$10,022.96 / $1,634.08. At the base assumptions, additional unpriced information/decision benefits must cover $10,022.96 to offset the quantified shortfall. These are scenarios, not expected results.
+
+### Low-scenario maximin comparison
+
+No catalog spend. Retain $100,000; quantified incremental net is zero.
+
+Zero-effect net: $0.00. Low/base/high net: $0.00 / $0.00 / $0.00. At the base assumptions, additional unpriced information/decision benefits must cover $0.00 to offset the quantified shortfall. These are scenarios, not expected results.
 
 ### Highest high-scenario net (assumption-driven)
 
@@ -338,13 +361,37 @@ Zero-effect net: -$13,908.64. Low/base/high net: -$19,089.54 / -$10,022.96 / $1,
 
 Zero-effect net: -$16,500.00. Low/base/high net: -$22,986.60 / -$9,356.21 / $14,608.42. At the base assumptions, additional unpriced information/decision benefits must cover $9,356.21 to offset the quantified shortfall. These are scenarios, not expected results.
 
+### Why the financial choice beats the replacement proposal
+
+The ten-active-machine lease comparator spends **$33,800.00** for 16 eligible days and has modeled base net **-$32,371.48**, after planned downtime and displacement. Ten outright purchases exceed the budget. Raw earnings do not establish that replacement will improve property contribution; location, exposure, reliability and luck remain competing explanations. The paid financial runners-up are:
+
+| Portfolio keys | Spend | Low net | Base net | High net |
+| --- | --- | --- | --- | --- |
+| comp-change | $1,500.00 | -$2,983.78 | -$609.73 | $1,467.55 |
+| inspect-payout | $1,200.00 | -$1,202.07 | -$1,202.07 | -$1,202.07 |
+| inspect-fault | $1,200.00 | -$1,203.60 | -$1,203.60 | -$1,203.60 |
+
+The first cash break-even boundary across portfolios with positive base benefits is **1.684890×** the existing positive benefit assumptions, for **comp-change**. Hold action costs, negative effects, opportunity debits, eligible days, displacement and overlap fixed while scaling all positive base benefits together. At equality the cost tie-break favors cash; above it a paid portfolio can become preferable. This is a sensitivity boundary, not a treatment-effect estimate. Individual action details above show exact financial bases and net-effect hurdles; surveys and inspections have no invented monetary information value.
+
+### July monitoring and approval gates
+
+| Priority / target | Monitor using existing routine records | Condition for additional paid spending |
+| --- | --- | --- |
+| 1. M-1241 | Review existing ticket logs weekly: faults per active machine-day, queue wait intersecting meter downtime, hands-on hours and direct repair costs. | Approve paid repair/inspection only with a documented recoverable cause and credible avoided property contribution above catalog cost plus downtime debit, or explicitly choose the experimental objective. A manufacturer association alone is insufficient. |
+| 2. M-1158 | Continue routine meter/configuration reconciliation; retain the full testing-family qualification. A residual is not a defect diagnosis. | A verified configuration discrepancy or documented exposure changes the business case. A paid catalog inspection remains separately priced; it is not silently included as free work. |
+| 3. Back Forty access | Track wager/theo per available hour, occupancy and crossings per covered sensor-hour alongside other zones and property totals; compare weekdays and game mix. | Fund wayfinding only when credible incremental property contribution clears its displayed break-even threshold after displacement and the 10-day lead, or opt into controlled learning. The closure association is not a signage effect estimate. |
+| 4. Property loyalty economics | Reconcile weekly redeemed economic cost, points per fixed item/tier face value, tracked outcomes and property contribution. Protect guests; do not optimize losses of vulnerable cohorts. | Fund a point-rate change only with credible net incremental contribution above its break-even boundary and harm controls. A controlled $4,000 pilot belongs to the optional experimental budget; reduced points per face dollar alone proves no behavioral uplift. |
+| 5. Replacement and July demand | Review exposure-adjusted demand, contribution after supplied costs and availability before any ten-machine order. Use the frozen weekday model for demand/scheduling context, not treatment ROI. | Require prospective replacement benefit above full lease/purchase cost and outage opportunity, with exact eligible days and property-wide displacement. Ten purchases remain infeasible; re-run the financial search when verified inputs or explicit assumptions change. |
+
+Use weekly operational reviews and pre-register any subsequently funded pilot. Forecasts inform calendar/scheduling context, not intervention ROI. Do not count catalog inspections or pilots as free work in the cash plan. Approval requires credible incremental property contribution above full cost plus outage opportunity, viable eligible days, displacement/harm checks and the catalog constraints, or an explicit decision to fund the separate learning objective.
+
 ### Candidate generation and optimization audit
 
 Bundles include the payout target, persistent recurrent-fault targets with ≥84 active days, Back Forty access trial, a controlled comp pilot, floor-wide comp scenario, highest-fault manufacturer sweep, one/two/three distinct technician shifts, one/three/ten eligible leased replacements, one purchase, a vacancy move, matched-configuration pair swap, equal-size whole-bank swap, a promotion and survey. A broad survey is compared but not treated as a substitute for a controlled causal policy test. Candidate target selection is documented rather than pretending all machine/action/location possibilities were optimized.
 
 Enumerate every combination with ≤3 distinct action types, then validate budget, quantity, all target membership, same-machine conflicts, comp incompatibility, unique destinations, vacated occupancy, complete-bank destination grouping, lead/downtime and recurring costs. Preserve cash is a candidate. Independent exhaustive enumeration over the same bundles and a controlled small fixture with a known optimum validate the search.
 
-The learning objective is deliberately separate from financial maximin. It maximizes covered pre-registered questions subject to modeled-downside cap, then prefers higher base net and lower spend. Equal question coverage is an explicit policy, not a monetized information utility. The default $20,000 cap is a management convention, not estimated from the data. The selected risk frontier is:
+The financial default maximizes base-scenario net; the risk-sensitive financial option adds the user-selected low-scenario downside limit. Experimental learning separately maximizes covered pre-registered questions, then base net and lower spend, under its $20,000 cap. Equal question coverage and that cap are explicit policies, not learned utility or safety guarantees. The following is **experimental learning-policy sensitivity**, not the financial recommendation:
 
 | Modeled-downside cap | Spend | Low-scenario downside | Questions |
 | --- | --- | --- | --- |
@@ -366,25 +413,25 @@ The learning objective is deliberately separate from financial maximin. It maxim
 
 ## H. Two-minute demonstration plan
 
-0:00–0:15: Open briefing. Explain the original ten-low-earner replacement proposal and why raw totals mix exposure, location, cost and payout luck.
+0:00-0:15: Open briefing: original ten-low-earner replacement proposal; distinguish exposure, location, cost and luck.
 
-0:15–0:35: Change period; select a bank and M-1158. Show separate demand/economic/fault/payout dimensions, interval/support and conditional qualifications.
+0:15-0:35: Drill into a bank and M-1158; show separate dimensions, support and payout qualifications.
 
-0:35–0:55: Open Opportunities. Show Ridgeline recurrence, adjusted Back Forty closure association, loyalty point pricing and 5–7 a.m. scheduling.
+0:35-0:55: Opportunities: recurring manufacturer faults, the noncausal closure association and loyalty pricing; explain why they do not identify an action ROI.
 
-0:55–1:10: Methods: original frozen forecast and nested research; do not call the examined test pristine.
+0:55-1:10: Methods: frozen weekday forecast versus constant baseline; demand scheduling context, not treatment profit.
 
-1:10–1:40: Compare six feasible portfolio strategies. Show $13,900.00 bounded-learning spend, $86,100.00 reserve, the explicit risk cap, negative low/base outcomes, unpriced information value and the preserve-cash financial comparator. Open targets/lead/recurring/downtime details.
+1:10-1:35: Planner: primary $0.00 spend and $100,000.00 retained, exact base-contribution objective and low/base/high results. Compare the costly ten-lease strategy and paid runners-up. Show the break-even boundary.
 
-1:40–1:55: Open measurement plan: controls, contribution, displacement, stop rules and inconclusive-result possibility. Ask the grounded copilot about the portfolio; numbers must match the engine.
+1:35-1:50: Select the separate experimental backup: $13,900.00, $86,100.00 retained, $20,000 management downside cap, negative base net and unpriced information. Explain the risk-sensitive financial alternative separately.
 
-1:55–2:00: Open source-to-claim evidence and disclose synthetic/draft data. This is a rehearsal plan, not a recorded video.
+1:50-2:00: Open July monitoring/approval gates; demonstrate evidence-backed Gemini retrieval. Disclose synthetic draft data and prospective causal uncertainty. This is a rehearsal plan, not a recorded video.
 
 ## I. Reproduction, source register and unresolved risks
 
 Run `npm run data` with the local original sources, `python scripts/write_deliverables.py`, then `npm run verify`. The data command executes base preparation, independent source evidence and catalog-constrained portfolio construction. `npm run start:local` runs the static app and private Gemini endpoint; no hosting or Tiger Data changes were made. Gemini can retrieve new diagnostics/opportunities/portfolios but cannot invent values or override plans.
 
-Required remaining checks are live browser/touch/rendering sign-off where Computer Use is unavailable, deployed-runtime confirmation, prospective effect/power/operational validation, organizer calibration and applicable publisher evidence. A passing build is not proof of causal economics. The exact current automated test and live-service status are recorded in SCIENTIFIC_VALIDATION.json when executed.
+Required remaining checks are live browser/touch/rendering sign-off where Computer Use is unavailable, deployed-runtime confirmation, prospective effect/power/operational validation, organizer calibration and applicable publisher evidence. A passing build is not proof of causal economics. Historical source-audit status is in SCIENTIFIC_VALIDATION.json. Current recommendation regression and service checks are recorded in FINANCIAL_RECOMMENDATION_VALIDATION.md.
 
 | Source table | Rows read | Parquet SHA-256 |
 | --- | --- | --- |

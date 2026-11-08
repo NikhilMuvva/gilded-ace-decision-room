@@ -907,17 +907,22 @@ export function HelpPage({
             <p>
               The portfolio comparison includes inspection-only, targeted pilot,
               operations, location, replacement and preserve-cash strategies.
-              The proposed $13,900 learning plan buys evidence about four
-              different questions and retains $86,100. It is conditional on the
-              displayed $20,000 downside tolerance; the quantified financial
-              comparison favors preserving cash.
+              The default financial recommendation chooses the highest base-scenario
+              property contribution after costs, downtime, displacement and overlap.
+              When paid candidates do not improve on cash, keep the full budget available.
+              Check the live comparison for the calculated amount. The original $13,900 experimental plan buys evidence about four
+              questions and retains $86,100, under its explicit $20,000 downside cap.
+              It accepts a negative modeled base result; information value is unpriced.
             </p>
             <p>
               Low/base/high values are examples of what could happen under
-              stated effects, not probabilities. The learning downside cap
+              stated effects, not probabilities. The financial downside cap
               limits the negative low scenario, not every possible real-world
-              loss. Changing it changes the learning proposal but does not edit
-              your custom plan until you click Load this portfolio.
+              loss. Changing it recomputes the downside-constrained financial alternative;
+              the experimental backup keeps its $20,000 policy. Neither silently edits
+              your saved plan. Use Load model-selected financial recommendation to
+              explicitly replace it. Read July monitoring and spending approval triggers
+              before approving additional funding; break-even is a hurdle, not a forecast.
             </p>
             <ol className="help-checklist">
               <li>

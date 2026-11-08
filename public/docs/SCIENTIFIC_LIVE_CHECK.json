@@ -1,9 +1,10 @@
 {
   "status": "passed",
   "mode": "live",
-  "base": "http://127.0.0.1:5176",
+  "base": "http://127.0.0.1:4181",
   "checks": [
-    "Live portfolio retrieval matches $13,900 spend and $86,100 reserve, with explicit scenario caveats.",
+    "Live primary retrieval matches 0 spend and 100000 reserve, with explicit scenario caveats.",
+    "Live experimental backup retrieval matches 13900 spend and its separate learning objective.",
     "Live machine diagnostics reconcile 16 fault tickets and link the scientific evidence."
   ],
   "qualification": "Actual HTTP + Gemini tools; no real-browser rendering or deployed runtime claim for a local origin."

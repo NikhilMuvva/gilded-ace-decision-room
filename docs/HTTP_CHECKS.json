@@ -8,9 +8,9 @@
       "contentType": "text/html"
     },
     {
-      "path": "/assets/index-CPJ8_Q8N.js",
+      "path": "/assets/index-_kBG86SJ.js",
       "status": 200,
-      "bytes": 218296,
+      "bytes": 229938,
       "contentType": "text/javascript"
     },
     {
@@ -40,31 +40,31 @@
     {
       "path": "/data/dashboard.json",
       "status": 200,
-      "bytes": 5163425,
+      "bytes": 5163157,
       "contentType": "application/json"
     },
     {
       "path": "/docs/CLAIMS_AND_EVIDENCE.md",
       "status": 200,
-      "bytes": 13661,
+      "bytes": 13655,
       "contentType": "text/markdown"
     },
     {
       "path": "/docs/METHODOLOGY.md",
       "status": 200,
-      "bytes": 9953,
+      "bytes": 9970,
       "contentType": "text/markdown"
     },
     {
       "path": "/docs/SUBMISSION.md",
       "status": 200,
-      "bytes": 3528,
+      "bytes": 3806,
       "contentType": "text/markdown"
     },
     {
       "path": "/docs/AI_DISCLOSURE.md",
       "status": 200,
-      "bytes": 2649,
+      "bytes": 3097,
       "contentType": "text/markdown"
     },
     {
@@ -82,7 +82,7 @@
     {
       "path": "/docs/VALIDATION.md",
       "status": 200,
-      "bytes": 3662,
+      "bytes": 3765,
       "contentType": "text/markdown"
     },
     {
@@ -94,7 +94,7 @@
     {
       "path": "/docs/DATA_SCIENCE_AND_TECHNICAL_REPORT.md",
       "status": 200,
-      "bytes": 51022,
+      "bytes": 51039,
       "contentType": "text/markdown"
     },
     {
@@ -112,7 +112,7 @@
     {
       "path": "/docs/PARAMETER_REGISTER.md",
       "status": 200,
-      "bytes": 10153,
+      "bytes": 10381,
       "contentType": "text/markdown"
     },
     {
@@ -124,13 +124,13 @@
     {
       "path": "/docs/COMPREHENSIVE_SCIENTIFIC_REPORT.md",
       "status": 200,
-      "bytes": 47434,
+      "bytes": 53722,
       "contentType": "text/markdown"
     },
     {
       "path": "/docs/OPPORTUNITY_REGISTER.md",
       "status": 200,
-      "bytes": 7260,
+      "bytes": 7242,
       "contentType": "text/markdown"
     },
     {
@@ -142,7 +142,7 @@
     {
       "path": "/data/decision.json",
       "status": 200,
-      "bytes": 3137189,
+      "bytes": 3152541,
       "contentType": "application/json"
     }
   ],

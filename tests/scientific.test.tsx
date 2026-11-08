@@ -84,9 +84,10 @@ const go = (name: string) =>
   );
 test("executive recommendation and Opportunity Register expose broader evidence and trace controls", async () => {
   await start();
-  expect(screen.getByText(/Bounded learning portfolio/).textContent).toContain(
-    "$13,900",
+  expect(screen.getByText(/Model-selected financial investment/).textContent).toContain(
+    "$0",
   );
+  expect(screen.getByText(/Model-selected financial investment/).textContent).toContain("$100,000");
   expect(screen.getByText("Manufacturer reliability")).toBeTruthy();
   fireEvent.change(screen.getByRole("combobox", { name: "Start month" }), {
     target: { value: "2025-06" },
@@ -158,26 +159,29 @@ test("all required portfolio comparators are feasible, risk cap changes learning
     "Location/demand trial",
     "Replace ten low-earning active machines (lease)",
     "Preserve budget",
-    "Bounded learning recommendation",
+    "Primary financial recommendation",
+    "Downside-constrained financial recommendation",
+    "Experimental learning portfolio",
   ])
     expect(
       within(panel).getByRole("button", { name, exact: true }),
     ).toBeTruthy();
   const original = localStorage.getItem("gilded-ace-plan-v1");
   fireEvent.change(
-    within(panel).getByRole("spinbutton", { name: "Learning downside cap" }),
+    within(panel).getByRole("spinbutton", { name: "Financial downside cap" }),
     { target: { value: "0" } },
   );
   expect(localStorage.getItem("gilded-ace-plan-v1")).toBe(original);
   expect(
     within(panel).getByText(
-      "No actions; $100,000 retained and quantified incremental net is zero.",
+      "No paid actions; $100,000 retained and quantified incremental net is $0.",
     ),
   ).toBeTruthy();
   fireEvent.change(
-    within(panel).getByRole("spinbutton", { name: "Learning downside cap" }),
+    within(panel).getByRole("spinbutton", { name: "Financial downside cap" }),
     { target: { value: "20000" } },
   );
+  fireEvent.click(within(panel).getByRole("button", { name: "Experimental learning portfolio", exact: true }));
   fireEvent.click(
     within(panel).getByRole("button", {
       name: "Load this portfolio with base assumptions",
@@ -234,7 +238,7 @@ test("Help return retains the new opportunity and downside-policy selections", a
   ).toBeTruthy();
   go("Investment planner");
   fireEvent.change(
-    screen.getByRole("spinbutton", { name: "Learning downside cap" }),
+    screen.getByRole("spinbutton", { name: "Financial downside cap" }),
     { target: { value: "5000" } },
   );
   fireEvent.click(
@@ -249,7 +253,7 @@ test("Help return retains the new opportunity and downside-policy selections", a
   expect(
     (
       screen.getByRole("spinbutton", {
-        name: "Learning downside cap",
+        name: "Financial downside cap",
       }) as HTMLInputElement
     ).value,
   ).toBe("5000");
@@ -292,8 +296,8 @@ test("copilot retrieves the deterministic new recommendation without altering bu
   fireEvent.click(screen.getByRole("button", { name: "Ask", exact: true }));
   await screen.findByText("Offline evidence · live AI unavailable");
   const dialog = screen.getByRole("dialog");
-  expect(within(dialog).getByText("$13,900.00")).toBeTruthy();
-  expect(within(dialog).getByText("$86,100.00")).toBeTruthy();
+  expect(within(dialog).getAllByText("$0.00").length).toBeGreaterThan(0);
+  expect(within(dialog).getByText("$100,000.00")).toBeTruthy();
   expect(
     screen.getByRole("heading", { level: 1, name: "Executive briefing" }),
   ).toBeTruthy();
@@ -303,4 +307,25 @@ test("copilot retrieves the deterministic new recommendation without altering bu
   expect(
     screen.getByRole("heading", { level: 1, name: "Investment planner" }),
   ).toBeTruthy();
+});
+
+test("saved custom work is labeled and preserved until financial recommendation is explicitly loaded", async () => {
+  const saved = [{ id: "A-INSPECT", quantity: 1, targets: ["M-1241"], effect: 0, extraCost: 0, destinations: [] }];
+  localStorage.setItem("gilded-ace-plan-v1", JSON.stringify(saved));
+  await start();
+  go("Investment planner");
+  expect(screen.getByText(/User-configured saved plan/)).toBeTruthy();
+  expect(JSON.parse(localStorage.getItem("gilded-ace-plan-v1")!)).toEqual(saved);
+  const primary = screen.getByRole("button", { name: "Primary financial recommendation", exact: true }).closest("tr")!;
+  expect(Array.from(primary.querySelectorAll("td")).slice(1).map((c) => c.textContent)).toEqual(["$0", "$100,000", "$0", "$0", "$0"]);
+  const backup = screen.getByRole("button", { name: "Experimental learning portfolio", exact: true }).closest("tr")!;
+  expect(Array.from(backup.querySelectorAll("td")).slice(1).map((c) => c.textContent)).toEqual(["$13,900", "$86,100", "-$19,090", "-$10,023", "$1,634"]);
+  fireEvent.change(screen.getByRole("spinbutton", { name: "Financial downside cap" }), { target: { value: "0" } });
+  fireEvent.click(within(backup).getByRole("button"));
+  expect(JSON.parse(localStorage.getItem("gilded-ace-plan-v1")!)).toEqual(saved);
+  expect(within(backup).getByText("$13,900")).toBeTruthy();
+  fireEvent.click(screen.getByRole("button", { name: "Load model-selected financial recommendation", exact: true }));
+  expect(JSON.parse(localStorage.getItem("gilded-ace-plan-v1")!)).toEqual([]);
+  expect(document.querySelector(".planner-summary")!.textContent).toContain("$100,000");
+  expect(screen.getByText("July monitoring and spending approval triggers")).toBeTruthy();
 });

@@ -374,6 +374,8 @@ export function App() {
       period: { start, end },
       sourceVersion: data.version,
       syntheticCasino: true,
+      primaryFinancialRecommendation: data.decision?.recommendation,
+      experimentalAlternative: data.decision?.experimentalRecommendation,
       result,
     });
   };

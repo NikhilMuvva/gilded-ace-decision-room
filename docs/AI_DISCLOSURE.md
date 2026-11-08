@@ -12,3 +12,6 @@ Human team members should review the analysis, rehearse the walkthrough and take
 
 
 The comprehensive pass used Codex to implement independent Parquet-source auditing, numerical fixtures, conditional resampling, comparative/Poisson models, retrospective nested forecast diagnostics, catalog-constrained bundle search and the written learning policy. No original records were altered to create signals. Candidate effect percentages and the downside cap are stated assumptions, not AI-estimated causal effects. Gemini only selects verified read-only evidence and cannot override the engine.
+
+
+The financial-default revision used Codex to separate the base-contribution financial objective, management downside constraint and experimental-learning objective; add break-even/monitoring gates; preserve saved plans; and test selection with known-optimum fixtures. Existing effect assumptions, action prices, forecasts and historical numerical findings were preserved. No scenario probabilities or causal treatment estimates were invented.

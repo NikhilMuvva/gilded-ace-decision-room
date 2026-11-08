@@ -9,7 +9,7 @@ import {
 } from "./lib.mjs";
 import { rankPeers, peerSupport } from "./diagnostics.mjs";
 import { machineDiagnostic } from "./machineDiagnostics.mjs";
-import { enumeratePortfolios, choosePortfolios } from "./decisionEngine.mjs";
+import { selectModelPortfolios, currentPortfolioStrategies } from "./decisionEngine.mjs";
 export const COPILOT_PAGES = [
   "overview",
   "machines",
@@ -54,12 +54,15 @@ export function validateContext(data, value) {
   );
   assert(
     value.riskCap === undefined || finite(value.riskCap, 0, 100000),
-    "Invalid learning downside cap.",
+    "Invalid financial downside cap.",
   );
   assert(
     value.portfolioId === undefined ||
       [
         "recommended",
+        "learning",
+        "risk-sensitive",
+        "robust",
         "inspection",
         "pilot",
         "operations",
@@ -226,12 +229,15 @@ export const TOOL_DECLARATIONS = [
   {
     name: "compare_portfolios",
     description:
-      "Exact feasible July portfolio costs, low/base/high assumptions and downside. Default bounded-learning recommendation; financial maximin preserves cash. Not causal ROI.",
+      "Actual current primary financial recommendation (recommended), separate experimental backup (learning, fixed $20,000 cap), downside-constrained financial alternative (risk-sensitive), or other comparisons. Recomputed costs and low/base/high net; not causal ROI.",
     parameters: schema({
       strategyId: {
         type: "STRING",
         enum: [
           "recommended",
+          "learning",
+          "risk-sensitive",
+          "robust",
           "inspection",
           "pilot",
           "operations",
@@ -355,19 +361,13 @@ export function runTool(data, context, name, args = {}, audit = null) {
     assert(a?.strategies, "Source-matched portfolio evidence is unavailable.");
     const strategy = args.strategyId || c.portfolioId || "recommended",
       riskCap = c.riskCap ?? 20000;
-    let p = a.strategies.find((p) => p.id === strategy);
-    if (strategy === "recommended" && riskCap !== 20000)
-      p = {
-        ...choosePortfolios(enumeratePortfolios(data, a, a.candidates), riskCap)
-          .learning,
-        id: "recommended",
-        name: "Bounded learning portfolio",
-      };
+    const selection = selectModelPortfolios(data, a, riskCap);
+    const p = currentPortfolioStrategies(data, a, selection).find((p) => p.id === strategy);
     assert(p, "Unknown portfolio strategy.");
     return baseCard(
       "compare_portfolios:" + p.id,
       p.name,
-      "Hypothetical portfolio / explicit management policy",
+      p.id === "recommended" ? "Financial optimization / explicit base scenario" : "Comparison portfolio / explicit management policy",
       "July 1–30, 2025; $100,000 budget; fixed June planning bases",
       [
         m("Action spend", p.cost, "USD"),
@@ -382,9 +382,9 @@ export function runTool(data, context, name, args = {}, audit = null) {
             .map((e) => `${e.id} × ${e.quantity}: ${e.targets.join(", ")}`)
             .join("; ") +
             ". " +
-            a.recommendation.policy
-        : "Preserve the entire budget. This wins quantified financial maximin and the base-scenario financial objective.",
-      `Effects are assumptions, not probabilities or causal estimates. The learning recommendation uses the current stated $${riskCap.toLocaleString("en-US")} downside cap; information value is unpriced. At zero effect it has a cash/opportunity cost; no future July outcome is observed. Search covers generated bundles, not every possible portfolio.`,
+            (p.id === "learning" ? selection.objectives.learning : p.id === "risk-sensitive" ? selection.objectives.riskSensitive : selection.objectives.financial)
+        : "No paid actions. Cash retained is budget, not earned return. " + (p.id === "risk-sensitive" ? selection.objectives.riskSensitive : selection.objectives.financial),
+      `Effects are assumptions, not probabilities or causal estimates. Financial downside cap: $${riskCap.toLocaleString("en-US")}; the separate experimental option uses $20,000 and unpriced information value. No future July outcome is observed. Search covers generated bundles, not every possible portfolio. Monitor faults, meters, access, loyalty and property contribution; approve additional spending only above its documented contribution break-even boundary or explicitly choose learning.`,
       { page: "planner", portfolioId: p.id, riskCap },
       "COMPREHENSIVE_SCIENTIFIC_REPORT.md",
     );
@@ -788,11 +788,13 @@ export function offlineEvidence(data, context, question, audit = null) {
     calls.push(["get_opportunities", {}]);
   else if (
     data.decision &&
-    /portfolio|allocat|recommend.*(invest|spend|fund)|13,?900/i.test(question)
+    /portfolio|allocat|invest|budget|fund|spend|recommend|experimental|backup|13,?900/i.test(question)
   )
     calls.push([
       "compare_portfolios",
-      /recommend/i.test(question) ? { strategyId: "recommended" } : {},
+      /learning|experiment|backup|13,?900/i.test(question) ? { strategyId: "learning" }
+        : /risk|downside/i.test(question) ? { strategyId: "risk-sensitive" }
+        : /recommend|primary|financial/i.test(question) ? { strategyId: "recommended" } : {},
     ]);
   else if (
     data.decision &&

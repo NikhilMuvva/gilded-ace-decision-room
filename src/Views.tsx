@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useMemo } from "react";
 import {
   AreaChart,
   Area,
@@ -14,7 +14,8 @@ import {
   Legend,
 } from "recharts";
 import { ArrowRight, Search, ChevronLeft, ChevronRight } from "lucide-react";
-import { aggregate, unitCost } from "./lib.mjs";
+import { aggregate, validatePlan } from "./lib.mjs";
+import { selectModelPortfolios } from "./decisionEngine.mjs";
 import {
   Kpi,
   Panel,
@@ -51,14 +52,8 @@ export function Overview({
   onNavigate: (p: string) => void;
   onFlag: (id: string) => void;
 }) {
-  const recommended = data.planner.recommended,
-    cost = recommended.reduce(
-      (s: number, e: Data) =>
-        s +
-        e.quantity *
-          unitCost(data.actions.find((a: Data) => a.action_type_id === e.id)),
-      0,
-    ),
+  const choices = useMemo(() => data.decision ? selectModelPortfolios(data, data.decision) : null, [data]);
+  const cost = choices?.financial.cost ?? validatePlan(data, data.planner.recommended).cost,
     flag = data.facts.flagMachines[0],
     manufacturer = data.decision
       ? [...data.decision.manufacturer].sort(
@@ -73,11 +68,11 @@ export function Overview({
             Decision under review: replace the ten lowest-earning machines.
           </strong>
           <span>
-            {data.decision ? "Bounded learning portfolio" : "Proposed response"}
+            {data.decision ? "Model-selected financial investment" : "Proposed response"}
             : {money(cost, false)} · retain{" "}
             {money(data.planner.budget - cost, false)}.{" "}
-            {data.decision
-              ? "Tests access, loyalty and diagnostic questions; financial maximin preserves cash."
+            {choices
+              ? (choices.financial.entries.length ? "Highest base-scenario net among feasible generated portfolios." : "Paid candidates do not clear modeled costs; retain the budget and monitor approval triggers.")
               : "Information value is unpriced."}
           </span>
         </div>
@@ -110,11 +105,11 @@ export function Overview({
           note={`${number(totals.down)} unavailable machine-hours`}
         />
       </div>
-      {data.decision && (
+      {choices && (
         <p className="scope-note">
-          Recommendation uses a stated{" "}
-          {money(data.decision.recommendation.riskCap, false)} modeled-downside
-          policy, not an estimated causal ROI.{" "}
+          Objective: maximize base-scenario property contribution after costs, downtime, displacement and overlap.
+          Low/base/high net: {money(choices.financial.scenarios.low.net, false)} / {money(choices.financial.scenarios.base.net, false)} / {money(choices.financial.scenarios.high.net, false)}.
+          {" "}Experimental alternative: {money(choices.learning.cost, false)} under a $20,000 downside cap; information value is unpriced. No causal ROI is identified.{" "}
           <button
             className="text-button"
             onClick={() => onNavigate("opportunities")}

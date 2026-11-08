@@ -165,16 +165,20 @@ test("new copilot evidence agrees with source-matched diagnostics and portfolio 
   const card = runTool(enriched, context, "compare_portfolios", {});
   assert.equal(
     card.metrics.find((m) => m.label === "Action spend").value,
-    13900,
+    0,
   );
   assert.equal(
     card.metrics.find((m) => m.label === "Cash retained").value,
-    86100,
+    100000,
   );
   const capped=runTool(enriched,{...context,riskCap:0,portfolioId:'recommended'},'compare_portfolios',{});
   assert.equal(capped.metrics.find(m=>m.label==='Action spend').value,0);
   assert.throws(()=>runTool(enriched,{...context,riskCap:-1},'compare_portfolios',{}),/downside cap/);
   assert.match(card.limitations, /not probabilities/);
+  const backup = runTool(enriched, { ...context, riskCap: 0 }, "compare_portfolios", { strategyId: "learning" });
+  assert.equal(backup.metrics.find((m) => m.label === "Action spend").value, 13900);
+  assert.equal(backup.metrics.find((m) => m.label === "Cash retained").value, 86100);
+  assert.match(backup.explanation, /pre-registered|Information/i);
   assert.equal(
     offlineEvidence(
       enriched,
@@ -376,7 +380,16 @@ test("controlled small optimization fixture has independently known base optimum
   assert.equal(selected.base.cost, 30);
   assert.equal(selected.base.scenarios.base.net, 105);
   assert.deepEqual(selected.base.keys, ["0", "1"]);
-  assert.equal(selected.financial.cost, 0);
+  assert.equal(selected.financial.scenarios.base.net, 105);
+  assert.equal(selected.financial.cost, 30);
+  assert.equal(selected.robust.cost, 0);
+  assert.equal(choosePortfolios(options, 0).riskSensitive.cost, 0);
+  const revised = enumeratePortfolios(fixture, {
+    juneHourlyProfiles: {},
+    scenarioEffects: { "A-WAYFINDING": [0, 0, 0], "A-COMP-CHANGE": [0, 0, 0] },
+  }, candidates);
+  assert.equal(choosePortfolios(revised).financial.cost, 0);
+  assert.ok(revised.filter((p) => p.cost > 0).every((p) => p.scenarios.base.net < 0));
   assert.equal(
     evaluatePortfolio(
       fixture,

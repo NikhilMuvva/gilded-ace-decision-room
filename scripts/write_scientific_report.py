@@ -2,10 +2,14 @@
 from pathlib import Path
 import json,shutil
 ROOT=Path(__file__).resolve().parents[1];DOC=ROOT/'docs'
-a=json.loads((ROOT/'public/data/decision.json').read_text());d=json.loads((ROOT/'public/data/dashboard.json').read_text())
+a=json.loads((ROOT/'public/data/decision.json').read_text(encoding='utf-8'));d=json.loads((ROOT/'public/data/dashboard.json').read_text(encoding='utf-8'))
 usd=lambda x:f'{"-" if x<0 else ""}${abs(x):,.2f}'
 pct=lambda x:f'{x*100:.2f}%'
-rec=a['recommendation'];mfr=next(m for m in a['manufacturer'] if m['manufacturer']=='Ridgeline')
+rec=a['recommendation'];learning=a['experimentalRecommendation'];mfr=next(m for m in a['manufacturer'] if m['manufacturer']=='Ridgeline')
+replacement=next(p for p in a['strategies'] if p['id']=='replacement')
+primary_reason='No paid candidate improves on preserving cash under the base objective.' if not rec['entries'] else 'This feasible portfolio has the highest base-scenario net among the generated combinations.'
+runner_rows=[[', '.join(p['keys']),usd(p['cost']),usd(p['scenarios']['low']['net']),usd(p['scenarios']['base']['net']),usd(p['scenarios']['high']['net'])] for p in a['search']['financialRunnerUps']]
+monitor_rows=[[str(p['priority'])+'. '+p['target'],p['monitor'],p['trigger']] for p in a['monitoringPlan']]
 def write(name,text):(DOC/name).write_text(text.strip()+'\n',encoding='utf-8')
 def table(headers,rows):return '| '+' | '.join(headers)+' |\n| '+' | '.join(['---']*len(headers))+' |\n'+'\n'.join('| '+' | '.join(str(v).replace('|',' / ').replace('\n',' ') for v in row)+' |' for row in rows)
 audit_rows=[[name,v['rows'],v['sha256']] for name,v in a['sourceTables'].items()]
@@ -53,9 +57,11 @@ report=f'''# Dashboard Royale: comprehensive scientific audit and investment dec
 
 The inspection-only recommendation was a useful diagnostic response, but it was not a comprehensive investment optimum. The expanded analysis separates demand, supplied-cost economics, payout behavior, faults, location and insufficient evidence. It discovers actionable reliability concentration and validates low-demand scheduling, while retaining the original frozen forecast.
 
-The decision engine searches **{a['search']['feasiblePortfolios']} feasible portfolios** from **{a['search']['candidateBundles']} evidence-based bundles**, including all paid catalog action types and preserving cash. Quantified financial maximin and the stated base-scenario objective both choose **preserving $100,000**. A separate, explicit bounded-learning policy chooses **{usd(rec['cost'])}**, leaving **{usd(rec['remaining'])}**: two targeted inspections, Back Forty signage/wayfinding and a controlled comp-policy pilot. It covers payout, reliability, access and loyalty questions under a **{usd(rec['riskCap'])} modeled-downside cap**.
+The decision engine searches **{a['search']['feasiblePortfolios']} feasible portfolios** from **{a['search']['candidateBundles']} evidence-based bundles**, including all paid catalog action types and preserving cash. The **primary financial recommendation spends {usd(rec['cost'])}, retaining {usd(rec['remaining'])}**. {primary_reason} Its objective is to maximize modeled base-scenario incremental property contribution after catalog costs, lead time, planned downtime, displacement and overlap. Ties favor higher low-scenario net, then lower spend. These are assumed effects applied to historical financial bases, not learned causal returns. The amount and targets are recomputed; neither cash nor the experimental plan is hardwired as the financial answer.
 
-The selected learning plan has low/base/high quantified nets **{usd(rec['scenarios']['low']['net'])} / {usd(rec['scenarios']['base']['net'])} / {usd(rec['scenarios']['high']['net'])}**. Its zero-effect cost including opportunity debit is **{usd(rec['cost']+rec['scenarios']['base']['debit'])}**. There is no estimated probability for these scenarios. Future information value is unpriced. Management should adopt this plan only if it accepts the explicit learning objective and downside tolerance; it is not a demonstrated maximum-profit allocation. Lower caps produce cheaper staged plans, shown below.
+Primary low/base/high net is **{usd(rec['scenarios']['low']['net'])} / {usd(rec['scenarios']['base']['net'])} / {usd(rec['scenarios']['high']['net'])}**. Retained budget is not an earned return. A separate **risk-sensitive financial** objective maximizes the same base net subject to a stated low-scenario downside cap, a management preference. The low-scenario maximin comparison remains available. No scenario probabilities or arbitrary weighted expected return are assigned.
+
+The **experimental backup** deliberately buys learning: **{usd(learning['cost'])}**, leaving **{usd(learning['remaining'])}**, for two targeted inspections, Back Forty wayfinding and a controlled loyalty pilot under a **{usd(learning['riskCap'])} modeled-downside cap**. Its low/base/high nets remain **{usd(learning['scenarios']['low']['net'])} / {usd(learning['scenarios']['base']['net'])} / {usd(learning['scenarios']['high']['net'])}**; zero-effect cost including debit is **{usd(learning['cost']+learning['scenarios']['base']['debit'])}**. Information value is unpriced. It is selectable as a separate management objective, not the primary financial optimum.
 
 ## A. Data verification and accounting
 
@@ -71,7 +77,7 @@ Tracked sessions reconcile to carded meter subsets, trip identity/cardinality an
 
 ### Corrections and shortcomings addressed
 
-1. **Recommendation scope:** default allocation now comes from the candidate search and an explicit management policy, rather than the payout-flag list. Inspection-only remains an honest comparator.
+1. **Recommendation scope:** the default now publishes the candidate search's financial winner. The former learning default remains a separately labeled experimental strategy. Inspection-only is a paid-information comparator. Saved user plans are labeled and preserved until explicitly replaced.
 2. **Valid swaps:** the previous planner rejected every occupied destination, even when its occupant was also moving. Catalog-valid paired/whole-bank swaps are now allowed only when every occupant vacates, destinations are unique and no move is a no-op; unvacated occupied destinations remain invalid.
 3. **Technician opportunity:** the new engine/custom planner uses the chosen shift's unioned queue/meter intersection rather than treating all-floor queue opportunity as a shift-specific baseline. Hands-on repair time is not assumed recoverable by adding a technician.
 4. **Planned downtime:** quiet-hour debits are measured planning proxies. Relocations obey the 06:00 catalog boundary. Broad sweeps fall back to all-hour rates when quiet-task capacity is not established; multiple simultaneous quiet crews are not silently assumed.
@@ -134,13 +140,27 @@ The ten-machine purchase interpretation costs $220,000 and violates the budget. 
 
 {portfolio_details}
 
+### Why the financial choice beats the replacement proposal
+
+The ten-active-machine lease comparator spends **{usd(replacement['cost'])}** for 16 eligible days and has modeled base net **{usd(replacement['scenarios']['base']['net'])}**, after planned downtime and displacement. Ten outright purchases exceed the budget. Raw earnings do not establish that replacement will improve property contribution; location, exposure, reliability and luck remain competing explanations. The paid financial runners-up are:
+
+{table(['Portfolio keys','Spend','Low net','Base net','High net'],runner_rows)}
+
+The first cash break-even boundary across portfolios with positive base benefits is **{a['search']['firstSpendingBoundary']['positiveBenefitMultiplier']:.6f}×** the existing positive benefit assumptions, for **{', '.join(a['search']['firstSpendingBoundary']['keys'])}**. Hold action costs, negative effects, opportunity debits, eligible days, displacement and overlap fixed while scaling all positive base benefits together. At equality the cost tie-break favors cash; above it a paid portfolio can become preferable. This is a sensitivity boundary, not a treatment-effect estimate. Individual action details above show exact financial bases and net-effect hurdles; surveys and inspections have no invented monetary information value.
+
+### July monitoring and approval gates
+
+{table(['Priority / target','Monitor using existing routine records','Condition for additional paid spending'],monitor_rows)}
+
+Use weekly operational reviews and pre-register any subsequently funded pilot. Forecasts inform calendar/scheduling context, not intervention ROI. Do not count catalog inspections or pilots as free work in the cash plan. Approval requires credible incremental property contribution above full cost plus outage opportunity, viable eligible days, displacement/harm checks and the catalog constraints, or an explicit decision to fund the separate learning objective.
+
 ### Candidate generation and optimization audit
 
 Bundles include the payout target, persistent recurrent-fault targets with ≥84 active days, Back Forty access trial, a controlled comp pilot, floor-wide comp scenario, highest-fault manufacturer sweep, one/two/three distinct technician shifts, one/three/ten eligible leased replacements, one purchase, a vacancy move, matched-configuration pair swap, equal-size whole-bank swap, a promotion and survey. A broad survey is compared but not treated as a substitute for a controlled causal policy test. Candidate target selection is documented rather than pretending all machine/action/location possibilities were optimized.
 
 Enumerate every combination with ≤3 distinct action types, then validate budget, quantity, all target membership, same-machine conflicts, comp incompatibility, unique destinations, vacated occupancy, complete-bank destination grouping, lead/downtime and recurring costs. Preserve cash is a candidate. Independent exhaustive enumeration over the same bundles and a controlled small fixture with a known optimum validate the search.
 
-The learning objective is deliberately separate from financial maximin. It maximizes covered pre-registered questions subject to modeled-downside cap, then prefers higher base net and lower spend. Equal question coverage is an explicit policy, not a monetized information utility. The default $20,000 cap is a management convention, not estimated from the data. The selected risk frontier is:
+The financial default maximizes base-scenario net; the risk-sensitive financial option adds the user-selected low-scenario downside limit. Experimental learning separately maximizes covered pre-registered questions, then base net and lower spend, under its $20,000 cap. Equal question coverage and that cap are explicit policies, not learned utility or safety guarantees. The following is **experimental learning-policy sensitivity**, not the financial recommendation:
 
 {table(['Modeled-downside cap','Spend','Low-scenario downside','Questions'],[[usd(f['riskCap']),usd(f['cost']),usd(f['worstDownside']),', '.join(f['channels']) or 'Preserve cash'] for f in a['search']['frontier']])}
 
@@ -156,13 +176,13 @@ The learning objective is deliberately separate from financial maximin. It maxim
 
 ## H. Two-minute demonstration plan
 
-0:00–0:15: Open briefing. Explain the original ten-low-earner replacement proposal and why raw totals mix exposure, location, cost and payout luck.\n\n0:15–0:35: Change period; select a bank and M-1158. Show separate demand/economic/fault/payout dimensions, interval/support and conditional qualifications.\n\n0:35–0:55: Open Opportunities. Show Ridgeline recurrence, adjusted Back Forty closure association, loyalty point pricing and 5–7 a.m. scheduling.\n\n0:55–1:10: Methods: original frozen forecast and nested research; do not call the examined test pristine.\n\n1:10–1:40: Compare six feasible portfolio strategies. Show {usd(rec['cost'])} bounded-learning spend, {usd(rec['remaining'])} reserve, the explicit risk cap, negative low/base outcomes, unpriced information value and the preserve-cash financial comparator. Open targets/lead/recurring/downtime details.\n\n1:40–1:55: Open measurement plan: controls, contribution, displacement, stop rules and inconclusive-result possibility. Ask the grounded copilot about the portfolio; numbers must match the engine.\n\n1:55–2:00: Open source-to-claim evidence and disclose synthetic/draft data. This is a rehearsal plan, not a recorded video.
+0:00-0:15: Open briefing: original ten-low-earner replacement proposal; distinguish exposure, location, cost and luck.\n\n0:15-0:35: Drill into a bank and M-1158; show separate dimensions, support and payout qualifications.\n\n0:35-0:55: Opportunities: recurring manufacturer faults, the noncausal closure association and loyalty pricing; explain why they do not identify an action ROI.\n\n0:55-1:10: Methods: frozen weekday forecast versus constant baseline; demand scheduling context, not treatment profit.\n\n1:10-1:35: Planner: primary {usd(rec['cost'])} spend and {usd(rec['remaining'])} retained, exact base-contribution objective and low/base/high results. Compare the costly ten-lease strategy and paid runners-up. Show the break-even boundary.\n\n1:35-1:50: Select the separate experimental backup: {usd(learning['cost'])}, {usd(learning['remaining'])} retained, $20,000 management downside cap, negative base net and unpriced information. Explain the risk-sensitive financial alternative separately.\n\n1:50-2:00: Open July monitoring/approval gates; demonstrate evidence-backed Gemini retrieval. Disclose synthetic draft data and prospective causal uncertainty. This is a rehearsal plan, not a recorded video.
 
 ## I. Reproduction, source register and unresolved risks
 
 Run `npm run data` with the local original sources, `python scripts/write_deliverables.py`, then `npm run verify`. The data command executes base preparation, independent source evidence and catalog-constrained portfolio construction. `npm run start:local` runs the static app and private Gemini endpoint; no hosting or Tiger Data changes were made. Gemini can retrieve new diagnostics/opportunities/portfolios but cannot invent values or override plans.
 
-Required remaining checks are live browser/touch/rendering sign-off where Computer Use is unavailable, deployed-runtime confirmation, prospective effect/power/operational validation, organizer calibration and applicable publisher evidence. A passing build is not proof of causal economics. The exact current automated test and live-service status are recorded in SCIENTIFIC_VALIDATION.json when executed.
+Required remaining checks are live browser/touch/rendering sign-off where Computer Use is unavailable, deployed-runtime confirmation, prospective effect/power/operational validation, organizer calibration and applicable publisher evidence. A passing build is not proof of causal economics. Historical source-audit status is in SCIENTIFIC_VALIDATION.json. Current recommendation regression and service checks are recorded in FINANCIAL_RECOMMENDATION_VALIDATION.md.
 
 {table(['Source table','Rows read','Parquet SHA-256'],audit_rows)}
 
@@ -177,23 +197,23 @@ writeup=f'''Management proposes replacing ten low earners. Our expanded Dashboar
 
 We independently reconcile raw daily/hourly meters, effective placements, sessions, tracked outcomes, loyalty/POS costs and the official catalog. Wagers are {usd(a['totals']['wagers'])}; observed and theoretical win remain distinct. Contribution includes only supplied costs.
 
-Ridgeline accounts for 680 fault tickets; its adjusted fault-rate ratio is {mfr['adjustedRateRatio']:.2f} versus Halcyon. Back Forty's closure-period demand association remains near −31% after game-mix/calendar adjustment, but differing pre-trends prevent a causal claim. The loyalty point-price shift survives composition adjustment. M-1158 warrants inspection after variance and multiple-testing checks; a payout flag is not a defect diagnosis.
+Ridgeline accounts for 680 fault tickets; its adjusted fault-rate ratio is {mfr['adjustedRateRatio']:.2f} versus Halcyon. Back Forty's closure-period demand association remains near −31% after game-mix/calendar adjustment, but differing pre-trends prevent a causal claim. The loyalty point-price shift survives composition adjustment. M-1158 is a separately priced inspection candidate after variance and multiple-testing checks; a payout flag is not a defect diagnosis.
 
 The original April-selected weekday forecast remains frozen for May–June: daily-wager MAE {usd(d['model']['mae'])}, versus {usd(d['model']['baselineMae'])} for the constant baseline. Additional rolling-origin models are retrospective research, not a fresh untouched test. Hourly evidence supports quieter maintenance scheduling.
 
-The decision engine compares {a['search']['feasiblePortfolios']} feasible portfolios from {a['search']['candidateBundles']} declared bundles, including replacements, maintenance, staffing, moves, promotions, experiments and cash preservation. Quantified financial maximin preserves cash. Under an explicit {usd(rec['riskCap'])} learning-downside policy, we instead propose {usd(rec['cost'])}: two targeted inspections, Back Forty wayfinding and a controlled loyalty pilot, retaining {usd(rec['remaining'])}. Low/base/high nets are {usd(rec['scenarios']['low']['net'])}, {usd(rec['scenarios']['base']['net'])} and {usd(rec['scenarios']['high']['net'])}; these are assumptions, not expected returns. Information value is unpriced.
+The engine compares {a['search']['feasiblePortfolios']} feasible portfolios from {a['search']['candidateBundles']} declared bundles. The primary financial objective maximizes base-scenario property contribution after catalog cost, eligible days, downtime, displacement and overlap. It selects {usd(rec['cost'])} spending, retaining {usd(rec['remaining'])}; low/base/high net is {usd(rec['scenarios']['low']['net'])}/{usd(rec['scenarios']['base']['net'])}/{usd(rec['scenarios']['high']['net'])}. Effects are assumptions, not probabilities or causal ROI. The downside-constrained financial option adds a management cap. The separate experimental backup spends {usd(learning['cost'])} on two inspections, wayfinding and a controlled loyalty pilot, retaining {usd(learning['remaining'])}, under its {usd(learning['riskCap'])} downside cap. Backup low/base/high nets are {usd(learning['scenarios']['low']['net'])}/{usd(learning['scenarios']['base']['net'])}/{usd(learning['scenarios']['high']['net'])}; information value is unpriced.
 
-Pre-register controls, contribution, availability, coverage, displacement and stop rules; do not book future July success. Judges can change periods, investigate banks/guest groups, inspect model validation and trace each proposed action. The grounded Gemini assistant selects deterministic evidence without generating substitute financial values. Reproducible code, independent fixtures, source hashes, methods and limitations accompany the synthetic draft-data application.'''
+Monitor faults, reconciliation, access, loyalty cost and property contribution weekly; approve spending only above documented break-even gates or explicitly fund learning. Pre-register controls, displacement and harm/stop rules; no July outcome is observed. Judges can change periods, investigate banks/guest groups, inspect model validation and trace each proposed action. The grounded Gemini assistant selects deterministic evidence without generating substitute financial values. Reproducible code, independent fixtures, source hashes, methods and limitations accompany the synthetic draft-data application.'''
 count=len(writeup.split());assert count<=400,count
 write('SUBMISSION.md',f'# Submission draft\n\n## Main write-up\n\n{writeup}\n\nWord count: {count}; maximum 400.\n\n## Two-minute demonstration\n\n'+report.split('## H. Two-minute demonstration plan\n\n')[1].split('\n\n## I.')[0])
 
 claims_path=DOC/'CLAIMS_AND_EVIDENCE.md'
-claims=claims_path.read_text(encoding='utf-8').replace('## C8. Preserve cash while buying targeted information','## C8. Historical inspection-only comparator (superseded as the default learning portfolio)')
+claims=claims_path.read_text(encoding='utf-8').replace('## C8. Preserve cash while buying targeted information','## C8. Historical inspection-only paid-information comparator')
 claims=claims.split('\n\n## C10.')[0]+'\n\n## C10. Expanded reliability, benchmark and portfolio audit\n\n'+table(['Claim','Source / exact method','Result','Qualification / decision'],[
  ['Reliability concentration','operations count / active machine-day exposure; config/zone/month/weekday offset Poisson',f'Ridgeline adjusted ratio {mfr["adjustedRateRatio"]:.3f}; 680 tickets','Association, not manufacturer causality; inspect recurrence before broad sweep'],
  ['Closure association survives adjustment','Weighted log wager/hour; date and zone×configuration FE; weekly HAC',pct(a['closureDesign']['models'][0]['duringAssociation']),'Differing pre-trend; no causal signage uplift booked'],
  ['Ranks depend on benchmark question','Exact vs cross-zone and half-window rank correlations',f'{a["benchmarkValidation"]["exactVsCrossZoneSpearman"]:.3f}; {a["benchmarkValidation"]["firstVsSecondHalfSpearman"]:.3f}','Display disagreement and pointwise conditional intervals'],
- ['Portfolio recommendation is policy-conditioned','20 bundles, exhaustive valid ≤3-type combinations; exact catalog constraints',f'{a["search"]["feasiblePortfolios"]} feasible; {usd(rec["cost"])} spend; {usd(rec["remaining"])} retained','Learning cap $20k; financial maximin preserves cash; effects and information value not identified'],
+ ['Portfolio recommendation is policy-conditioned','20 bundles, exhaustive valid ≤3-type combinations; exact catalog constraints',f'{a["search"]["feasiblePortfolios"]} feasible; {usd(rec["cost"])} spend; {usd(rec["remaining"])} retained','Primary maximizes base net; separate experimental backup $13,900 under $20k cap; effects and information value not identified'],
  ['Scheduling respects physical scope','June hourly profiles; relocations 06:00; all-hour fallback if task capacity unverified','Quiet two-hour rule remains 05:00 in later diagnostic','Planning proxy, not causal profit'],
  ])+'\n\nComplete claim/source/formula/result/benchmark/assumption/alternative/sensitivity/limitation/action trace: [comprehensive report](COMPREHENSIVE_SCIENTIFIC_REPORT.md) and [machine-readable audit](SCIENTIFIC_AUDIT.json).\n'
 claims_path.write_text(claims,encoding='utf-8')
@@ -208,13 +228,17 @@ parameters=parameters.split(marker)[0]+marker+'\n\n'+table(['Parameter','Type','
  ['Comparative closure covariance','Weekly dependence convention','Newey–West lag 7 and pre/during/after trend sensitivities; no causal claim'],
  ['Calendar ridge research','Inner validation selected','α=.1/1/10/100 using earlier 14-day folds; default1 for short February training; preserve original frozen model'],
  ['Candidate effects / displacement','Unidentified sensitivity assumptions','Low/base/high specified by action; base retains50%, high75% of positive demand; all negative effects count; no probability weights'],
- ['Learning downside cap','Management policy','Default $20,000; frontier0/5k/10k/20k/30k. Maximize distinct registered questions, then base net/lower cost. Not data-estimated expected utility'],
+ ['Experimental downside cap','Management policy','Default $20,000; frontier0/5k/10k/20k/30k. Maximize distinct registered questions, then base net/lower cost. Not data-estimated expected utility'],
+ ['Financial selection','Explicit scenario objective','Maximize base property contribution net; tie-break by low net then lower spend. Risk-sensitive alternative imposes management downside cap. No scenario probabilities.'],
  ['Quiet work capacity','Operational planning assumption','At most one target quiet job per eligible day; broader jobs use all-hour debit until capacity verified; relocation boundary fixed06:00'],
  ])+'\n\nThis section supersedes earlier descriptions of inspection-only seeding and all-floor technician pools. Full register and sensitivity results: COMPREHENSIVE_SCIENTIFIC_REPORT.md.\n'
 parameter_path.write_text(parameters,encoding='utf-8')
 
 for file in ['METHODOLOGY.md','DATA_SCIENCE_AND_TECHNICAL_REPORT.md']:
-    path=DOC/file;text=path.read_text(encoding='utf-8');notice='> Current analytical supplement: [Comprehensive scientific audit and investment report](COMPREHENSIVE_SCIENTIFIC_REPORT.md) controls the new diagnostic, shift-pool, quiet-scheduling and bounded-learning portfolio methods. Original frozen forecast and accounting metrics are retained.\n\n'
+    path=DOC/file;text=path.read_text(encoding='utf-8')
+    old_notice='> Current analytical supplement: [Comprehensive scientific audit and investment report](COMPREHENSIVE_SCIENTIFIC_REPORT.md) controls the new diagnostic, shift-pool, quiet-scheduling and bounded-learning portfolio methods. Original frozen forecast and accounting metrics are retained.\n\n'
+    notice='> Current analytical supplement: [Comprehensive scientific audit and investment report](COMPREHENSIVE_SCIENTIFIC_REPORT.md) covers diagnostics, shift pools, quiet scheduling, primary financial selection and separate experimental learning. Original frozen forecast and accounting metrics are retained.\n\n'
+    text=text.replace(old_notice,notice)
     if notice not in text:text=text.split('\n',1)[0]+'\n\n'+notice+text.split('\n',1)[1].lstrip()
     path.write_text(text,encoding='utf-8')
 disclosure=DOC/'AI_DISCLOSURE.md';text=disclosure.read_text(encoding='utf-8');extra='\n\nThe comprehensive pass used Codex to implement independent Parquet-source auditing, numerical fixtures, conditional resampling, comparative/Poisson models, retrospective nested forecast diagnostics, catalog-constrained bundle search and the written learning policy. No original records were altered to create signals. Candidate effect percentages and the downside cap are stated assumptions, not AI-estimated causal effects. Gemini only selects verified read-only evidence and cannot override the engine.\n'
@@ -222,7 +246,7 @@ if extra not in text:disclosure.write_text(text+extra,encoding='utf-8')
 validation_path=DOC/'VALIDATION.md'
 validation=validation_path.read_text(encoding='utf-8')
 validation=validation.split('\n## Comprehensive scientific verification')[0]
-validation+='\n## Comprehensive scientific verification\n\nThe November 8, 2026 pass completed 132 independent source-to-display checks and 99 automated tests (11 Python, 47 Node, 41 simulated-DOM UI). TypeScript and the production build passed. The original headline facts and complete frozen forecast equal the pre-change archive. Real Gemini HTTP requests retrieved the new portfolio and machine diagnostics with evidence; key-exposure checks passed. See [SCIENTIFIC_VALIDATION.json](SCIENTIFIC_VALIDATION.json), [SCIENTIFIC_LIVE_CHECK.json](SCIENTIFIC_LIVE_CHECK.json) and the [comprehensive report](COMPREHENSIVE_SCIENTIFIC_REPORT.md). HTTP_CHECKS.json separately records the latest static-resource smoke test. Real browser rendering/touch and public deployment remain unverified.\n'
+validation+='\n## Comprehensive scientific verification\n\nThe original comprehensive pass completed 132 independent source-to-display checks and 99 automated tests (11 Python, 47 Node, 41 simulated-DOM UI). TypeScript and the production build passed. The original headline facts and complete frozen forecast equal the pre-change archive. Real Gemini HTTP requests retrieved the new portfolio and machine diagnostics with evidence; key-exposure checks passed. See [SCIENTIFIC_VALIDATION.json](SCIENTIFIC_VALIDATION.json), [SCIENTIFIC_LIVE_CHECK.json](SCIENTIFIC_LIVE_CHECK.json) and the [comprehensive report](COMPREHENSIVE_SCIENTIFIC_REPORT.md). For the subsequent financial-default change and current tests, see FINANCIAL_RECOMMENDATION_VALIDATION.md. HTTP_CHECKS.json separately records static-resource smoke tests. Real browser rendering/touch and public deployment remain unverified.\n'
 validation_path.write_text(validation,encoding='utf-8')
 historical_path=DOC/'ANALYTICS_AND_COPILOT_VALIDATION.md'
 historical=historical_path.read_text(encoding='utf-8')
@@ -230,6 +254,9 @@ historical_notice='> This records the earlier targeted pass. Current scientific 
 if historical_notice not in historical:
     historical=historical.split('\n',1)[0]+'\n\n'+historical_notice+historical.split('\n',1)[1].lstrip()
     historical_path.write_text(historical,encoding='utf-8')
+financial_disclosure='\n\nThe financial-default revision used Codex to separate the base-contribution financial objective, management downside constraint and experimental-learning objective; add break-even/monitoring gates; preserve saved plans; and test selection with known-optimum fixtures. Existing effect assumptions, action prices, forecasts and historical numerical findings were preserved. No scenario probabilities or causal treatment estimates were invented.\n'
+text=disclosure.read_text(encoding='utf-8')
+if financial_disclosure not in text:disclosure.write_text(text+financial_disclosure,encoding='utf-8')
 for path in DOC.iterdir():
     if path.is_file():shutil.copyfile(path,ROOT/'public/docs'/path.name)
 print(f'Scientific report generated; {len(a["checks"])} checks; submission {count} words; recommended spend {usd(rec["cost"])}.')

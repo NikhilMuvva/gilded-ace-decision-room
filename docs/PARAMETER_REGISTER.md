@@ -49,7 +49,8 @@ The independent audit uses source CSVs; the production pipeline uses Parquet. Pr
 | Comparative closure covariance | Weekly dependence convention | Newey–West lag 7 and pre/during/after trend sensitivities; no causal claim |
 | Calendar ridge research | Inner validation selected | α=.1/1/10/100 using earlier 14-day folds; default1 for short February training; preserve original frozen model |
 | Candidate effects / displacement | Unidentified sensitivity assumptions | Low/base/high specified by action; base retains50%, high75% of positive demand; all negative effects count; no probability weights |
-| Learning downside cap | Management policy | Default $20,000; frontier0/5k/10k/20k/30k. Maximize distinct registered questions, then base net/lower cost. Not data-estimated expected utility |
+| Experimental downside cap | Management policy | Default $20,000; frontier0/5k/10k/20k/30k. Maximize distinct registered questions, then base net/lower cost. Not data-estimated expected utility |
+| Financial selection | Explicit scenario objective | Maximize base property contribution net; tie-break by low net then lower spend. Risk-sensitive alternative imposes management downside cap. No scenario probabilities. |
 | Quiet work capacity | Operational planning assumption | At most one target quiet job per eligible day; broader jobs use all-hour debit until capacity verified; relocation boundary fixed06:00 |
 
 This section supersedes earlier descriptions of inspection-only seeding and all-floor technician pools. Full register and sensitivity results: COMPREHENSIVE_SCIENTIFIC_REPORT.md.

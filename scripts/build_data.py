@@ -309,11 +309,12 @@ best = sorted(machine_plan, key=lambda x:x['z'])
 source_manifest_hash=hashlib.sha256((SOURCE/'data/manifest.json').read_bytes()).hexdigest()
 decision_path=OUT/'decision.json'
 decision=json.loads(decision_path.read_text()) if decision_path.exists() else {}
-recommended=decision.get('recommendation',{}).get('entries',[]) if decision.get('sourceManifestSha256')==source_manifest_hash else []
+recommended=decision.get('recommendation',{}).get('entries',[]) if decision.get('sourceManifestSha256')==source_manifest_hash and decision.get('recommendation',{}).get('objective')=='financial' else []
 check('Planner starts with machines active on June 30', len(machine_plan)==june[june.gaming_date.eq('2025-06-30')].machine_id.nunique())
 # Preserve funds if benefits are not identified. Information value is deliberately unmonetized.
 planner = {'machines':machine_plan,'techDailyOpportunity':op_summary['waitTheo']/181,'maintenanceDailyOpportunity':float(june.lost_theo.sum()/30), 'compDailyCost':float(prop[prop.gaming_date.ge('2025-06-01')].comp_cost_usd.sum()/30),'recommended':recommended,'horizonStart':'2025-07-01','horizonEnd':'2025-07-30','budget':100000}
 planner['recommendationSource']='source-matched decision engine; run build_decision_evidence.py and build_portfolios.mjs to refresh'
+planner['recommendationObjective']='financial'
 
 inventory = []
 for path in sorted((SOURCE/'data').rglob('*.parquet')):

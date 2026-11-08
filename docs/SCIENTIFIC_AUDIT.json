@@ -65387,6 +65387,82 @@
     {
       "valid": true,
       "errors": [],
+      "cost": 0,
+      "remaining": 100000,
+      "scenarios": {
+        "low": {
+          "actions": [],
+          "gain": 0,
+          "debit": 0,
+          "overlap": 0,
+          "net": 0
+        },
+        "base": {
+          "actions": [],
+          "gain": 0,
+          "debit": 0,
+          "overlap": 0,
+          "net": 0
+        },
+        "high": {
+          "actions": [],
+          "gain": 0,
+          "debit": 0,
+          "overlap": 0,
+          "net": 0
+        }
+      },
+      "worstDownside": 0,
+      "informationValueRequired": 0,
+      "qualification": "Low/base/high are explicit policy scenarios, not probabilities or expected ROI. Contribution is before unmodeled incremental variable costs/overhead. Positive demand and recovery benefits are conservatively capped within each pool; negative effects all count.",
+      "keys": [],
+      "entries": [],
+      "channels": [],
+      "learningEligible": true,
+      "id": "recommended",
+      "name": "Primary financial recommendation"
+    },
+    {
+      "valid": true,
+      "errors": [],
+      "cost": 0,
+      "remaining": 100000,
+      "scenarios": {
+        "low": {
+          "actions": [],
+          "gain": 0,
+          "debit": 0,
+          "overlap": 0,
+          "net": 0
+        },
+        "base": {
+          "actions": [],
+          "gain": 0,
+          "debit": 0,
+          "overlap": 0,
+          "net": 0
+        },
+        "high": {
+          "actions": [],
+          "gain": 0,
+          "debit": 0,
+          "overlap": 0,
+          "net": 0
+        }
+      },
+      "worstDownside": 0,
+      "informationValueRequired": 0,
+      "qualification": "Low/base/high are explicit policy scenarios, not probabilities or expected ROI. Contribution is before unmodeled incremental variable costs/overhead. Positive demand and recovery benefits are conservatively capped within each pool; negative effects all count.",
+      "keys": [],
+      "entries": [],
+      "channels": [],
+      "learningEligible": true,
+      "id": "risk-sensitive",
+      "name": "Downside-constrained financial recommendation"
+    },
+    {
+      "valid": true,
+      "errors": [],
       "cost": 13900,
       "remaining": 86100,
       "scenarios": {
@@ -65730,8 +65806,46 @@
         "loyalty"
       ],
       "learningEligible": true,
-      "id": "recommended",
-      "name": "Bounded learning portfolio"
+      "id": "learning",
+      "name": "Experimental learning portfolio"
+    },
+    {
+      "valid": true,
+      "errors": [],
+      "cost": 0,
+      "remaining": 100000,
+      "scenarios": {
+        "low": {
+          "actions": [],
+          "gain": 0,
+          "debit": 0,
+          "overlap": 0,
+          "net": 0
+        },
+        "base": {
+          "actions": [],
+          "gain": 0,
+          "debit": 0,
+          "overlap": 0,
+          "net": 0
+        },
+        "high": {
+          "actions": [],
+          "gain": 0,
+          "debit": 0,
+          "overlap": 0,
+          "net": 0
+        }
+      },
+      "worstDownside": 0,
+      "informationValueRequired": 0,
+      "qualification": "Low/base/high are explicit policy scenarios, not probabilities or expected ROI. Contribution is before unmodeled incremental variable costs/overhead. Positive demand and recovery benefits are conservatively capped within each pool; negative effects all count.",
+      "keys": [],
+      "entries": [],
+      "channels": [],
+      "learningEligible": true,
+      "id": "robust",
+      "name": "Low-scenario maximin comparison"
     },
     {
       "valid": true,
@@ -66057,9 +66171,584 @@
         ],
         "baseNet": -10022.957255592855
       }
-    ]
+    ],
+    "objectives": {
+      "financial": "Maximize base-scenario incremental property-wide contribution after catalog costs, opportunity debit, displacement and overlap; ties favor higher low-scenario net, then lower spend. Base effects are explicit assumptions, not estimated causal returns.",
+      "riskSensitive": "Maximize the same base-scenario net subject to the stated low-scenario downside cap. The cap is a management preference, not a learned parameter or probabilistic guarantee.",
+      "robust": "Maximize low-scenario net (maximin), then prefer lower spend; robustness covers the declared scenarios only.",
+      "learning": "Maximize distinct pre-registered questions under the stated downside cap, then base-scenario net and lower spend. Information value is unpriced; this objective can accept negative financial results."
+    },
+    "financialRunnerUps": [
+      {
+        "valid": true,
+        "errors": [],
+        "cost": 1500,
+        "remaining": 98500,
+        "scenarios": {
+          "low": {
+            "actions": [
+              {
+                "id": "A-COMP-CHANGE",
+                "quantity": 1,
+                "targets": [
+                  "property"
+                ],
+                "destinations": [],
+                "days": 27,
+                "leadDays": 3,
+                "oneTimeCost": 1500,
+                "recurringCost": 0,
+                "extraCost": 0,
+                "cost": 1500,
+                "requiredMachineDowntimeHours": 0,
+                "plannedDebit": 0,
+                "allHourDebit": 0,
+                "startHour": null,
+                "scheduleMode": "No scheduled outage",
+                "base": 29675.51991,
+                "assumedEffect": -0.05,
+                "retainedShare": 1,
+                "gain": -1483.7759955000001,
+                "net": -2983.7759955,
+                "breakevenNetEffect": 0.050546713403815814,
+                "breakEvenBeforeDisplacement": 0.050546713403815814,
+                "maximumRate": 1,
+                "impossibleWithinRecoveryPool": false,
+                "informationUnpriced": false
+              }
+            ],
+            "gain": -1483.7759955000001,
+            "debit": 0,
+            "overlap": 0,
+            "net": -2983.7759955
+          },
+          "base": {
+            "actions": [
+              {
+                "id": "A-COMP-CHANGE",
+                "quantity": 1,
+                "targets": [
+                  "property"
+                ],
+                "destinations": [],
+                "days": 27,
+                "leadDays": 3,
+                "oneTimeCost": 1500,
+                "recurringCost": 0,
+                "extraCost": 0,
+                "cost": 1500,
+                "requiredMachineDowntimeHours": 0,
+                "plannedDebit": 0,
+                "allHourDebit": 0,
+                "startHour": null,
+                "scheduleMode": "No scheduled outage",
+                "base": 29675.51991,
+                "assumedEffect": 0.03,
+                "retainedShare": 1,
+                "gain": 890.2655973,
+                "net": -609.7344027,
+                "breakevenNetEffect": 0.050546713403815814,
+                "breakEvenBeforeDisplacement": 0.050546713403815814,
+                "maximumRate": 1,
+                "impossibleWithinRecoveryPool": false,
+                "informationUnpriced": false
+              }
+            ],
+            "gain": 890.2655973,
+            "debit": 0,
+            "overlap": 0,
+            "net": -609.7344027
+          },
+          "high": {
+            "actions": [
+              {
+                "id": "A-COMP-CHANGE",
+                "quantity": 1,
+                "targets": [
+                  "property"
+                ],
+                "destinations": [],
+                "days": 27,
+                "leadDays": 3,
+                "oneTimeCost": 1500,
+                "recurringCost": 0,
+                "extraCost": 0,
+                "cost": 1500,
+                "requiredMachineDowntimeHours": 0,
+                "plannedDebit": 0,
+                "allHourDebit": 0,
+                "startHour": null,
+                "scheduleMode": "No scheduled outage",
+                "base": 29675.51991,
+                "assumedEffect": 0.1,
+                "retainedShare": 1,
+                "gain": 2967.5519910000003,
+                "net": 1467.5519910000003,
+                "breakevenNetEffect": 0.050546713403815814,
+                "breakEvenBeforeDisplacement": 0.050546713403815814,
+                "maximumRate": 1,
+                "impossibleWithinRecoveryPool": false,
+                "informationUnpriced": false
+              }
+            ],
+            "gain": 2967.5519910000003,
+            "debit": 0,
+            "overlap": 0,
+            "net": 1467.5519910000003
+          }
+        },
+        "worstDownside": 2983.7759955,
+        "informationValueRequired": 609.7344027,
+        "qualification": "Low/base/high are explicit policy scenarios, not probabilities or expected ROI. Contribution is before unmodeled incremental variable costs/overhead. Positive demand and recovery benefits are conservatively capped within each pool; negative effects all count.",
+        "keys": [
+          "comp-change"
+        ],
+        "entries": [
+          {
+            "id": "A-COMP-CHANGE",
+            "quantity": 1,
+            "targets": [
+              "property"
+            ],
+            "effect": 0,
+            "extraCost": 0,
+            "pointsRate": 10,
+            "destinations": []
+          }
+        ],
+        "channels": [],
+        "learningEligible": false
+      },
+      {
+        "valid": true,
+        "errors": [],
+        "cost": 1200,
+        "remaining": 98800,
+        "scenarios": {
+          "low": {
+            "actions": [
+              {
+                "id": "A-INSPECT",
+                "quantity": 1,
+                "targets": [
+                  "M-1158"
+                ],
+                "destinations": [],
+                "days": 29,
+                "leadDays": 1,
+                "oneTimeCost": 1200,
+                "recurringCost": 0,
+                "extraCost": 0,
+                "cost": 1200,
+                "requiredMachineDowntimeHours": 2,
+                "plannedDebit": 2.066666666666666,
+                "allHourDebit": 21.93458,
+                "startHour": 6,
+                "scheduleMode": "June quiet-hour proxy; at most one target job per eligible day assumed",
+                "base": 0,
+                "assumedEffect": 0,
+                "retainedShare": 1,
+                "gain": 0,
+                "net": -1202.0666666666666,
+                "breakevenNetEffect": null,
+                "breakEvenBeforeDisplacement": null,
+                "maximumRate": null,
+                "impossibleWithinRecoveryPool": false,
+                "informationUnpriced": true
+              }
+            ],
+            "gain": 0,
+            "debit": 2.066666666666666,
+            "overlap": 0,
+            "net": -1202.0666666666666
+          },
+          "base": {
+            "actions": [
+              {
+                "id": "A-INSPECT",
+                "quantity": 1,
+                "targets": [
+                  "M-1158"
+                ],
+                "destinations": [],
+                "days": 29,
+                "leadDays": 1,
+                "oneTimeCost": 1200,
+                "recurringCost": 0,
+                "extraCost": 0,
+                "cost": 1200,
+                "requiredMachineDowntimeHours": 2,
+                "plannedDebit": 2.066666666666666,
+                "allHourDebit": 21.93458,
+                "startHour": 6,
+                "scheduleMode": "June quiet-hour proxy; at most one target job per eligible day assumed",
+                "base": 0,
+                "assumedEffect": 0,
+                "retainedShare": 1,
+                "gain": 0,
+                "net": -1202.0666666666666,
+                "breakevenNetEffect": null,
+                "breakEvenBeforeDisplacement": null,
+                "maximumRate": null,
+                "impossibleWithinRecoveryPool": false,
+                "informationUnpriced": true
+              }
+            ],
+            "gain": 0,
+            "debit": 2.066666666666666,
+            "overlap": 0,
+            "net": -1202.0666666666666
+          },
+          "high": {
+            "actions": [
+              {
+                "id": "A-INSPECT",
+                "quantity": 1,
+                "targets": [
+                  "M-1158"
+                ],
+                "destinations": [],
+                "days": 29,
+                "leadDays": 1,
+                "oneTimeCost": 1200,
+                "recurringCost": 0,
+                "extraCost": 0,
+                "cost": 1200,
+                "requiredMachineDowntimeHours": 2,
+                "plannedDebit": 2.066666666666666,
+                "allHourDebit": 21.93458,
+                "startHour": 6,
+                "scheduleMode": "June quiet-hour proxy; at most one target job per eligible day assumed",
+                "base": 0,
+                "assumedEffect": 0,
+                "retainedShare": 1,
+                "gain": 0,
+                "net": -1202.0666666666666,
+                "breakevenNetEffect": null,
+                "breakEvenBeforeDisplacement": null,
+                "maximumRate": null,
+                "impossibleWithinRecoveryPool": false,
+                "informationUnpriced": true
+              }
+            ],
+            "gain": 0,
+            "debit": 2.066666666666666,
+            "overlap": 0,
+            "net": -1202.0666666666666
+          }
+        },
+        "worstDownside": 1202.0666666666666,
+        "informationValueRequired": 1202.0666666666666,
+        "qualification": "Low/base/high are explicit policy scenarios, not probabilities or expected ROI. Contribution is before unmodeled incremental variable costs/overhead. Positive demand and recovery benefits are conservatively capped within each pool; negative effects all count.",
+        "keys": [
+          "inspect-payout"
+        ],
+        "entries": [
+          {
+            "id": "A-INSPECT",
+            "quantity": 1,
+            "targets": [
+              "M-1158"
+            ],
+            "effect": 0,
+            "extraCost": 0,
+            "pointsRate": 10,
+            "destinations": []
+          }
+        ],
+        "channels": [
+          "payout"
+        ],
+        "learningEligible": true
+      },
+      {
+        "valid": true,
+        "errors": [],
+        "cost": 1200,
+        "remaining": 98800,
+        "scenarios": {
+          "low": {
+            "actions": [
+              {
+                "id": "A-INSPECT",
+                "quantity": 1,
+                "targets": [
+                  "M-1241"
+                ],
+                "destinations": [],
+                "days": 29,
+                "leadDays": 1,
+                "oneTimeCost": 1200,
+                "recurringCost": 0,
+                "extraCost": 0,
+                "cost": 1200,
+                "requiredMachineDowntimeHours": 2,
+                "plannedDebit": 3.6019792595221856,
+                "allHourDebit": 29.67802,
+                "startHour": 5,
+                "scheduleMode": "June quiet-hour proxy; at most one target job per eligible day assumed",
+                "base": 0,
+                "assumedEffect": 0,
+                "retainedShare": 1,
+                "gain": 0,
+                "net": -1203.6019792595223,
+                "breakevenNetEffect": null,
+                "breakEvenBeforeDisplacement": null,
+                "maximumRate": null,
+                "impossibleWithinRecoveryPool": false,
+                "informationUnpriced": true
+              }
+            ],
+            "gain": 0,
+            "debit": 3.6019792595221856,
+            "overlap": 0,
+            "net": -1203.6019792595223
+          },
+          "base": {
+            "actions": [
+              {
+                "id": "A-INSPECT",
+                "quantity": 1,
+                "targets": [
+                  "M-1241"
+                ],
+                "destinations": [],
+                "days": 29,
+                "leadDays": 1,
+                "oneTimeCost": 1200,
+                "recurringCost": 0,
+                "extraCost": 0,
+                "cost": 1200,
+                "requiredMachineDowntimeHours": 2,
+                "plannedDebit": 3.6019792595221856,
+                "allHourDebit": 29.67802,
+                "startHour": 5,
+                "scheduleMode": "June quiet-hour proxy; at most one target job per eligible day assumed",
+                "base": 0,
+                "assumedEffect": 0,
+                "retainedShare": 1,
+                "gain": 0,
+                "net": -1203.6019792595223,
+                "breakevenNetEffect": null,
+                "breakEvenBeforeDisplacement": null,
+                "maximumRate": null,
+                "impossibleWithinRecoveryPool": false,
+                "informationUnpriced": true
+              }
+            ],
+            "gain": 0,
+            "debit": 3.6019792595221856,
+            "overlap": 0,
+            "net": -1203.6019792595223
+          },
+          "high": {
+            "actions": [
+              {
+                "id": "A-INSPECT",
+                "quantity": 1,
+                "targets": [
+                  "M-1241"
+                ],
+                "destinations": [],
+                "days": 29,
+                "leadDays": 1,
+                "oneTimeCost": 1200,
+                "recurringCost": 0,
+                "extraCost": 0,
+                "cost": 1200,
+                "requiredMachineDowntimeHours": 2,
+                "plannedDebit": 3.6019792595221856,
+                "allHourDebit": 29.67802,
+                "startHour": 5,
+                "scheduleMode": "June quiet-hour proxy; at most one target job per eligible day assumed",
+                "base": 0,
+                "assumedEffect": 0,
+                "retainedShare": 1,
+                "gain": 0,
+                "net": -1203.6019792595223,
+                "breakevenNetEffect": null,
+                "breakEvenBeforeDisplacement": null,
+                "maximumRate": null,
+                "impossibleWithinRecoveryPool": false,
+                "informationUnpriced": true
+              }
+            ],
+            "gain": 0,
+            "debit": 3.6019792595221856,
+            "overlap": 0,
+            "net": -1203.6019792595223
+          }
+        },
+        "worstDownside": 1203.6019792595223,
+        "informationValueRequired": 1203.6019792595223,
+        "qualification": "Low/base/high are explicit policy scenarios, not probabilities or expected ROI. Contribution is before unmodeled incremental variable costs/overhead. Positive demand and recovery benefits are conservatively capped within each pool; negative effects all count.",
+        "keys": [
+          "inspect-fault"
+        ],
+        "entries": [
+          {
+            "id": "A-INSPECT",
+            "quantity": 1,
+            "targets": [
+              "M-1241"
+            ],
+            "effect": 0,
+            "extraCost": 0,
+            "pointsRate": 10,
+            "destinations": []
+          }
+        ],
+        "channels": [
+          "reliability"
+        ],
+        "learningEligible": true
+      }
+    ],
+    "firstSpendingBoundary": {
+      "keys": [
+        "comp-change"
+      ],
+      "cost": 1500,
+      "positiveBenefitMultiplier": 1.6848904467938604
+    }
   },
   "recommendation": {
+    "valid": true,
+    "errors": [],
+    "cost": 0,
+    "remaining": 100000,
+    "scenarios": {
+      "low": {
+        "actions": [],
+        "gain": 0,
+        "debit": 0,
+        "overlap": 0,
+        "net": 0
+      },
+      "base": {
+        "actions": [],
+        "gain": 0,
+        "debit": 0,
+        "overlap": 0,
+        "net": 0
+      },
+      "high": {
+        "actions": [],
+        "gain": 0,
+        "debit": 0,
+        "overlap": 0,
+        "net": 0
+      }
+    },
+    "worstDownside": 0,
+    "informationValueRequired": 0,
+    "qualification": "Low/base/high are explicit policy scenarios, not probabilities or expected ROI. Contribution is before unmodeled incremental variable costs/overhead. Positive demand and recovery benefits are conservatively capped within each pool; negative effects all count.",
+    "keys": [],
+    "entries": [],
+    "channels": [],
+    "learningEligible": true,
+    "policy": "Maximize base-scenario incremental property-wide contribution after catalog costs, opportunity debit, displacement and overlap; ties favor higher low-scenario net, then lower spend. Base effects are explicit assumptions, not estimated causal returns.",
+    "objective": "financial",
+    "goal": "Highest base-scenario incremental contribution among generated feasible portfolios",
+    "financialMaximin": [],
+    "baseScenarioBest": [],
+    "highScenarioBest": [
+      "comp-change",
+      "promotion"
+    ]
+  },
+  "infeasibleAlternatives": [
+    {
+      "name": "Purchase ten machines",
+      "cost": 220000,
+      "reason": "Full $22,000 unit capital cost × 10 exceeds the $100,000 budget."
+    }
+  ],
+  "measurementPlans": {
+    "payout": {
+      "treatment": "M-1158",
+      "control": "Reconciled configured game mathematics; no revenue uplift booked",
+      "primary": "Inspection result, meters/session reconciliation and paytable/configuration agreement",
+      "baseline": "Jan–Jun accumulated payout residual",
+      "period": "July 2 onward; one inspection and ongoing independent reconciliation",
+      "stop": "Retain the machine if configuration and meters are correct; do not replace based solely on another luck residual."
+    },
+    "manufacturer": {
+      "treatment": "M-1241",
+      "control": "Same-configuration/zone machines from the same manufacturer and other manufacturers",
+      "primary": "Root-cause findings and faults per active machine-day",
+      "secondary": "Queue wait, hands-on time, meter downtime and direct repair cost",
+      "baseline": "Jan–Jun; verify June recurrence and installation history",
+      "period": "July after one-day inspection lead; log all subsequent tickets",
+      "stop": "Do not claim diagnosis from a Poisson screen. Escalate only a documented recurring defect/process; broad sweep requires a separate business case."
+    },
+    "closure": {
+      "treatment": "Back Forty signage/sightline refresh",
+      "control": "Pre-registered other-zone/game strata and property-wide totals; do not use contaminated nearby banks as independent controls",
+      "primary": "Incremental property-wide theo/contribution after supplied incremental costs, adjusted for available hours and calendar",
+      "secondary": "Zone wager rate, crossings per covered sensor-hour, occupancy and displacement to/from other zones",
+      "baseline": "Pre-register June 11–30 and a matched weekday/control comparison before work",
+      "period": "July 11–30 after 10-day lead",
+      "stop": "Freeze analysis before launch; inspect weekly operational harm, stop if demand shifts away elsewhere or signs impair access. A small break-even effect may be undetectable in 20 days; inconclusive evidence does not prove zero."
+    },
+    "loyalty": {
+      "treatment": "Randomly assign eligible cohorts to a controlled point-policy pilot; do not target loss history",
+      "control": "Concurrent status-quo cohort balanced on pre-period tier/item mix; keep incremental comp budget at zero unless separately funded",
+      "primary": "Tracked contribution per eligible account, including linked POS cogs exactly once",
+      "secondary": "Redemption cost/face value, engagement, satisfaction and uncarded coverage limits",
+      "baseline": "June, fixed cohort eligibility and analysis plan before assignment",
+      "period": "July 6–30 after five-day design/training lead",
+      "stop": "Pre-register guest-protection and cost caps; stop for unexpected cost or harm. Pilot information value remains unpriced; a later rollout is not included as July earnings."
+    }
+  },
+  "scenarioEffects": {
+    "A-WAYFINDING": [
+      -0.02,
+      0.03,
+      0.08
+    ],
+    "A-MOVE-MACHINE": [
+      -0.05,
+      0.05,
+      0.15
+    ],
+    "A-MOVE-BANK": [
+      -0.05,
+      0.05,
+      0.15
+    ],
+    "A-REPLACE-LEASE": [
+      -0.05,
+      0.1,
+      0.3
+    ],
+    "A-REPLACE-BUY": [
+      -0.05,
+      0.1,
+      0.3
+    ],
+    "A-PROMO": [
+      -0.02,
+      0.05,
+      0.15
+    ],
+    "A-TECH-SHIFT": [
+      0,
+      0.25,
+      0.75
+    ],
+    "A-PREVENTIVE": [
+      0,
+      0.25,
+      0.75
+    ],
+    "A-COMP-CHANGE": [
+      -0.05,
+      0.03,
+      0.1
+    ]
+  },
+  "experimentalRecommendation": {
     "valid": true,
     "errors": [],
     "cost": 13900,
@@ -66405,58 +67094,79 @@
       "loyalty"
     ],
     "learningEligible": true,
-    "policy": "Learning recommendation maximizes the number of distinct pre-registered questions within a stated modeled-downside cap, then favors the higher base-scenario net and lower cash cost. This is a transparent management policy, not learned treatment effects or a global causal optimum.",
+    "policy": "Maximize distinct pre-registered questions under the stated downside cap, then base-scenario net and lower spend. Information value is unpriced; this objective can accept negative financial results.",
     "riskCap": 20000,
-    "goal": "Bounded learning, not a proven maximum-profit portfolio",
-    "financialMaximin": [],
-    "baseScenarioBest": [],
-    "highScenarioBest": [
-      "comp-change",
-      "promotion"
-    ]
+    "objective": "learning"
   },
-  "infeasibleAlternatives": [
+  "riskRecommendation": {
+    "valid": true,
+    "errors": [],
+    "cost": 0,
+    "remaining": 100000,
+    "scenarios": {
+      "low": {
+        "actions": [],
+        "gain": 0,
+        "debit": 0,
+        "overlap": 0,
+        "net": 0
+      },
+      "base": {
+        "actions": [],
+        "gain": 0,
+        "debit": 0,
+        "overlap": 0,
+        "net": 0
+      },
+      "high": {
+        "actions": [],
+        "gain": 0,
+        "debit": 0,
+        "overlap": 0,
+        "net": 0
+      }
+    },
+    "worstDownside": 0,
+    "informationValueRequired": 0,
+    "qualification": "Low/base/high are explicit policy scenarios, not probabilities or expected ROI. Contribution is before unmodeled incremental variable costs/overhead. Positive demand and recovery benefits are conservatively capped within each pool; negative effects all count.",
+    "keys": [],
+    "entries": [],
+    "channels": [],
+    "learningEligible": true,
+    "policy": "Maximize the same base-scenario net subject to the stated low-scenario downside cap. The cap is a management preference, not a learned parameter or probabilistic guarantee.",
+    "riskCap": 20000,
+    "objective": "risk-sensitive"
+  },
+  "monitoringPlan": [
     {
-      "name": "Purchase ten machines",
-      "cost": 220000,
-      "reason": "Full $22,000 unit capital cost × 10 exceeds the $100,000 budget."
+      "priority": 1,
+      "target": "M-1241",
+      "monitor": "Review existing ticket logs weekly: faults per active machine-day, queue wait intersecting meter downtime, hands-on hours and direct repair costs.",
+      "trigger": "Approve paid repair/inspection only with a documented recoverable cause and credible avoided property contribution above catalog cost plus downtime debit, or explicitly choose the experimental objective. A manufacturer association alone is insufficient."
+    },
+    {
+      "priority": 2,
+      "target": "M-1158",
+      "monitor": "Continue routine meter/configuration reconciliation; retain the full testing-family qualification. A residual is not a defect diagnosis.",
+      "trigger": "A verified configuration discrepancy or documented exposure changes the business case. A paid catalog inspection remains separately priced; it is not silently included as free work."
+    },
+    {
+      "priority": 3,
+      "target": "Back Forty access",
+      "monitor": "Track wager/theo per available hour, occupancy and crossings per covered sensor-hour alongside other zones and property totals; compare weekdays and game mix.",
+      "trigger": "Fund wayfinding only when credible incremental property contribution clears its displayed break-even threshold after displacement and the 10-day lead, or opt into controlled learning. The closure association is not a signage effect estimate."
+    },
+    {
+      "priority": 4,
+      "target": "Property loyalty economics",
+      "monitor": "Reconcile weekly redeemed economic cost, points per fixed item/tier face value, tracked outcomes and property contribution. Protect guests; do not optimize losses of vulnerable cohorts.",
+      "trigger": "Fund a point-rate change only with credible net incremental contribution above its break-even boundary and harm controls. A controlled $4,000 pilot belongs to the optional experimental budget; reduced points per face dollar alone proves no behavioral uplift."
+    },
+    {
+      "priority": 5,
+      "target": "Replacement and July demand",
+      "monitor": "Review exposure-adjusted demand, contribution after supplied costs and availability before any ten-machine order. Use the frozen weekday model for demand/scheduling context, not treatment ROI.",
+      "trigger": "Require prospective replacement benefit above full lease/purchase cost and outage opportunity, with exact eligible days and property-wide displacement. Ten purchases remain infeasible; re-run the financial search when verified inputs or explicit assumptions change."
     }
-  ],
-  "measurementPlans": {
-    "payout": {
-      "treatment": "M-1158",
-      "control": "Reconciled configured game mathematics; no revenue uplift booked",
-      "primary": "Inspection result, meters/session reconciliation and paytable/configuration agreement",
-      "baseline": "Jan–Jun accumulated payout residual",
-      "period": "July 2 onward; one inspection and ongoing independent reconciliation",
-      "stop": "Retain the machine if configuration and meters are correct; do not replace based solely on another luck residual."
-    },
-    "manufacturer": {
-      "treatment": "M-1241",
-      "control": "Same-configuration/zone machines from the same manufacturer and other manufacturers",
-      "primary": "Root-cause findings and faults per active machine-day",
-      "secondary": "Queue wait, hands-on time, meter downtime and direct repair cost",
-      "baseline": "Jan–Jun; verify June recurrence and installation history",
-      "period": "July after one-day inspection lead; log all subsequent tickets",
-      "stop": "Do not claim diagnosis from a Poisson screen. Escalate only a documented recurring defect/process; broad sweep requires a separate business case."
-    },
-    "closure": {
-      "treatment": "Back Forty signage/sightline refresh",
-      "control": "Pre-registered other-zone/game strata and property-wide totals; do not use contaminated nearby banks as independent controls",
-      "primary": "Incremental property-wide theo/contribution after supplied incremental costs, adjusted for available hours and calendar",
-      "secondary": "Zone wager rate, crossings per covered sensor-hour, occupancy and displacement to/from other zones",
-      "baseline": "Pre-register June 11–30 and a matched weekday/control comparison before work",
-      "period": "July 11–30 after 10-day lead",
-      "stop": "Freeze analysis before launch; inspect weekly operational harm, stop if demand shifts away elsewhere or signs impair access. A small break-even effect may be undetectable in 20 days; inconclusive evidence does not prove zero."
-    },
-    "loyalty": {
-      "treatment": "Randomly assign eligible cohorts to a controlled point-policy pilot; do not target loss history",
-      "control": "Concurrent status-quo cohort balanced on pre-period tier/item mix; keep incremental comp budget at zero unless separately funded",
-      "primary": "Tracked contribution per eligible account, including linked POS cogs exactly once",
-      "secondary": "Redemption cost/face value, engagement, satisfaction and uncarded coverage limits",
-      "baseline": "June, fixed cohort eligibility and analysis plan before assignment",
-      "period": "July 6–30 after five-day design/training lead",
-      "stop": "Pre-register guest-protection and cost caps; stop for unexpected cost or harm. Pilot information value remains unpriced; a later rollout is not included as July earnings."
-    }
-  }
+  ]
 }

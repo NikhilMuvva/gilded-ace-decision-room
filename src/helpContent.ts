@@ -26,6 +26,12 @@ const term = (
   aliases = "",
 ): Term => ({ id, name, meaning, example, topic, aliases });
 export const glossary: Term[] = [
+  term("financial-objective", "Financial recommendation",
+    "The feasible plan with the highest modeled base-scenario property contribution after action costs, downtime, displacement and overlap. Cash preservation competes like every other plan.",
+    "If every paid candidate has a negative base net, the model selects no paid actions. Different supported inputs can change the result.", "planner", "primary objective optimization base contribution cash"),
+  term("risk-sensitive", "Downside-constrained financial recommendation",
+    "The highest base-scenario net among plans whose displayed low-scenario loss fits a management-selected cap. The cap is a preference, not a learned safety guarantee.",
+    "A $5,000 cap rejects a plan with a $6,000 low-scenario loss even when its base net is positive.", "planner", "risk downside cap constraint"),
   term(
     "conditional-interval",
     "Conditional pointwise interval",

@@ -58,7 +58,7 @@ All casino results describe The Gilded Ace, a fictional property. Dataset: `0.9.
 - **Limitation:** One synthetic series, one holdout, no independently validated July performance. The interval describes error improvement, not a prediction interval. Forecasts concern wagers, not net contribution or staffing response.
 - **Decision:** Schedule non-urgent work around predictable weekday peaks; do not treat a quiet day as evidence that a promotion is profitable.
 
-## C8. Historical inspection-only comparator (superseded as the default learning portfolio)
+## C8. Historical inspection-only paid-information comparator
 
 - **Calculation / source:** `action_catalog`; cost = quantity × [one-time cost + recurring/day × max(0,30−lead)] + explicit incremental comp budget. Full fixed package and purchase costs are charged. Inspect M-1158: $1,200, one-day lead, 29 eligible days, 120 minutes downtime. Preserve $98,800. Scenario net after the inspection and downtime debit is -$1,221.93, before unpriced information value.
 - **Alternatives:** The interactive planner includes every paid catalog action, ≤3 action types, distinct valid targets, quantities, same-machine conflicts, comp-policy incompatibility, 5–20 comp points/dollar, vacant relocation destinations, and whole-bank grouping. Technician benefit is capped by the shared historical queue pool. Bank downtime is conservatively treated as 480 minutes per affected machine. Demand benefits are not stacked; only the largest assumed demand-action gain is retained. Overlapping technician/preventive recovery also uses the larger gain.
@@ -80,7 +80,7 @@ All casino results describe The Gilded Ace, a fictional property. Dataset: `0.9.
 | Reliability concentration | operations count / active machine-day exposure; config/zone/month/weekday offset Poisson | Ridgeline adjusted ratio 3.563; 680 tickets | Association, not manufacturer causality; inspect recurrence before broad sweep |
 | Closure association survives adjustment | Weighted log wager/hour; date and zone×configuration FE; weekly HAC | -31.51% | Differing pre-trend; no causal signage uplift booked |
 | Ranks depend on benchmark question | Exact vs cross-zone and half-window rank correlations | 0.337; 0.745 | Display disagreement and pointwise conditional intervals |
-| Portfolio recommendation is policy-conditioned | 20 bundles, exhaustive valid ≤3-type combinations; exact catalog constraints | 968 feasible; $13,900.00 spend; $86,100.00 retained | Learning cap $20k; financial maximin preserves cash; effects and information value not identified |
+| Portfolio recommendation is policy-conditioned | 20 bundles, exhaustive valid ≤3-type combinations; exact catalog constraints | 968 feasible; $0.00 spend; $100,000.00 retained | Primary maximizes base net; separate experimental backup $13,900 under $20k cap; effects and information value not identified |
 | Scheduling respects physical scope | June hourly profiles; relocations 06:00; all-hour fallback if task capacity unverified | Quiet two-hour rule remains 05:00 in later diagnostic | Planning proxy, not causal profit |
 
 Complete claim/source/formula/result/benchmark/assumption/alternative/sensitivity/limitation/action trace: [comprehensive report](COMPREHENSIVE_SCIENTIFIC_REPORT.md) and [machine-readable audit](SCIENTIFIC_AUDIT.json).

@@ -8,6 +8,7 @@ const d = JSON.parse(
     "utf8",
   ),
 );
+const decision = JSON.parse(await readFile(new URL("../public/data/decision.json", import.meta.url), "utf8"));
 const context = {
   page: "opportunities",
   start: "2025-01",
@@ -37,7 +38,7 @@ async function ask(question, requestId) {
 }
 try {
   const portfolio = await ask(
-    "Compare the recommended learning portfolio with preserving the budget. Give its exact spend, reserve, low/base/high outcomes and the main uncertainty.",
+    "Retrieve the primary financial recommendation using compare_portfolios strategyId recommended. Give its spend, reserve, scenarios and uncertainty; this is separate from experimental learning.",
     "science-portfolio",
   );
   if (
@@ -45,15 +46,18 @@ try {
       (c) =>
         c.id.includes("compare_portfolios:recommended") &&
         c.metrics.some(
-          (m) => m.label === "Action spend" && m.value === 13900,
+          (m) => m.label === "Action spend" && m.value === decision.recommendation.cost,
         ) &&
-        c.metrics.some((m) => m.label === "Cash retained" && m.value === 86100),
+        c.metrics.some((m) => m.label === "Cash retained" && m.value === decision.recommendation.remaining),
     )
   )
     throw Error("portfolio");
   checks.push(
-    "Live portfolio retrieval matches $13,900 spend and $86,100 reserve, with explicit scenario caveats.",
+    `Live primary retrieval matches ${decision.recommendation.cost} spend and ${decision.recommendation.remaining} reserve, with explicit scenario caveats.`,
   );
+  const backup = await ask("Retrieve the experimental backup portfolio using compare_portfolios strategyId learning; explain its separate objective and downside cap.", "science-backup");
+  if (!backup.cards.some((c) => c.id.includes("compare_portfolios:learning") && c.metrics.some((m) => m.label === "Action spend" && m.value === decision.experimentalRecommendation.cost))) throw Error("portfolio");
+  checks.push(`Live experimental backup retrieval matches ${decision.experimentalRecommendation.cost} spend and its separate learning objective.`);
   const machine = await ask(
     "Explain the utilization, economics and recorded fault history of M-1241 in the selected period.",
     "science-machine",

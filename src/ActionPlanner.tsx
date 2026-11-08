@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
   Download,
   Plus,
@@ -19,6 +19,7 @@ import {
 } from "./lib.mjs";
 import { download } from "./ui";
 import { PortfolioBoard } from "./DecisionViews";
+import { selectModelPortfolios } from "./decisionEngine.mjs";
 export function Planner({
   data,
   onEvidence,
@@ -38,7 +39,8 @@ export function Planner({
   portfolioId: string;
   setPortfolioId: (value: string) => void;
 }) {
-  const [entries, setEntries] = useState<Data[]>(() => {
+  const financial = useMemo(() => data.decision ? selectModelPortfolios(data, data.decision).financial : null, [data]);
+  const [savedPlan] = useState<Data[] | null>(() => {
       try {
         const saved = localStorage.getItem("gilded-ace-plan-v1");
         if (saved) {
@@ -52,12 +54,14 @@ export function Planner({
             return parsed;
         }
       } catch {}
-      return data.planner.recommended.map((e: Data) => ({
+      return null;
+    });
+  const [entries, setEntries] = useState<Data[]>(() => savedPlan ?? (financial?.entries ?? data.planner.recommended).map((e: Data, i: number) => ({
         ...e,
-        effect: 0,
+        effect: financial ? financial.scenarios.base.actions[i].assumedEffect * financial.scenarios.base.actions[i].retainedShare * 100 : 0,
         extraCost: 0,
-      }));
-    }),
+      }))),
+    [planOrigin, setPlanOrigin] = useState(savedPlan ? "User-configured saved plan" : "Model-selected financial recommendation"),
     [tab, setTab] = useState("all"),
     [solution, setSolution] = useState("");
   useEffect(() => {
@@ -72,6 +76,7 @@ export function Planner({
   const add = (a: Data) => {
     if (entries.length === 3 || entries.some((e) => e.id === a.action_type_id))
       return;
+    setPlanOrigin("User-configured plan");
     setEntries([
       ...entries,
       {
@@ -91,6 +96,7 @@ export function Planner({
     setSolution("");
   };
   const update = (i: number, patch: Data) => {
+    setPlanOrigin("User-configured plan");
     setEntries(entries.map((e, j) => (i === j ? { ...e, ...patch } : e)));
     setSolution("");
   };
@@ -134,13 +140,23 @@ export function Planner({
         setRiskCap={setRiskCap}
         selected={portfolioId}
         setSelected={setPortfolioId}
-        onApply={(next) => {
+        onApply={(next, source) => {
           setEntries(next);
+          setPlanOrigin(source === "recommended" ? "Model-selected financial recommendation" : "User-configured comparison plan");
           setSolution(
             "Portfolio loaded with explicitly stated base assumptions; review and edit below.",
           );
         }}
       />
+      <p className="context-label">
+        {planOrigin}. The editable plan below is separate from the model comparison.
+        {financial && <button className="text-button" onClick={() => {
+          setEntries(financial.entries.map((e: Data, i: number) => ({ ...e,
+            effect: financial.scenarios.base.actions[i].assumedEffect * financial.scenarios.base.actions[i].retainedShare * 100,
+            extraCost: 0 })));
+          setPlanOrigin("Model-selected financial recommendation"); setSolution("");
+        }}>Load model-selected financial recommendation</button>}
+      </p>
       <p className="planner-steps">
         1. Choose action <span>→</span> 2. Set targets & quantity <span>→</span>{" "}
         3. Enter assumed effect <span>→</span> 4. Review costs & compare subsets
@@ -303,6 +319,7 @@ export function Planner({
                         aria-label={`Remove ${a.name}`}
                         onClick={() => {
                           setEntries(entries.filter((_, j) => j !== i));
+                          setPlanOrigin("User-configured plan");
                           setSolution("");
                         }}
                       >
@@ -582,6 +599,9 @@ export function Planner({
                   download("gilded-ace-july-plan.json", {
                     horizon: "July 1–30, 2025",
                     entries,
+                    planOrigin,
+                    primaryFinancialRecommendation: financial,
+                    experimentalAlternative: data.decision?.experimentalRecommendation,
                     validation,
                     estimate,
                     method: "Scenario analysis, not causal optimization",

@@ -36,13 +36,13 @@
 
 **Alternative explanation / uncertainty:** Pre-trends differ and local confounding remains; ranks depend strongly on benchmark geography. No causal signage or relocation uplift is identified. Property-wide displacement must be measured.
 
-**Action and measurement:** Incremental property-wide theo/contribution after supplied incremental costs, adjusted for available hours and calendar. July 11â€“30 after 10-day lead. Freeze analysis before launch; inspect weekly operational harm, stop if demand shifts away elsewhere or signs impair access. A small break-even effect may be undetectable in 20 days; inconclusive evidence does not prove zero.
+**Action and measurement:** Incremental property-wide theo/contribution after supplied incremental costs, adjusted for available hours and calendar. July 11–30 after 10-day lead. Freeze analysis before launch; inspect weekly operational harm, stop if demand shifts away elsewhere or signs impair access. A small break-even effect may be undetectable in 20 days; inconclusive evidence does not prove zero.
 
 ### 3. Point-price change warrants a controlled policy test
 
 **Question:** Test before a floor-wide rate change. **Target:** Whole-property loyalty program.
 
-**Observed evidence:** Recorded May point-price shift persists with fixed itemÃ—tier mix; supported cells cover 98.93% of January face value.
+**Observed evidence:** Recorded May point-price shift persists with fixed item×tier mix; supported cells cover 98.93% of January face value.
 
 **Scale:** $32,972.80; Observed June redeemed economic cost. **Source tables:** loyalty_ledger, fnb_transactions, player_period.
 
@@ -50,13 +50,13 @@
 
 **Alternative explanation / uncertainty:** Behavioral response, unused point liability and uncarded activity are not identified. No causal policy benefit is booked; information value is unpriced.
 
-**Action and measurement:** Tracked contribution per eligible account, including linked POS cogs exactly once. July 6â€“30 after five-day design/training lead. Pre-register guest-protection and cost caps; stop for unexpected cost or harm. Pilot information value remains unpriced; a later rollout is not included as July earnings.
+**Action and measurement:** Tracked contribution per eligible account, including linked POS cogs exactly once. July 6–30 after five-day design/training lead. Pre-register guest-protection and cost caps; stop for unexpected cost or harm. Pilot information value remains unpriced; a later rollout is not included as July earnings.
 
 ### 4. Accumulated payout exception
 
 **Question:** Targeted information purchase. **Target:** M-1158.
 
-**Observed evidence:** z=-4.570, BH q=0.001511 over Janâ€“Jun.
+**Observed evidence:** z=-4.570, BH q=0.001511 over Jan–Jun.
 
 **Scale:** $36,164.75; Observed residual magnitude (not recoverable loss). **Source tables:** machine_day, game_math, sessions.
 

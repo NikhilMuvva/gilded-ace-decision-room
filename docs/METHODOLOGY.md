@@ -1,6 +1,6 @@
 # Analytical methodology
 
-> Current analytical supplement: [Comprehensive scientific audit and investment report](COMPREHENSIVE_SCIENTIFIC_REPORT.md) controls the new diagnostic, shift-pool, quiet-scheduling and bounded-learning portfolio methods. Original frozen forecast and accounting metrics are retained.
+> Current analytical supplement: [Comprehensive scientific audit and investment report](COMPREHENSIVE_SCIENTIFIC_REPORT.md) covers diagnostics, shift pools, quiet scheduling, primary financial selection and separate experimental learning. Original frozen forecast and accounting metrics are retained.
 
 ## Sources and architecture
 

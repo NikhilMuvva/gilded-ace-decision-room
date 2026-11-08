@@ -17,7 +17,7 @@ const entry = (id, targets, extra = {}) => ({
   destinations: [],
   ...extra,
 });
-const scenarioRates = {
+export const DEFAULT_SCENARIO_EFFECTS = {
   "A-WAYFINDING": [-0.02, 0.03, 0.08],
   "A-MOVE-MACHINE": [-0.05, 0.05, 0.15],
   "A-MOVE-BANK": [-0.05, 0.05, 0.15],
@@ -62,7 +62,10 @@ export function actionScenario(data, analysis, e, scenario = "base") {
     "A-REPLACE-BUY",
     "A-PROMO",
   ].includes(e.id);
-  const rate = scenarioRates[e.id]?.[index] || 0;
+  const effects = analysis.scenarioEffects?.[e.id] ?? DEFAULT_SCENARIO_EFFECTS[e.id] ?? [0, 0, 0];
+  if (effects.length !== 3 || effects.some((r) => !Number.isFinite(r) || r < -1 || r > 1) || effects[0] > effects[1] || effects[1] > effects[2])
+    throw Error("Scenario effects must be three ordered finite fractions between -1 and 1.");
+  const rate = effects[index];
   const retained = demand && rate > 0 ? 1 - displacement[index] : 1;
   const gain = base * rate * retained;
   const maximumRate = [
@@ -414,31 +417,75 @@ export function enumeratePortfolios(data, analysis, candidates) {
   return results;
 }
 export function choosePortfolios(portfolios, riskCap = 20000) {
-  const financial = [...portfolios].sort(
+  if (!Number.isFinite(riskCap) || riskCap < 0 || riskCap > 100000)
+    throw Error("Invalid modeled-downside cap.");
+  const feasible = portfolios.filter((p) => p.valid);
+  if (!feasible.length) throw Error("No feasible portfolios.");
+  const robust = [...feasible].sort(
     (a, b) => b.scenarios.low.net - a.scenarios.low.net || a.cost - b.cost,
   )[0];
+  const financialOrder = (a, b) =>
+    b.scenarios.base.net - a.scenarios.base.net ||
+    b.scenarios.low.net - a.scenarios.low.net || a.cost - b.cost;
+  const financial = [...feasible].sort(financialOrder)[0];
+  const riskSensitive = feasible.filter((p) => p.worstDownside <= riskCap)
+    .sort(financialOrder)[0];
   const learning =
-    portfolios
+    feasible
       .filter((p) => p.learningEligible && p.worstDownside <= riskCap)
       .sort(
         (a, b) =>
           b.channels.length - a.channels.length ||
           b.scenarios.base.net - a.scenarios.base.net ||
           a.cost - b.cost,
-      )[0] || financial;
-  const base = [...portfolios].sort(
-    (a, b) => b.scenarios.base.net - a.scenarios.base.net || a.cost - b.cost,
-  )[0];
-  const high = [...portfolios].sort(
+      )[0] || robust;
+  const base = financial;
+  const high = [...feasible].sort(
     (a, b) => b.scenarios.high.net - a.scenarios.high.net || a.cost - b.cost,
   )[0];
   return {
     financial,
+    robust,
+    riskSensitive,
     learning,
     base,
     high,
     riskCap,
+    objectives: {
+      financial: "Maximize base-scenario incremental property-wide contribution after catalog costs, opportunity debit, displacement and overlap; ties favor higher low-scenario net, then lower spend. Base effects are explicit assumptions, not estimated causal returns.",
+      riskSensitive: "Maximize the same base-scenario net subject to the stated low-scenario downside cap. The cap is a management preference, not a learned parameter or probabilistic guarantee.",
+      robust: "Maximize low-scenario net (maximin), then prefer lower spend; robustness covers the declared scenarios only.",
+      learning: "Maximize distinct pre-registered questions under the stated downside cap, then base-scenario net and lower spend. Information value is unpriced; this objective can accept negative financial results.",
+    },
     policy:
       "Learning recommendation maximizes the number of distinct pre-registered questions within a stated modeled-downside cap, then favors the higher base-scenario net and lower cash cost. This is a transparent management policy, not learned treatment effects or a global causal optimum.",
   };
+}
+
+// Recompute from the current catalog, planning bases and explicit assumptions.
+export function selectModelPortfolios(data, analysis, riskCap = 20000) {
+  const candidates = generateCandidates(data, analysis);
+  const portfolios = enumeratePortfolios(data, analysis, candidates);
+  const selection = choosePortfolios(portfolios, riskCap);
+  return { ...selection, learning: riskCap === 20000 ? selection.learning : choosePortfolios(portfolios, 20000).learning,
+    learningRiskCap: 20000, candidates, portfolios };
+}
+
+export function currentPortfolioStrategies(data, analysis, selection) {
+  return [
+    { ...selection.financial, id: "recommended", name: "Primary financial recommendation" },
+    { ...selection.riskSensitive, id: "risk-sensitive", name: "Downside-constrained financial recommendation" },
+    { ...selection.learning, id: "learning", name: "Experimental learning portfolio" },
+    ...analysis.strategies.filter((p) => !["recommended", "risk-sensitive", "learning", "robust", "optimistic"].includes(p.id))
+      .map((p) => ({ ...p, ...evaluatePortfolio(data, analysis, p.entries) })),
+    { ...selection.robust, id: "robust", name: "Low-scenario maximin comparison" },
+    { ...selection.high, id: "optimistic", name: "Highest high-scenario net (assumption-driven)" },
+  ];
+}
+
+export function baseBenefitBoundary(portfolio) {
+  const s = portfolio.scenarios.base;
+  const positive = s.actions.reduce((sum, a) => sum + Math.max(0, a.gain), 0) - s.overlap;
+  const negative = s.actions.reduce((sum, a) => sum + Math.min(0, a.gain), 0);
+  return positive > 0 ? (portfolio.cost + s.debit - negative) / positive : null;
 }

@@ -75,14 +75,14 @@ const methodTopics = [
       "No holdout lags, future repairs, weather or later external revisions as features. One synthetic property and one holdout do not prove July accuracy. The bootstrap interval is for average MAE improvement, not prediction or profit.",
   },
   {
-    title: "Budget costs, hypothetical benefits and subset search",
+    title: "Budget costs, financial objectives and scenario search",
     source:
       "action_catalog, June target rates, historical repair-queue opportunity and June comp costs",
     formula:
       "Unit price = one-time + recurring/day × max(0,30−lead). Scenario net = assumed gross gain − downtime theo debit − action cost, after overlap deductions.",
-    why: "Enforce ≤$100,000, ≤3 paid types, quantities, targets, catalog conflicts and comp-rate range. Price required machine downtime at June theo/hour. Technician recovery shares a capped queue pool. Retain only the larger tech/maintenance benefit and largest demand-action gain.",
+    why: "Primary: maximize base-scenario property contribution net of catalog cost and planned outage; tie-break by low net, then cost. The financial alternative adds a management downside cap. Experimental learning separately maximizes question coverage under $20,000 downside. Enforce ≤$100,000, ≤3 paid types, quantities, targets and catalog conflicts; cap overlapping positive recovery/demand benefits.",
     limit:
-      "Effects start at zero and are user assumptions, not causal estimates. The comparator enumerates ≤8 subsets of configured quantities/targets, not all catalog portfolios. Information is unpriced; moves require vacant destinations (no swaps); bank downtime is conservatively per machine. Long-term asset/lease value is outside the horizon.",
+      "Published effects are explicit low/base/high assumptions, not causal estimates or probability weights. Search covers generated bundles only; the custom comparator separately checks ≤8 configured subsets. Information is unpriced. Moves require vacant or jointly vacated destinations; bank downtime is per machine. Unmodeled variable costs, overhead and long-term asset value remain outside the comparison.",
   },
 ];
 export function MethodReference() {

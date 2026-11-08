@@ -32,7 +32,10 @@ assert json.loads(fetch('/data/diagnostics.json'))['peerSensitivity'][1]['fallba
 decision=json.loads(fetch('/data/decision.json'))
 assert decision['sourceManifestSha256']==data['sourceManifestSha256']
 assert all(c['passed'] for c in decision['checks'])
-assert decision['recommendation']['cost']==13900 and decision['recommendation']['remaining']==86100
+assert decision['recommendation']['objective']=='financial'
+assert decision['recommendation']['entries']==data['planner']['recommended']
+assert decision['recommendation']['cost']==0 and decision['recommendation']['remaining']==100000
+assert decision['experimentalRecommendation']['cost']==13900 and decision['experimentalRecommendation']['remaining']==86100
 result={'base':base,'checks':checks,'verification':'HTTP and payload checks only; no browser layout verification'}
 (root/'docs/HTTP_CHECKS.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
 print(f'PASS: {len(checks)} HTTP resources, genuine analysis artifact, and all judge-facing links.')

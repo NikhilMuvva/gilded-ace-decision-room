@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Panel, Note, money, number, pct, type Data } from "./ui";
-import { enumeratePortfolios, choosePortfolios } from "./decisionEngine.mjs";
+import { selectModelPortfolios, choosePortfolios, currentPortfolioStrategies, baseBenefitBoundary } from "./decisionEngine.mjs";
 import { machineDiagnostic } from "./machineDiagnostics.mjs";
 import { MetricHelp } from "./Help";
 
@@ -198,46 +198,43 @@ export function PortfolioBoard({
   setSelected,
 }: {
   data: Data;
-  onApply: (entries: Data[]) => void;
+  onApply: (entries: Data[], source?: string) => void;
   riskCap: number;
   setRiskCap: (value: number) => void;
   selected: string;
   setSelected: (value: string) => void;
 }) {
   const analysis = data.decision;
-  const options = useMemo(
+  const model = useMemo(
     () =>
-      analysis ? enumeratePortfolios(data, analysis, analysis.candidates) : [],
+      analysis ? selectModelPortfolios(data, analysis) : null,
     [data, analysis],
   );
-  const choices = useMemo(
-    () => (options.length ? choosePortfolios(options, riskCap) : null),
-    [options, riskCap],
-  );
+  const choices = useMemo(() => model ? { ...model, ...choosePortfolios(model.portfolios, riskCap), learning: model.learning } : null, [model, riskCap]);
   if (!analysis || !choices) return null;
-  const strategies = [
-      ...analysis.strategies.filter((p: Data) => p.id !== "recommended"),
-      {
-        ...choices.learning,
-        id: "recommended",
-        name: "Bounded learning recommendation",
-      },
-    ],
+  const strategies = currentPortfolioStrategies(data, analysis, choices),
     chosen =
-      strategies.find((p: Data) => p.id === selected) || strategies.at(-1);
-  const recommended = choices.learning,
+      strategies.find((p: Data) => p.id === selected) || strategies[0];
+  const recommended = choices.financial,
     actions = chosen.scenarios.base.actions,
     zeroNet = -chosen.cost - chosen.scenarios.base.debit;
+  const boundary = choices.portfolios.filter((p: Data) => p.cost > 0)
+    .map((p: Data) => ({ p, factor: baseBenefitBoundary(p) }))
+    .filter((v: Data) => v.factor !== null)
+    .sort((a: Data, b: Data) => a.factor - b.factor)[0];
+  const paidRunners = [...choices.portfolios].filter((p: Data) => p.cost > 0)
+    .sort((a: Data, b: Data) => b.scenarios.base.net - a.scenarios.base.net).slice(0, 3);
+  const portfolioName = (p: Data) => p.keys.map((key: string) => choices.candidates.find((c: Data) => c.key === key)?.title || key).join(" + ");
   return (
     <Panel
       title="Compare feasible investment portfolios"
-      eyebrow={`${analysis.search.candidateBundles} evidence-based bundles · ${options.length} feasible combinations · July 1–30, 2025`}
+      eyebrow={`${choices.candidates.length} evidence-based bundles · ${choices.portfolios.length} feasible combinations · July 1–30, 2025`}
     >
       <div className="portfolio-policy">
         <label>
-          Maximum modeled downside for learning{" "}
+          Maximum modeled downside for financial alternative{" "}
           <input
-            aria-label="Learning downside cap"
+            aria-label="Financial downside cap"
             type="number"
             min="0"
             max="100000"
@@ -251,25 +248,30 @@ export function PortfolioBoard({
           />
         </label>
         <p>
-          This cap and coverage objective are management policies, not
-          statistically learned preferences. Financial maximin and the
-          base-scenario financial comparison choose preserving cash.
+          Primary: highest base-scenario property contribution after action costs,
+          downtime, displacement and overlap. The financial alternative adds this
+          management-selected downside cap. Experimental learning keeps its separate $20,000 cap.
         </p>
       </div>
       <div className="metric-strip">
         <span>
-          Learning portfolio spend <b>{money(recommended.cost, false)}</b>
+          Primary investment <b>{money(recommended.cost, false)}</b>
         </span>
         <span>
           Cash retained <b>{money(recommended.remaining, false)}</b>
         </span>
         <span>
-          Distinct pre-registered questions <b>{recommended.channels.length}</b>
+          Primary base-scenario net <b>{money(recommended.scenarios.base.net, false)}</b>
         </span>
         <span>
           Low-scenario downside <b>{money(recommended.worstDownside, false)}</b>
         </span>
       </div>
+      <p>{recommended.entries.length
+        ? "These exact actions have the highest modeled base net among the generated feasible portfolios."
+        : "No paid candidate improves on preserving cash under the base objective. Keep the budget available; monitor the triggers below before approving spending."}
+        {" "}Experimental alternative: {money(choices.learning.cost, false)}, retaining {money(choices.learning.remaining, false)}; base net {money(choices.learning.scenarios.base.net, false)}. Information value is unpriced.</p>
+      <p>Closest paid financial candidates: {paidRunners.map((p: Data) => `${portfolioName(p)} (${money(p.cost, false)} spend; ${money(p.scenarios.base.net, false)} base net)`).join("; ")}.</p>
       <div className="table-wrap">
         <table className="portfolio-table">
           <thead>
@@ -305,8 +307,8 @@ export function PortfolioBoard({
       </div>
       <Note>
         These are scenario-conditioned nets, not expected returns or confidence
-        intervals. The learning recommendation buys evidence under the displayed
-        downside cap; it is not a proven maximum-profit allocation. Ten
+        intervals. The experimental learning option buys evidence under its separate
+        $20,000 downside cap. Base effects are assumptions; unmodeled variable costs and overhead remain excluded. No global or causal optimum is claimed. Ten
         purchases cost $220,000 and are infeasible; the replacement comparison
         uses ten leased replacements active on June 30.
       </Note>
@@ -314,8 +316,7 @@ export function PortfolioBoard({
         <summary>{chosen.name}: targets, costs and break-even</summary>
         {!actions.length && (
           <p>
-            No actions; $100,000 retained and quantified incremental net is
-            zero.
+            No paid actions; {money(chosen.remaining, false)} retained and quantified incremental net is {money(chosen.scenarios.base.net, false)}.
           </p>
         )}
         <div className="table-wrap">
@@ -390,17 +391,28 @@ export function PortfolioBoard({
                 ...e,
                 effect:
                   actions[i].assumedEffect * actions[i].retainedShare * 100,
-              })),
+              })), chosen.id,
             )
           }
         >
           Load this portfolio with base assumptions
         </button>
       </details>
+      {boundary && <Note>
+        First break-even boundary: {portfolioName(boundary.p)} requires positive base benefits of {number(boundary.factor, 3)}× current assumptions to match preserving cash; above that boundary a paid portfolio can become preferable. Costs, negative effects and displacement stay fixed. {boundary.p.scenarios.base.actions.length === 1 && <>This action needs a {pct(boundary.p.scenarios.base.actions[0].breakevenNetEffect, 2)} net effect on its displayed financial base.</>} This sensitivity is not evidence of treatment efficacy.
+      </Note>}
+      <details className="detail-block" open>
+        <summary>July monitoring and spending approval triggers</summary>
+        {analysis.monitoringPlan?.map((item: Data) => <div key={item.priority}>
+          <h4>{item.priority}. {item.target}</h4><p>{item.monitor}</p><p><b>Approve spending when:</b> {item.trigger}</p>
+        </div>)}
+      </details>
       <details className="detail-block">
         <summary>Search, risk policy and prospective measurement plans</summary>
         <p>{analysis.search.scope}</p>
-        <p>{choices.policy}</p>
+        <p>{choices.objectives.financial}</p>
+        <p>{choices.objectives.riskSensitive}</p>
+        <p>{choices.objectives.learning} The experimental option uses a $20,000 cap.</p>
         <p>
           Positive benefits retain only the largest demand-pool and
           recovery-pool gain; negative effects all count. Avoided old contracts
@@ -605,9 +617,9 @@ export function ScientificReference({ data }: { data: Data }) {
           <h4>Economic decision</h4>
           <p>
             {a.search.feasiblePortfolios} feasible combinations from{" "}
-            {a.search.candidateBundles} evidence-based bundles. The bounded
-            learning policy recommends {money(a.recommendation.cost, false)};
-            quantified financial maximin preserves cash.
+            {a.search.candidateBundles} evidence-based bundles. The primary financial
+            recommendation spends {money(a.recommendation.cost, false)}.
+            The separate experimental learning option spends {money(a.experimentalRecommendation?.cost, false)} under its $20,000 cap.
           </p>
           <p>Neither is a demonstrated causal optimum.</p>
         </div>

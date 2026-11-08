@@ -5,6 +5,8 @@ import {
   choosePortfolios,
   evaluatePortfolio,
   actionScenario,
+  baseBenefitBoundary,
+  DEFAULT_SCENARIO_EFFECTS,
 } from "../src/decisionEngine.mjs";
 const root = new URL("../", import.meta.url);
 const data = JSON.parse(
@@ -13,6 +15,7 @@ const data = JSON.parse(
 const analysis = JSON.parse(
   await readFile(new URL("public/data/decision.json", root), "utf8"),
 );
+analysis.scenarioEffects ??= structuredClone(DEFAULT_SCENARIO_EFFECTS);
 const candidates = generateCandidates(data, analysis),
   portfolios = enumeratePortfolios(data, analysis, candidates),
   selection = choosePortfolios(portfolios, 20000);
@@ -41,10 +44,13 @@ const strategies = [
   ]),
   named("preserve", "Preserve budget", []),
   {
-    ...selection.learning,
+    ...selection.financial,
     id: "recommended",
-    name: "Bounded learning portfolio",
+    name: "Primary financial recommendation",
   },
+  { ...selection.riskSensitive, id: "risk-sensitive", name: "Downside-constrained financial recommendation" },
+  { ...selection.learning, id: "learning", name: "Experimental learning portfolio" },
+  { ...selection.robust, id: "robust", name: "Low-scenario maximin comparison" },
   {...selection.high,id:'optimistic',name:'Highest high-scenario net (assumption-driven)'},
 ];
 if (strategies.some((s) => !s.valid))
@@ -345,14 +351,48 @@ analysis.search = {
   }),
 };
 analysis.recommendation = {
-  ...selection.learning,
-  policy: selection.policy,
-  riskCap: selection.riskCap,
-  goal: "Bounded learning, not a proven maximum-profit portfolio",
-  financialMaximin: selection.financial.keys,
+  ...selection.financial,
+  policy: selection.objectives.financial,
+  objective: "financial",
+  goal: "Highest base-scenario incremental contribution among generated feasible portfolios",
+  financialMaximin: selection.robust.keys,
   baseScenarioBest: selection.base.keys,
   highScenarioBest: selection.high.keys,
 };
+analysis.experimentalRecommendation = {
+  ...selection.learning, policy: selection.objectives.learning,
+  riskCap: selection.riskCap, objective: "learning",
+};
+analysis.riskRecommendation = {
+  ...selection.riskSensitive, policy: selection.objectives.riskSensitive,
+  riskCap: selection.riskCap, objective: "risk-sensitive",
+};
+analysis.search.objectives = selection.objectives;
+analysis.search.financialRunnerUps = portfolios.filter((p) => p.cost > 0)
+  .sort((a, b) => b.scenarios.base.net - a.scenarios.base.net || a.cost - b.cost)
+  .slice(0, 3);
+const boundaries = portfolios.filter((p) => p.cost > 0)
+  .map((p) => ({ keys: p.keys, cost: p.cost, positiveBenefitMultiplier: baseBenefitBoundary(p) }))
+  .filter((p) => p.positiveBenefitMultiplier !== null)
+  .sort((a, b) => a.positiveBenefitMultiplier - b.positiveBenefitMultiplier);
+analysis.search.firstSpendingBoundary = boundaries[0] || null;
+analysis.monitoringPlan = [
+  { priority: 1, target: byKey.get("inspect-fault")?.entry.targets.join(", ") || "Recurrent faults",
+    monitor: "Review existing ticket logs weekly: faults per active machine-day, queue wait intersecting meter downtime, hands-on hours and direct repair costs.",
+    trigger: "Approve paid repair/inspection only with a documented recoverable cause and credible avoided property contribution above catalog cost plus downtime debit, or explicitly choose the experimental objective. A manufacturer association alone is insufficient." },
+  { priority: 2, target: byKey.get("inspect-payout")?.entry.targets.join(", ") || "Payout reconciliation",
+    monitor: "Continue routine meter/configuration reconciliation; retain the full testing-family qualification. A residual is not a defect diagnosis.",
+    trigger: "A verified configuration discrepancy or documented exposure changes the business case. A paid catalog inspection remains separately priced; it is not silently included as free work." },
+  { priority: 3, target: "Back Forty access",
+    monitor: "Track wager/theo per available hour, occupancy and crossings per covered sensor-hour alongside other zones and property totals; compare weekdays and game mix.",
+    trigger: "Fund wayfinding only when credible incremental property contribution clears its displayed break-even threshold after displacement and the 10-day lead, or opt into controlled learning. The closure association is not a signage effect estimate." },
+  { priority: 4, target: "Property loyalty economics",
+    monitor: "Reconcile weekly redeemed economic cost, points per fixed item/tier face value, tracked outcomes and property contribution. Protect guests; do not optimize losses of vulnerable cohorts.",
+    trigger: "Fund a point-rate change only with credible net incremental contribution above its break-even boundary and harm controls. A controlled $4,000 pilot belongs to the optional experimental budget; reduced points per face dollar alone proves no behavioral uplift." },
+  { priority: 5, target: "Replacement and July demand",
+    monitor: "Review exposure-adjusted demand, contribution after supplied costs and availability before any ten-machine order. Use the frozen weekday model for demand/scheduling context, not treatment ROI.",
+    trigger: "Require prospective replacement benefit above full lease/purchase cost and outage opportunity, with exact eligible days and property-wide displacement. Ten purchases remain infeasible; re-run the financial search when verified inputs or explicit assumptions change." },
+];
 analysis.infeasibleAlternatives = [
   {
     name: "Purchase ten machines",
@@ -374,7 +414,8 @@ await writeFile(
 data.sourceManifestSha256 = analysis.sourceManifestSha256;
 data.planner.recommended = analysis.recommendation.entries;
 data.planner.recommendationSource =
-  "decision-engine-v1: bounded learning under explicit downside policy";
+  "decision-engine-v2: maximize base-scenario incremental property contribution; learning is a separate alternative";
+data.planner.recommendationObjective = "financial";
 await writeFile(
   new URL("public/data/dashboard.json", root),
   JSON.stringify(data),
@@ -385,14 +426,12 @@ console.log(
       candidates: candidates.map((c) => c.key),
       feasible: portfolios.length,
       recommended: {
-        keys: selection.learning.keys,
-        cost: selection.learning.cost,
-        remaining: selection.learning.remaining,
-        downside: selection.learning.worstDownside,
-        baseNet: selection.learning.scenarios.base.net,
-        highNet: selection.learning.scenarios.high.net,
-        channels: selection.learning.channels,
+        keys: selection.financial.keys,
+        cost: selection.financial.cost,
+        remaining: selection.financial.remaining,
+        baseNet: selection.financial.scenarios.base.net,
       },
+      experimental: { keys: selection.learning.keys, cost: selection.learning.cost, remaining: selection.learning.remaining },
       financial: selection.financial.keys,
     },
     null,
