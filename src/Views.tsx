@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import {
   AreaChart,
   Area,
@@ -20,7 +20,6 @@ import {
   Panel,
   Chart,
   Insight,
-  Note,
   money,
   number,
   pct,
@@ -714,7 +713,7 @@ export function DemandView({
   onTab: (s: string) => void;
   onPlan: () => void;
 }) {
-  const present = data.zones.filter((z: Data, i: number) =>
+  const present = data.zones.filter((_z: Data, i: number) =>
       rows.some((r) => r[2] === i),
     ),
     shown = present.filter((z: Data) => selectedZones.includes(z.zone_id)),

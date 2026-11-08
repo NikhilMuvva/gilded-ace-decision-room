@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
-import { ArrowLeft, ArrowRight, HelpCircle, Search, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Search, X } from "lucide-react";
 import { glossary, helpTopics, type HelpTopic } from "./helpContent";
 
 export const HelpContext = createContext<

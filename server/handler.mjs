@@ -63,8 +63,8 @@ export function makeHandler({
       !String(req.headers["content-type"] || "").startsWith("application/json")
     )
       return send(415, { error: "Use application/json." });
+    let body;
     try {
-      let body;
       if (req.body !== undefined) {
         if (Buffer.byteLength(JSON.stringify(req.body), "utf8") > 24000)
           return send(413, { error: "Request too large." });
@@ -81,6 +81,10 @@ export function makeHandler({
           Buffer.concat(chunks.map((c) => Buffer.from(c))).toString("utf8"),
         );
       }
+    } catch {
+      return send(400, { error: "Invalid JSON request body." });
+    }
+    try {
       const [data, audit] = await loadData();
       const result = await answer(data, body, {
         key: env.GEMINI_API_KEY || "",
@@ -90,7 +94,6 @@ export function makeHandler({
       return send(200, result);
     } catch (e) {
       if (
-        e instanceof SyntaxError ||
         e.code === "invalid_request" ||
         /Unknown machine|Question must|no active rows/.test(e.message)
       )

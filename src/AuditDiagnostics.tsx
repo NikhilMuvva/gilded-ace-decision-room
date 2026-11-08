@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Panel, Note, number, money, pct, type Data } from "./ui";
 export function AuditDiagnostics() {
   const [audit, setAudit] = useState<Data>(null),

@@ -1,23 +1,21 @@
-node_modules/
-dist/
-sources/
-__pycache__/
-*.tsbuildinfo
-.venv/
-artifacts/
-*.log
-.npm-cache/
-.python-deps/
+# Private server configuration; keep only the empty example in Git.
 .env
 .env.*
 !.env.example
-.env.local
-.env.*.local.env
-.env.*
-!.env.example
+
+# Original challenge and third-party source data.
+sources/
+
+# Dependencies and local caches.
 node_modules/
-dist/
 .venv/
 .python-deps/
-*.log
+.npm-cache/
+__pycache__/
+
+# Build output and local release artifacts. Keep public/data/ tracked.
+dist/
 artifacts/
+*.tsbuildinfo
+*.log
+.vercel/

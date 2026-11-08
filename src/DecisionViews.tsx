@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Panel, Note, money, number, pct, type Data } from "./ui";
 import { enumeratePortfolios, choosePortfolios } from "./decisionEngine.mjs";
 import { machineDiagnostic } from "./machineDiagnostics.mjs";

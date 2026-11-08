@@ -448,3 +448,20 @@ test("HTTP adapter enforces method, same origin, limits, JSON and body size", as
     429,
   );
 });
+
+test("HTTP adapter distinguishes client JSON errors from server-data failures", async () => {
+  const h = makeHandler({
+    env: {},
+    loadData: async () => {
+      throw new SyntaxError("Private server-data failure details");
+    },
+    limiter: () => true,
+  });
+  assert.equal((await invoke(h, { body: "{invalid" })).statusCode, 400);
+  const unavailable = await invoke(h);
+  assert.equal(unavailable.statusCode, 503);
+  assert.equal(unavailable.headers["Cache-Control"], "no-store");
+  assert.deepEqual(unavailable.body, {
+    error: "Investigation service is unavailable. Use offline evidence.",
+  });
+});

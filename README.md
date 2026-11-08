@@ -45,6 +45,8 @@ Alternative source location: `python scripts/build_data.py --source "C:\path\to\
 
 ## Checks and limits
 
+The [cleanup and release audit](docs/CLEANUP_AND_RELEASE_AUDIT.md) records the Git baseline, before/after verification, unchanged analytical outputs, secret-history review and Vercel handoff.
+
 `npm test` runs analytical/planner and floor-geometry tests. `npm run test:ui` runs simulated-DOM interactions and selected production CSS checks. `npm run verify` runs those checks, the independent Python scientific fixtures, TypeScript and the production build. See the [operational redesign report](docs/OPERATIONAL_REDESIGN.md), [validation](docs/VALIDATION.md) and [limitations](docs/LIMITATIONS.md).
 
 The environment's Computer Use browser/native connection was unavailable, so a real browser visual pass remains outstanding. The upstream release-readiness checker also reports missing organizer calibration and publisher evidence. The app explicitly labels these issues. Correlations, downtime opportunity and effect sliders are not causal earnings promises.

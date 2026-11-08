@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { X, Send, ArrowRight } from "lucide-react";
 import { offlineEvidence, validateContext } from "./investigation.mjs";
 import { number, money, type Data } from "./ui";
